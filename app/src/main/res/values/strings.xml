@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Fazzer</string>
+    <string name="refresh">Обновить</string>
+
+    <string name="advert">Объявление</string>
+    <string name="price">Цена</string>
+    <string name="year">Год</string>
+
+
+</resources>
