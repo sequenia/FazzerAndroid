@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.responses;
+package com.sequenia.fazzer.requests;
 
 import com.sequenia.fazzer.adverts.AutoAdvert;
 

@@ -3,10 +3,20 @@
 
     <string name="app_name">Fazzer</string>
     <string name="refresh">Обновить</string>
-
     <string name="advert">Объявление</string>
     <string name="price">Цена</string>
     <string name="year">Год</string>
-
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_title">Добро пожаловать!</string>
+    <string name="welcome_text">Войдите или зарегистрируйтесь</string>
+    <string name="register">Регистрация</string>
+    <string name="login">Вход</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="phone">Мобильный телефон</string>
+    <string name="password">Пароль</string>
+    <string name="password_confirmation">Повторите пароль</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

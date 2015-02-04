@@ -1,25 +1,22 @@
 package com.sequenia.fazzer.async_tasks;
 
 import android.content.Context;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.sequenia.fazzer.HomeActivity;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.adverts.AutoAdvert;
-import com.sequenia.fazzer.responses.AutoAdvertsResponseData;
-import com.sequenia.fazzer.responses.Response;
+import com.sequenia.fazzer.requests.AutoAdvertsResponseData;
+import com.sequenia.fazzer.requests.Response;
 
 import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertsUploader extends JsonUploader {
+public class AutoAdvertsUploader extends GetUploader {
 
     ListView autoAdvertsListVew;
     Context context;

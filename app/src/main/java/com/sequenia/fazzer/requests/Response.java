@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.responses;
+package com.sequenia.fazzer.requests;
 
 /**
  * Created by chybakut2004 on 04.02.15.
