@@ -3,15 +3,18 @@ package com.sequenia.fazzer.adverts;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvert {
+public class AutoAdvertMinInfo {
     private int car_model_id;
     private int car_mark_id;
     private String car_model_name;
     private String car_mark_name;
     private int year;
     private int price;
+    private int id;
 
-    public AutoAdvert() {
+
+    public AutoAdvertMinInfo() {
+
 
     };
 
@@ -61,5 +64,13 @@ public class AutoAdvert {
 
     public void setCarMarkName(String car_mark_name) {
         this.car_mark_name = car_mark_name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

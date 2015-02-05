@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="15dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:id="@+id/mark"
+                style="@style/AdvertLabel"
+                android:text="@string/mark"/>
+
+            <TextView
+                android:id="@+id/model"
+                style="@style/AdvertLabel"
+                android:text="@string/model"/>
+
+            <TextView
+                android:id="@+id/year"
+                style="@style/AdvertLabel"
+                android:text="@string/year"/>
+            
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/AdvertLabel"
+            android:text="@string/price"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/fuel_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/fuel"/>
+
+            <TextView
+                android:id="@+id/fuel"
+                style="@style/AdvertInfo"
+                android:text="@string/fuel"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/displacement_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/displacement"/>
+
+            <TextView
+                android:id="@+id/displacement"
+                style="@style/AdvertInfo"
+                android:text="@string/displacement"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/transmission_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/transmission"/>
+
+            <TextView
+                android:id="@+id/transmission"
+                style="@style/AdvertInfo"
+                android:text="@string/transmission"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/drive_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/drive"/>
+
+            <TextView
+                android:id="@+id/drive"
+                style="@style/AdvertInfo"
+                android:text="@string/drive"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/mileage_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/mileage"/>
+
+            <TextView
+                android:id="@+id/mileage"
+                style="@style/AdvertInfo"
+                android:text="@string/mileage"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/body_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/body"/>
+
+            <TextView
+                android:id="@+id/body"
+                style="@style/AdvertInfo"
+                android:text="@string/body"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/wheel_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/wheel"/>
+
+            <TextView
+                android:id="@+id/wheel"
+                style="@style/AdvertInfo"
+                android:text="@string/wheel"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/color_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/color"/>
+
+            <TextView
+                android:id="@+id/color"
+                style="@style/AdvertInfo"
+                android:text="@string/color"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/city_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/city"/>
+
+            <TextView
+                android:id="@+id/city"
+                style="@style/AdvertInfo"
+                android:text="@string/city"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/exchange_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/exchange"/>
+
+            <TextView
+                android:id="@+id/exchange"
+                style="@style/AdvertInfo"
+                android:text="@string/exchange"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AdvertFullInfo">
+
+            <TextView
+                android:id="@+id/description_label"
+                style="@style/AdvertInfoLabel"
+                android:text="@string/description"/>
+
+            <TextView
+                android:id="@+id/description"
+                style="@style/AdvertInfo"
+                android:text="@string/description"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

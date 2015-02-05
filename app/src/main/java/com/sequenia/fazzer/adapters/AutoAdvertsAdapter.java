@@ -9,20 +9,20 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.adverts.AutoAdvert;
+import com.sequenia.fazzer.adverts.AutoAdvertMinInfo;
 
 import java.util.List;
 
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvert> {
+public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
 
-    private List<AutoAdvert> autoAdverts = null;
+    private List<AutoAdvertMinInfo> autoAdverts = null;
     private int resourceId;
 
 
-    public AutoAdvertsAdapter(Context context, int resource, List<AutoAdvert> autoAdverts) {
+    public AutoAdvertsAdapter(Context context, int resource, List<AutoAdvertMinInfo> autoAdverts) {
         super(context, resource, autoAdverts);
         this.resourceId = resource;
         this.autoAdverts = autoAdverts;
@@ -30,7 +30,7 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvert> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        AutoAdvert autoAdvert = autoAdverts.get(position);
+        AutoAdvertMinInfo autoAdvert = autoAdverts.get(position);
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
         View view = inflater.inflate(resourceId, parent, false);

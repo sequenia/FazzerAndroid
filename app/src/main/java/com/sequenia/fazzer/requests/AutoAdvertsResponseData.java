@@ -1,6 +1,6 @@
 package com.sequenia.fazzer.requests;
 
-import com.sequenia.fazzer.adverts.AutoAdvert;
+import com.sequenia.fazzer.adverts.AutoAdvertMinInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,17 +9,17 @@ import java.util.List;
  * Created by chybakut2004 on 04.02.15.
  */
 public class AutoAdvertsResponseData {
-    private List<AutoAdvert> auto_adverts;
+    private List<AutoAdvertMinInfo> auto_adverts;
 
     public AutoAdvertsResponseData() {
-        auto_adverts = new ArrayList<AutoAdvert>();
+        auto_adverts = new ArrayList<AutoAdvertMinInfo>();
     }
 
-    public List<AutoAdvert> getAutoAdverts() {
+    public List<AutoAdvertMinInfo> getAutoAdverts() {
         return auto_adverts;
     }
 
-    public void addAutoAdvert(AutoAdvert autoAdvert) {
+    public void addAutoAdvert(AutoAdvertMinInfo autoAdvert) {
         this.auto_adverts.add(autoAdvert);
     }
 }

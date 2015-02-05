@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class GetUploader extends AsyncTask<String, Void, String> {
+public class JsonUploader extends AsyncTask<String, Void, String> {
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
     String resultJson = null;
