@@ -31,5 +31,12 @@
     <string name="drive">Привод</string>
     <string name="wheel">Руль</string>
     <string name="body">Кузов</string>
+    <string name="filter">Фильтр</string>
+    <string name="min_price">Цена от</string>
+    <string name="max_price">Цена до</string>
+    <string name="min_year">Год выпуска от</string>
+    <string name="max_year">Год выпуска до</string>
+    <string name="adverts">Объявления</string>
+    <string name="save_filter">Сохранить фильтр</string>
 
 </resources>

@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
@@ -24,6 +27,9 @@ public class HomeActivity extends ActionBarActivity {
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
 
     private SharedPreferences mPreferences;
+    ArrayList<AutoAdvertMinInfo> autoAdverts = null;
+    AutoAdvertsAdapter adapter = null;
+    ListView autoAdvertsListView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,28 +37,31 @@ public class HomeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_home);
 
         mPreferences = getSharedPreferences(CURRENT_USER_PREFERENCES, MODE_PRIVATE);
+        autoAdverts = new ArrayList<AutoAdvertMinInfo>();
+        adapter = new AutoAdvertsAdapter(this, R.layout.auto_advert_info, autoAdverts);
+
+        autoAdvertsListView = (ListView) findViewById (R.id.auto_adverts_list_view);
+        autoAdvertsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(HomeActivity.this,
+                        AutoAdvertActivity.class);
+                intent.putExtra(AUTO_ADVERT_ID, autoAdverts.get(position).getId());
+                startActivityForResult(intent, 0);
+            }
+        });
+        autoAdvertsListView.setAdapter(adapter);
     }
 
     private void loadAutoAdvertsFromAPI() {
         new AutoAdvertsUploader(this).execute(AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
-    public void setAdverts(ArrayList<AutoAdvertMinInfo> autoAdverts) {
-        ListView autoAdvertsListView = (ListView) findViewById (R.id.auto_adverts_list_view);
-        final ArrayList<AutoAdvertMinInfo> adverts = autoAdverts;
-        if (autoAdvertsListView != null && adverts != null) {
-            autoAdvertsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(HomeActivity.this,
-                            AutoAdvertActivity.class);
-                    intent.putExtra(AUTO_ADVERT_ID, adverts.get(position).getId());
-                    startActivityForResult(intent, 0);
-                }
-            });
-            AutoAdvertsAdapter adapter = new AutoAdvertsAdapter(this, R.layout.auto_advert_info, autoAdverts);
-            autoAdvertsListView.setAdapter(adapter);
-        }
+    public void addAdverts(ArrayList<AutoAdvertMinInfo> autoAdverts) {
+        this.autoAdverts.clear();
+        this.autoAdverts.addAll(0, autoAdverts);
+        adapter.notifyDataSetChanged();
+        setListViewHeightBasedOnChildren(autoAdvertsListView);
     }
 
     @Override
@@ -102,5 +111,27 @@ public class HomeActivity extends ActionBarActivity {
     public void showWelcomeActivity() {
         Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
         startActivityForResult(intent, 0);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }

@@ -1,14 +1,11 @@
 package com.sequenia.fazzer.async_tasks;
 
 import android.content.Context;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.HomeActivity;
-import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.adverts.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests.AutoAdvertsResponseData;
 import com.sequenia.fazzer.requests.Response;
@@ -35,7 +32,7 @@ public class AutoAdvertsUploader extends JsonUploader {
             AutoAdvertsResponseData data = (AutoAdvertsResponseData) r.getData();
             ArrayList<AutoAdvertMinInfo> autoAdverts = (ArrayList<AutoAdvertMinInfo>) data.getAutoAdverts();
 
-            ((HomeActivity) context).setAdverts(autoAdverts);
+            ((HomeActivity) context).addAdverts(autoAdverts);
         } else {
             Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
         }
