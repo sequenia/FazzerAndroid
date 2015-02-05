@@ -2,6 +2,7 @@ package com.sequenia.fazzer.async_tasks;
 
 import android.content.Context;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,6 +40,8 @@ public class AutoAdvertsUploader extends GetUploader {
                 AutoAdvertsAdapter adapter = new AutoAdvertsAdapter(context, R.layout.auto_advert_info, autoAdverts);
                 autoAdvertsListVew.setAdapter(adapter);
             }
+        } else {
+            Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
         }
     }
 }

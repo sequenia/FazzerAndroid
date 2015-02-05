@@ -16,7 +16,7 @@ import com.sequenia.fazzer.async_tasks.LoginTask;
 
 public class LoginActivity extends ActionBarActivity {
 
-    private final static String LOGIN_API_ENDPOINT_URL = "http://178.62.184.226/api/v1/sessions.json";
+    private final static String LOGIN_API_ENDPOINT_URL = "http://192.168.0.36:3000/api/v1/sessions.json";
     private SharedPreferences mPreferences;
     private String mUserPhone;
     private String mUserPassword;

@@ -14,7 +14,7 @@ public class HomeActivity extends ActionBarActivity {
 
     public static final String CURRENT_USER_PREFERENCES = "CurrentUser";
     public static final String AUTH_TOKEN = "AuthToken";
-    private static final String AUTO_ADVERTS_URL = "http://www.json-generator.com/api/json/get/cbEqTCJdQi?indent=2";
+    private static final String AUTO_ADVERTS_URL = "http://192.168.0.36:3000/api/v1/auto_adverts.json";
 
     private SharedPreferences mPreferences;
 
@@ -26,9 +26,9 @@ public class HomeActivity extends ActionBarActivity {
         mPreferences = getSharedPreferences(CURRENT_USER_PREFERENCES, MODE_PRIVATE);
     }
 
-    private void loadAutoAdvertsFromAPI(String url) {
+    private void loadAutoAdvertsFromAPI() {
         ListView autoAdvertsListView = (ListView) findViewById (R.id.auto_adverts_list_view);
-        new AutoAdvertsUploader(this, autoAdvertsListView).execute(url);
+        new AutoAdvertsUploader(this, autoAdvertsListView).execute(AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     @Override
@@ -43,8 +43,13 @@ public class HomeActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.refresh:
-                loadAutoAdvertsFromAPI(AUTO_ADVERTS_URL);
+                loadAutoAdvertsFromAPI();
                 return true;
+
+            case R.id.logout:
+                logout();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -56,10 +61,22 @@ public class HomeActivity extends ActionBarActivity {
         super.onResume();
 
         if (mPreferences.contains(AUTH_TOKEN)) {
-            loadAutoAdvertsFromAPI(AUTO_ADVERTS_URL);
+            loadAutoAdvertsFromAPI();
         } else {
-            Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
-            startActivityForResult(intent, 0);
+            showWelcomeActivity();
         }
+    }
+
+    public void logout() {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove(HomeActivity.AUTH_TOKEN);
+        editor.commit();
+
+        showWelcomeActivity();
+    }
+
+    public void showWelcomeActivity() {
+        Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
+        startActivityForResult(intent, 0);
     }
 }

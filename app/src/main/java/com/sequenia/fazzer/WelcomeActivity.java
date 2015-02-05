@@ -1,6 +1,7 @@
 package com.sequenia.fazzer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,10 +11,14 @@ import android.view.View;
 
 public class WelcomeActivity extends ActionBarActivity {
 
+    private SharedPreferences mPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        mPreferences = getSharedPreferences(HomeActivity.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
 
         findViewById(R.id.registerButton).setOnClickListener(
             new View.OnClickListener() {
@@ -45,5 +50,14 @@ public class WelcomeActivity extends ActionBarActivity {
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mPreferences.contains(HomeActivity.AUTH_TOKEN)) {
+            finish();
+        }
     }
 }
