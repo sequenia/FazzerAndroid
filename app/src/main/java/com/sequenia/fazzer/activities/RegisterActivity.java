@@ -1,16 +1,14 @@
-package com.sequenia.fazzer;
+package com.sequenia.fazzer.activities;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sequenia.fazzer.async_tasks.LoginTask;
+import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.RegisterTask;
 
 

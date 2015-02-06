@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.adverts.AutoAdvertMinInfo;
+import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.adverts;
+package com.sequenia.fazzer.requests_data;
 
 /**
  * Created by chybakut2004 on 05.02.15.

@@ -9,8 +9,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.adverts.AutoAdvertFullInfo;
-import com.sequenia.fazzer.requests.Response;
+import com.sequenia.fazzer.activities.ActivityHelper;
+import com.sequenia.fazzer.activities.AutoAdvertActivity;
+import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
+import com.sequenia.fazzer.requests_data.Response;
 
 /**
  * Created by chybakut2004 on 04.02.15.
@@ -31,37 +33,11 @@ public class AutoAdvertUploader extends JsonUploader {
             Response r = new Gson().fromJson(s, new TypeToken<Response<AutoAdvertFullInfo>>() {}.getType());
             AutoAdvertFullInfo autoAdvert = (AutoAdvertFullInfo) r.getData();
 
-            Activity activity = (Activity) context;
-
-            setText(activity, R.id.mark, autoAdvert.getCarMarkName());
-            setText(activity, R.id.model, autoAdvert.getCarModelName());
-            setText(activity, R.id.year, String.valueOf(autoAdvert.getYear()));
-            setText(activity, R.id.price, String.valueOf(autoAdvert.getPrice()));
-            setText(activity, R.id.fuel, autoAdvert.getFuel());
-            setText(activity, R.id.displacement, autoAdvert.getDisplacement());
-            setText(activity, R.id.transmission, autoAdvert.getTransmission());
-            setText(activity, R.id.drive, autoAdvert.getDrive());
-            setText(activity, R.id.mileage, autoAdvert.getMileage());
-            setText(activity, R.id.body, autoAdvert.getBody());
-            setText(activity, R.id.wheel, autoAdvert.getSteeringWheel());
-            setText(activity, R.id.color, autoAdvert.getColor());
-            setText(activity, R.id.city, autoAdvert.getCityName());
-            setText(activity, R.id.description, autoAdvert.getDescription());
-
-            activity.findViewById(R.id.container).setVisibility(View.VISIBLE);
+            AutoAdvertActivity activity = (AutoAdvertActivity) context;
+            activity.setAdvertInfo(autoAdvert);
 
         } else {
             Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void setText(Activity activity, int resourceId, String text) {
-        TextView tv = (TextView) activity.findViewById(resourceId);
-
-        if(text != null) {
-            tv.setText(text);
-        } else {
-            ((View)(tv.getParent())).setVisibility(View.GONE);
         }
     }
 }
