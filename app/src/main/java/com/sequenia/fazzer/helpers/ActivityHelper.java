@@ -1,6 +1,7 @@
-package com.sequenia.fazzer.activities;
+package com.sequenia.fazzer.helpers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -11,18 +12,20 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sequenia.fazzer.activities.WelcomeActivity;
+
 /**
  * Created by chybakut2004 on 06.02.15.
  */
 public class ActivityHelper {
-    public static void setText(Activity activity, int resourceId, String text) {
+    public static TextView setText(Activity activity, int resourceId, String text) {
         TextView tv = (TextView) activity.findViewById(resourceId);
 
         if(text != null) {
             tv.setText(text);
-        } else {
-            ((View)(tv.getParent())).setVisibility(View.GONE);
         }
+
+        return tv;
     }
 
     public static String getText(Activity activity, int resourceId) {
@@ -37,6 +40,11 @@ public class ActivityHelper {
     public static void openBrowser(Activity activity, String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         activity.startActivity(browserIntent);
+    }
+
+    public static void showWelcomeActivity(Context packageContext, Context context) {
+        Intent intent = new Intent(packageContext, WelcomeActivity.class);
+        ((Activity) context).startActivityForResult(intent, 0);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

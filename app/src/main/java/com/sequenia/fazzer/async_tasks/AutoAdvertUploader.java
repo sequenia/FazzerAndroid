@@ -1,15 +1,10 @@
 package com.sequenia.fazzer.async_tasks;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.activities.ActivityHelper;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
 import com.sequenia.fazzer.requests_data.Response;

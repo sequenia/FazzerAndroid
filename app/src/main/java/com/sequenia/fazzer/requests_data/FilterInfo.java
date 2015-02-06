@@ -1,61 +1,63 @@
 package com.sequenia.fazzer.requests_data;
 
+import io.realm.RealmObject;
+
 /**
  * Created by chybakut2004 on 06.02.15.
  */
-public class FilterInfo {
-    private Integer car_mark_id = null;
-    private Integer car_model_id = null;
-    private Integer min_year = null;
-    private Integer max_year = null;
-    private Float min_price = null;
-    private Float max_price = null;
+public class FilterInfo extends RealmObject {
+    private int carMarkId;
+    private int carModelId;
+    private int minYear;
+    private int maxYear;
+    private float minPrice;
+    private float maxPrice;
 
     public int getCarMarkId() {
-        return car_mark_id;
+        return carMarkId;
     }
 
-    public void setCarMarkId(int car_mark_id) {
-        this.car_mark_id = car_mark_id;
+    public void setCarMarkId(int carMarkId) {
+        this.carMarkId = carMarkId;
     }
 
-    public int getCarModelIid() {
-        return car_model_id;
+    public int getCarModelId() {
+        return carModelId;
     }
 
-    public void setCarModelId(int car_model_id) {
-        this.car_model_id = car_model_id;
+    public void setCarModelId(int carModelId) {
+        this.carModelId = carModelId;
     }
 
     public int getMinYear() {
-        return min_year;
+        return minYear;
     }
 
-    public void setMinYear(int min_year) {
-        this.min_year = min_year;
+    public void setMinYear(int minYear) {
+        this.minYear = minYear;
     }
 
     public int getMaxYear() {
-        return max_year;
+        return maxYear;
     }
 
-    public void setMaxYear(int max_year) {
-        this.max_year = max_year;
+    public void setMaxYear(int maxYear) {
+        this.maxYear = maxYear;
     }
 
     public float getMinPrice() {
-        return min_price;
+        return minPrice;
     }
 
-    public void setMinPrice(float min_price) {
-        this.min_price = min_price;
+    public void setMinPrice(float minPrice) {
+        this.minPrice = minPrice;
     }
 
     public float getMaxPrice() {
-        return max_price;
+        return maxPrice;
     }
 
-    public void setMaxPrice(float max_price) {
-        this.max_price = max_price;
+    public void setMaxPrice(float maxPrice) {
+        this.maxPrice = maxPrice;
     }
 }

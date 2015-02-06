@@ -7,21 +7,26 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
+import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.ObjectsHelper;
+import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsUploader;
 import com.sequenia.fazzer.requests_data.FilterInfo;
+import com.sequenia.fazzer.serializers.FilterInfoSerializer;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
 
 public class HomeActivity extends ActionBarActivity {
 
@@ -33,6 +38,7 @@ public class HomeActivity extends ActionBarActivity {
 
     private SharedPreferences mPreferences;
     ArrayList<AutoAdvertMinInfo> autoAdverts = null;
+    FilterInfo filterInfo = null;
     AutoAdvertsAdapter adapter = null;
     ListView autoAdvertsListView = null;
 
@@ -45,6 +51,14 @@ public class HomeActivity extends ActionBarActivity {
         autoAdverts = new ArrayList<AutoAdvertMinInfo>();
         adapter = new AutoAdvertsAdapter(this, R.layout.auto_advert_info, autoAdverts);
 
+        RealmHelper.migrate(this);
+
+        initListView();
+        initSaveButton();
+        initFilter();
+    }
+
+    private void initListView() {
         autoAdvertsListView = (ListView) findViewById (R.id.auto_adverts_list_view);
         autoAdvertsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -53,7 +67,9 @@ public class HomeActivity extends ActionBarActivity {
             }
         });
         autoAdvertsListView.setAdapter(adapter);
+    }
 
+    private void initSaveButton() {
         Button saveFilterButton = (Button) findViewById(R.id.save_filter_button);
         saveFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +79,24 @@ public class HomeActivity extends ActionBarActivity {
         });
     }
 
+    private void initFilter() {
+        filterInfo = RealmHelper.findOrCreateFilter(this);
+        writeFilterToForm();
+    }
+
     private void loadAutoAdvertsFromAPI() {
         new AutoAdvertsUploader(this).execute(AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void saveFilter() {
-        new SaveFilterTask(this, getFilterInfo()).execute(FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        readFilterInfoFromForm();
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(FilterInfo.class, new FilterInfoSerializer())
+                .create();
+        String json = gson.toJson(filterInfo, FilterInfo.class);
+
+        new SaveFilterTask(this, json).execute(FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void showAdvert(int position) {
@@ -85,40 +113,29 @@ public class HomeActivity extends ActionBarActivity {
         ActivityHelper.setListViewHeightBasedOnChildren(autoAdvertsListView);
     }
 
-    public FilterInfo getFilterInfo() {
-        FilterInfo filterInfo = new FilterInfo();
+    public void readFilterInfoFromForm() {
+        Realm realm = Realm.getInstance(this);
+        realm.beginTransaction();
 
-        String car_mark_id = ActivityHelper.getText(this, R.id.mark);
-        if(car_mark_id != null && !car_mark_id.equals("")) {
-            filterInfo.setCarMarkId(Integer.parseInt(car_mark_id));
+        filterInfo.setCarMarkId(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.mark)));
+        filterInfo.setCarModelId(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.model)));
+        filterInfo.setMinPrice(ObjectsHelper.strToFloatNoZero(ActivityHelper.getText(this, R.id.min_price)));
+        filterInfo.setMaxPrice(ObjectsHelper.strToFloatNoZero(ActivityHelper.getText(this, R.id.max_price)));
+        filterInfo.setMinYear(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.min_year)));
+        filterInfo.setMaxYear(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.max_year)));
+
+        realm.commitTransaction();
+    }
+
+    public void writeFilterToForm() {
+        if(filterInfo != null) {
+            ActivityHelper.setText(this, R.id.mark, ObjectsHelper.intToStrNoZero(filterInfo.getCarMarkId()));
+            ActivityHelper.setText(this, R.id.model, ObjectsHelper.intToStrNoZero(filterInfo.getCarModelId()));
+            ActivityHelper.setText(this, R.id.min_price, ObjectsHelper.floatToStrNoZero(filterInfo.getMinPrice()));
+            ActivityHelper.setText(this, R.id.max_price, ObjectsHelper.floatToStrNoZero(filterInfo.getMaxPrice()));
+            ActivityHelper.setText(this, R.id.min_year, ObjectsHelper.intToStrNoZero(filterInfo.getMinYear()));
+            ActivityHelper.setText(this, R.id.max_year, ObjectsHelper.intToStrNoZero(filterInfo.getMaxYear()));
         }
-
-        String car_model_id = ActivityHelper.getText(this, R.id.model);
-        if(car_model_id != null && !car_model_id.equals("")) {
-            filterInfo.setCarModelId(Integer.parseInt(car_model_id));
-        }
-
-        String min_year = ActivityHelper.getText(this, R.id.min_year);
-        if(min_year != null && !min_year.equals("")) {
-            filterInfo.setMinYear(Integer.parseInt(min_year));
-        }
-
-        String max_year = ActivityHelper.getText(this, R.id.max_year);
-        if(max_year != null && !max_year.equals("")) {
-            filterInfo.setMaxYear(Integer.parseInt(max_year));
-        }
-
-        String min_price = ActivityHelper.getText(this, R.id.min_price);
-        if(min_price != null && !min_price.equals("")) {
-            filterInfo.setMinPrice(Integer.parseInt(min_price));
-        }
-
-        String max_price = ActivityHelper.getText(this, R.id.max_price);
-        if(max_price != null && !max_price.equals("")) {
-            filterInfo.setMaxPrice(Integer.parseInt(max_price));
-        }
-
-        return filterInfo;
     }
 
     @Override
@@ -153,7 +170,7 @@ public class HomeActivity extends ActionBarActivity {
         if (mPreferences.contains(AUTH_TOKEN)) {
             loadAutoAdvertsFromAPI();
         } else {
-            showWelcomeActivity();
+            ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
         }
     }
 
@@ -162,11 +179,6 @@ public class HomeActivity extends ActionBarActivity {
         editor.remove(HomeActivity.AUTH_TOKEN);
         editor.commit();
 
-        showWelcomeActivity();
-    }
-
-    public void showWelcomeActivity() {
-        Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
-        startActivityForResult(intent, 0);
+        ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
     }
 }

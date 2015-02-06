@@ -1,14 +1,15 @@
 package com.sequenia.fazzer.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.AutoAdvertUploader;
+import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
 
 
@@ -24,9 +25,9 @@ public class AutoAdvertActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_advert);
+        hideContent();
 
         mPreferences = getSharedPreferences(HomeActivity.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
-
         autoAdvertId = getIntent().getIntExtra(HomeActivity.AUTO_ADVERT_ID, 0);
 
         Button showInBrowser = (Button) findViewById(R.id.show_in_browser);
@@ -51,30 +52,34 @@ public class AutoAdvertActivity extends ActionBarActivity {
         new AutoAdvertUploader(this).execute(AUTO_ADVERT_URL + String.valueOf(autoAdvertId) + ".json" + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
-    public void showWelcomeActivity() {
-        Intent intent = new Intent(AutoAdvertActivity.this, WelcomeActivity.class);
-        startActivityForResult(intent, 0);
-    }
-
     public void setAdvertInfo(AutoAdvertFullInfo autoAdvert) {
         this.autoAdvert = autoAdvert;
 
-        ActivityHelper.setText(this, R.id.mark, autoAdvert.getCarMarkName());
-        ActivityHelper.setText(this, R.id.model, autoAdvert.getCarModelName());
-        ActivityHelper.setText(this, R.id.year, String.valueOf(autoAdvert.getYear()));
-        ActivityHelper.setText(this, R.id.price, String.valueOf(autoAdvert.getPrice()));
-        ActivityHelper.setText(this, R.id.fuel, autoAdvert.getFuel());
-        ActivityHelper.setText(this, R.id.displacement, autoAdvert.getDisplacement());
-        ActivityHelper.setText(this, R.id.transmission, autoAdvert.getTransmission());
-        ActivityHelper.setText(this, R.id.drive, autoAdvert.getDrive());
-        ActivityHelper.setText(this, R.id.mileage, autoAdvert.getMileage());
-        ActivityHelper.setText(this, R.id.body, autoAdvert.getBody());
-        ActivityHelper.setText(this, R.id.wheel, autoAdvert.getSteeringWheel());
-        ActivityHelper.setText(this, R.id.color, autoAdvert.getColor());
-        ActivityHelper.setText(this, R.id.city, autoAdvert.getCityName());
-        ActivityHelper.setText(this, R.id.description, autoAdvert.getDescription());
+        setText(R.id.mark, autoAdvert.getCarMarkName());
+        setText(R.id.model, autoAdvert.getCarModelName());
+        setText(R.id.year, String.valueOf(autoAdvert.getYear()));
+        setText(R.id.price, String.valueOf(autoAdvert.getPrice()));
+        setText(R.id.fuel, autoAdvert.getFuel());
+        setText(R.id.displacement, autoAdvert.getDisplacement());
+        setText(R.id.transmission, autoAdvert.getTransmission());
+        setText(R.id.drive, autoAdvert.getDrive());
+        setText(R.id.mileage, autoAdvert.getMileage());
+        setText(R.id.body, autoAdvert.getBody());
+        setText(R.id.wheel, autoAdvert.getSteeringWheel());
+        setText(R.id.color, autoAdvert.getColor());
+        setText(R.id.city, autoAdvert.getCityName());
+        setText(R.id.description, autoAdvert.getDescription());
+        setText(R.id.exchange, autoAdvert.getExchange());
 
+        showContent();
+    }
+
+    private void showContent() {
         findViewById(R.id.container).setVisibility(View.VISIBLE);
+    }
+
+    private void hideContent() {
+        findViewById(R.id.container).setVisibility(View.GONE);
     }
 
     @Override
@@ -84,7 +89,14 @@ public class AutoAdvertActivity extends ActionBarActivity {
         if (mPreferences.contains(HomeActivity.AUTH_TOKEN)) {
             loadAutoAdvertFromAPI(autoAdvertId);
         } else {
-            showWelcomeActivity();
+            ActivityHelper.showWelcomeActivity(AutoAdvertActivity.this, this);
+        }
+    }
+
+    private void setText(int resourceId, String text) {
+        TextView tv = ActivityHelper.setText(this, resourceId, text);
+        if(tv != null && text == null) {
+            ((View) (tv.getParent())).setVisibility(View.GONE);
         }
     }
 }

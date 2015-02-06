@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.requests_data.FilterInfo;
 import com.sequenia.fazzer.requests_data.Response;
+import com.sequenia.fazzer.serializers.FilterInfoSerializer;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -24,11 +25,11 @@ import java.io.IOException;
 public class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
 
     private Context context = null;
-    private FilterInfo filterInfo = null;
+    private String filterInfoJson = null;
 
-    public SaveFilterTask(Context context, FilterInfo filterInfo) {
+    public SaveFilterTask(Context context, String filterInfoJson) {
         this.context = context;
-        this.filterInfo = filterInfo;
+        this.filterInfoJson = filterInfoJson;
     }
 
     @Override
@@ -38,10 +39,7 @@ public class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
         Response<String> response = null;
 
         try {
-            Gson gson = new GsonBuilder().create();
-            String json = gson.toJson(filterInfo);
-
-            StringEntity se = new StringEntity(json);
+            StringEntity se = new StringEntity(this.filterInfoJson);
             post.setEntity(se);
 
             // setup the request headers
