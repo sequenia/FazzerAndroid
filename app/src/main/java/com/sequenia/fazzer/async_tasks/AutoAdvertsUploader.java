@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.HomeActivity;
 import com.sequenia.fazzer.adverts.AutoAdvertMinInfo;
-import com.sequenia.fazzer.requests.AutoAdvertsResponseData;
 import com.sequenia.fazzer.requests.Response;
 
 import java.util.ArrayList;
@@ -28,9 +27,8 @@ public class AutoAdvertsUploader extends JsonUploader {
         super.onPostExecute(s);
 
         if(s != null) {
-            Response r = new Gson().fromJson(s, new TypeToken<Response<AutoAdvertsResponseData>>() {}.getType());
-            AutoAdvertsResponseData data = (AutoAdvertsResponseData) r.getData();
-            ArrayList<AutoAdvertMinInfo> autoAdverts = (ArrayList<AutoAdvertMinInfo>) data.getAutoAdverts();
+            Response r = new Gson().fromJson(s, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
+            ArrayList<AutoAdvertMinInfo> autoAdverts = (ArrayList<AutoAdvertMinInfo>) r.getData();
 
             ((HomeActivity) context).addAdverts(autoAdverts);
         } else {

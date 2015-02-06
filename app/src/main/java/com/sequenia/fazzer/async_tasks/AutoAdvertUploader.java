@@ -3,23 +3,14 @@ package com.sequenia.fazzer.async_tasks;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.adverts.AutoAdvertFullInfo;
-import com.sequenia.fazzer.adverts.AutoAdvertMinInfo;
-import com.sequenia.fazzer.requests.AutoAdvertResponseData;
-import com.sequenia.fazzer.requests.AutoAdvertsResponseData;
 import com.sequenia.fazzer.requests.Response;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 04.02.15.
@@ -37,9 +28,8 @@ public class AutoAdvertUploader extends JsonUploader {
         super.onPostExecute(s);
 
         if(s != null) {
-            Response r = new Gson().fromJson(s, new TypeToken<Response<AutoAdvertResponseData>>() {}.getType());
-            AutoAdvertResponseData data = (AutoAdvertResponseData) r.getData();
-            AutoAdvertFullInfo autoAdvert = data.getAutoAdvert();
+            Response r = new Gson().fromJson(s, new TypeToken<Response<AutoAdvertFullInfo>>() {}.getType());
+            AutoAdvertFullInfo autoAdvert = (AutoAdvertFullInfo) r.getData();
 
             Activity activity = (Activity) context;
 
