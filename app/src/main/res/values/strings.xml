@@ -38,5 +38,6 @@
     <string name="max_year">Год выпуска до</string>
     <string name="adverts">Объявления</string>
     <string name="save_filter">Сохранить фильтр</string>
+    <string name="show_in_browser">Открыть страницу на сайте</string>
 
 </resources>

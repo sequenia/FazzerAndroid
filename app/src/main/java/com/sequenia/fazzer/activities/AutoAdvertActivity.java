@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.AutoAdvertUploader;
@@ -17,6 +18,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
 
     private int autoAdvertId;
     private SharedPreferences mPreferences;
+    private AutoAdvertFullInfo autoAdvert = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,23 @@ public class AutoAdvertActivity extends ActionBarActivity {
         mPreferences = getSharedPreferences(HomeActivity.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
 
         autoAdvertId = getIntent().getIntExtra(HomeActivity.AUTO_ADVERT_ID, 0);
+
+        Button showInBrowser = (Button) findViewById(R.id.show_in_browser);
+        showInBrowser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAdvertInBrowser();
+            }
+        });
+    }
+
+    private void showAdvertInBrowser() {
+        if(autoAdvert != null) {
+            String url = autoAdvert.getUrl();
+            if(url != null) {
+                ActivityHelper.openBrowser(this, autoAdvert.getUrl());
+            }
+        }
     }
 
     private void loadAutoAdvertFromAPI(int id) {
@@ -38,6 +57,8 @@ public class AutoAdvertActivity extends ActionBarActivity {
     }
 
     public void setAdvertInfo(AutoAdvertFullInfo autoAdvert) {
+        this.autoAdvert = autoAdvert;
+
         ActivityHelper.setText(this, R.id.mark, autoAdvert.getCarMarkName());
         ActivityHelper.setText(this, R.id.model, autoAdvert.getCarModelName());
         ActivityHelper.setText(this, R.id.year, String.valueOf(autoAdvert.getYear()));

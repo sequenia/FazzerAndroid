@@ -61,7 +61,7 @@ public class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
     @Override
     protected void onPostExecute(Response<String> response) {
         if(response != null) {
-            Toast.makeText(context, response.getData(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, response.getInfo(), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
         }
