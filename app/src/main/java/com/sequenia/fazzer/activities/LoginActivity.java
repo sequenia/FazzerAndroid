@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.LoginTask;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -24,7 +25,7 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mPreferences = getSharedPreferences(HomeActivity.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
 
         Button loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {

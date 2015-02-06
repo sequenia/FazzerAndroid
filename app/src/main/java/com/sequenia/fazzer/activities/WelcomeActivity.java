@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 
 
 public class WelcomeActivity extends ActionBarActivity {
@@ -18,7 +19,7 @@ public class WelcomeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        mPreferences = getSharedPreferences(HomeActivity.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
 
         findViewById(R.id.registerButton).setOnClickListener(
             new View.OnClickListener() {
@@ -56,7 +57,7 @@ public class WelcomeActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mPreferences.contains(HomeActivity.AUTH_TOKEN)) {
+        if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             finish();
         }
     }

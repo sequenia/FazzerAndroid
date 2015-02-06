@@ -17,6 +17,7 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
 import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
@@ -30,12 +31,6 @@ import io.realm.Realm;
 
 public class HomeActivity extends ActionBarActivity {
 
-    public static final String CURRENT_USER_PREFERENCES = "CurrentUser";
-    public static final String AUTH_TOKEN = "AuthToken";
-    private static final String AUTO_ADVERTS_URL = "http://192.168.0.36:3000/api/v1/auto_adverts.json";
-    private static final String FILTERS_URL = "http://192.168.0.36:3000/api/v1/auto_filters.json";
-    public static final String AUTO_ADVERT_ID = "AutoAdvertId";
-
     private SharedPreferences mPreferences;
     ArrayList<AutoAdvertMinInfo> autoAdverts = null;
     FilterInfo filterInfo = null;
@@ -47,7 +42,7 @@ public class HomeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mPreferences = getSharedPreferences(CURRENT_USER_PREFERENCES, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
         autoAdverts = new ArrayList<AutoAdvertMinInfo>();
         adapter = new AutoAdvertsAdapter(this, R.layout.auto_advert_info, autoAdverts);
 
@@ -85,7 +80,7 @@ public class HomeActivity extends ActionBarActivity {
     }
 
     private void loadAutoAdvertsFromAPI() {
-        new AutoAdvertsUploader(this).execute(AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new AutoAdvertsUploader(this).execute(FazzerHelper.AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void saveFilter() {
@@ -96,13 +91,13 @@ public class HomeActivity extends ActionBarActivity {
                 .create();
         String json = gson.toJson(filterInfo, FilterInfo.class);
 
-        new SaveFilterTask(this, json).execute(FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new SaveFilterTask(this, json).execute(FazzerHelper.FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void showAdvert(int position) {
         Intent intent = new Intent(HomeActivity.this,
                 AutoAdvertActivity.class);
-        intent.putExtra(AUTO_ADVERT_ID, autoAdverts.get(position).getId());
+        intent.putExtra(FazzerHelper.AUTO_ADVERT_ID, autoAdverts.get(position).getId());
         startActivityForResult(intent, 0);
     }
 
@@ -167,7 +162,11 @@ public class HomeActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mPreferences.contains(AUTH_TOKEN)) {
+        if(ActivityHelper.isNetworkAvailable(this)) {
+            FazzerHelper.updateCatalogs(this);
+        }
+
+        if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             loadAutoAdvertsFromAPI();
         } else {
             ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
@@ -176,7 +175,7 @@ public class HomeActivity extends ActionBarActivity {
 
     public void logout() {
         SharedPreferences.Editor editor = mPreferences.edit();
-        editor.remove(HomeActivity.AUTH_TOKEN);
+        editor.remove(FazzerHelper.AUTH_TOKEN);
         editor.commit();
 
         ActivityHelper.showWelcomeActivity(HomeActivity.this, this);

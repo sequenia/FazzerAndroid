@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.AutoAdvertUploader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
 
 
@@ -27,8 +28,8 @@ public class AutoAdvertActivity extends ActionBarActivity {
         setContentView(R.layout.activity_auto_advert);
         hideContent();
 
-        mPreferences = getSharedPreferences(HomeActivity.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
-        autoAdvertId = getIntent().getIntExtra(HomeActivity.AUTO_ADVERT_ID, 0);
+        mPreferences = getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
+        autoAdvertId = getIntent().getIntExtra(FazzerHelper.AUTO_ADVERT_ID, 0);
 
         Button showInBrowser = (Button) findViewById(R.id.show_in_browser);
         showInBrowser.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +87,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mPreferences.contains(HomeActivity.AUTH_TOKEN)) {
+        if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             loadAutoAdvertFromAPI(autoAdvertId);
         } else {
             ActivityHelper.showWelcomeActivity(AutoAdvertActivity.this, this);

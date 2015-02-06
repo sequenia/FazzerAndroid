@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -80,7 +81,7 @@ public class RegisterTask extends AsyncTask<String, Void, JSONObject> {
                 SharedPreferences.Editor editor = preferences.edit();
                 // save the returned auth_token into
                 // the SharedPreferences
-                editor.putString(HomeActivity.AUTH_TOKEN, json.getJSONObject("data").getString("auth_token"));
+                editor.putString(FazzerHelper.AUTH_TOKEN, json.getJSONObject("data").getString("auth_token"));
                 editor.commit();
 
                 // launch the HomeActivity and close this one
