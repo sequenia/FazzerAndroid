@@ -20,7 +20,7 @@ import org.json.JSONObject;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class RegisterTask extends AsyncTask<String, Void, JSONObject> {
+public class RegisterTask extends WaitingDialog<String, Void, JSONObject> {
 
     private String phone;
     private String password;
@@ -29,6 +29,7 @@ public class RegisterTask extends AsyncTask<String, Void, JSONObject> {
     private Context context;
 
     public RegisterTask(String phone, String password, String passwordConfirmation, SharedPreferences preferences, Context context) {
+        super(context);
         this.phone = phone;
         this.password = password;
         this.preferences = preferences;

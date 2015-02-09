@@ -12,6 +12,15 @@ public class FilterInfo extends RealmObject {
     private int maxYear;
     private float minPrice;
     private float maxPrice;
+    private String userPhone;
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
 
     public int getCarMarkId() {
         return carMarkId;

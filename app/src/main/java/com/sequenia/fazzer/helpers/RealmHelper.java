@@ -16,11 +16,13 @@ import io.realm.processor.RealmVersionChecker;
  */
 public class RealmHelper {
 
-    public static FilterInfo findOrCreateFilter(Context context) {
-        FilterInfo filterInfo = getFilter(context);
+    public static FilterInfo findOrCreateFilter(Context context, String userPhone) {
+        FilterInfo filterInfo = getFilter(context, userPhone);
 
         if(filterInfo == null) {
-            filterInfo = createFilter(new FilterInfo(), context);
+            filterInfo = new FilterInfo();
+            filterInfo.setUserPhone(userPhone);
+            filterInfo = createFilter(filterInfo, context);
         }
 
         return filterInfo;
@@ -39,10 +41,10 @@ public class RealmHelper {
         return realmFilterInfo;
     }
 
-    public static FilterInfo getFilter(Context context) {
+    public static FilterInfo getFilter(Context context, String userPhone) {
         Realm realm = Realm.getInstance(context);
 
-        RealmQuery<FilterInfo> query = realm.where(FilterInfo.class);
+        RealmQuery<FilterInfo> query = realm.where(FilterInfo.class).equalTo("userPhone", userPhone);
         FilterInfo filterInfo = query.findFirst();
 
         return  filterInfo;

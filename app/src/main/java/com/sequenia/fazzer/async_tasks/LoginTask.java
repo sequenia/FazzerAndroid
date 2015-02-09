@@ -20,7 +20,7 @@ import org.json.JSONObject;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class LoginTask extends AsyncTask<String, Void, JSONObject> {
+public class LoginTask extends WaitingDialog<String, Void, JSONObject> {
 
     private String phone;
     private String password;
@@ -28,6 +28,7 @@ public class LoginTask extends AsyncTask<String, Void, JSONObject> {
     private Context context;
 
     public LoginTask(String phone, String password, SharedPreferences preferences, Context context) {
+        super(context);
         this.phone = phone;
         this.password = password;
         this.preferences = preferences;
@@ -76,6 +77,7 @@ public class LoginTask extends AsyncTask<String, Void, JSONObject> {
             if (json.getBoolean("success")) {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(FazzerHelper.AUTH_TOKEN, json.getJSONObject("data").getString("auth_token"));
+                editor.putString(FazzerHelper.USER_PHONE, this.phone);
                 editor.commit();
 
                 // launch the HomeActivity and close this one

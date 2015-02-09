@@ -75,7 +75,7 @@ public class HomeActivity extends ActionBarActivity {
     }
 
     private void initFilter() {
-        filterInfo = RealmHelper.findOrCreateFilter(this);
+        filterInfo = RealmHelper.findOrCreateFilter(this, mPreferences.getString(FazzerHelper.USER_PHONE, ""));
         writeFilterToForm();
     }
 
@@ -176,8 +176,10 @@ public class HomeActivity extends ActionBarActivity {
     public void logout() {
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.remove(FazzerHelper.AUTH_TOKEN);
+        editor.remove(FazzerHelper.USER_PHONE);
         editor.commit();
 
         ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
+        this.finish();
     }
 }

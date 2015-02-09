@@ -15,6 +15,7 @@ public class FazzerHelper {
     public static final String CAR_MARKS_VERSION = "CarMarksVersion";
     public static final String CAR_MODELS_VERSION = "CarModelsVersion";
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
+    public static final String USER_PHONE = "UserPhone";
 
     //public static final String HOST = "http://178.62.184.226";
     public static final String HOST = "http://192.168.1.42:3000";
