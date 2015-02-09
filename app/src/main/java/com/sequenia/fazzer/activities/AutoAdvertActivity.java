@@ -16,8 +16,6 @@ import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
 
 public class AutoAdvertActivity extends ActionBarActivity {
 
-    private static final String AUTO_ADVERT_URL = "http://192.168.0.36:3000/api/v1/auto_adverts/";
-
     private int autoAdvertId;
     private SharedPreferences mPreferences;
     private AutoAdvertFullInfo autoAdvert = null;
@@ -50,7 +48,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
     }
 
     private void loadAutoAdvertFromAPI(int id) {
-        new AutoAdvertUploader(this).execute(AUTO_ADVERT_URL + String.valueOf(autoAdvertId) + ".json" + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new AutoAdvertUploader(this).execute(FazzerHelper.AUTO_ADVERT_URL + String.valueOf(autoAdvertId) + ".json" + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     public void setAdvertInfo(AutoAdvertFullInfo autoAdvert) {

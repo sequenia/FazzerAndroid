@@ -15,7 +15,6 @@ import com.sequenia.fazzer.helpers.FazzerHelper;
 
 public class LoginActivity extends ActionBarActivity {
 
-    private final static String LOGIN_API_ENDPOINT_URL = "http://192.168.0.36:3000/api/v1/sessions.json";
     private SharedPreferences mPreferences;
     private String mUserPhone;
     private String mUserPassword;
@@ -48,7 +47,7 @@ public class LoginActivity extends ActionBarActivity {
             return;
         } else {
             LoginTask loginTask = new LoginTask(mUserPhone, mUserPassword, mPreferences, this);
-            loginTask.execute(LOGIN_API_ENDPOINT_URL);
+            loginTask.execute(FazzerHelper.LOGIN_API_ENDPOINT_URL);
         }
     }
 

@@ -15,7 +15,6 @@ import com.sequenia.fazzer.helpers.FazzerHelper;
 
 public class RegisterActivity extends ActionBarActivity {
 
-    private final static String REGISTER_API_ENDPOINT_URL = "http://178.62.184.226/api/v1/registrations";
     private SharedPreferences mPreferences;
     private String mUserPhone;
     private String mUserPassword;
@@ -60,7 +59,7 @@ public class RegisterActivity extends ActionBarActivity {
                 // everything is ok!
 
                 RegisterTask registerTask = new RegisterTask(mUserPhone, mUserPassword, mUserPasswordConfirmation, mPreferences, this);
-                registerTask.execute(REGISTER_API_ENDPOINT_URL);
+                registerTask.execute(FazzerHelper.REGISTER_API_ENDPOINT_URL);
             }
         }
     }
