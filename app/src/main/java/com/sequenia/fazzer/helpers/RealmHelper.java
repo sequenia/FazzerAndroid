@@ -2,7 +2,10 @@ package com.sequenia.fazzer.helpers;
 
 import android.content.Context;
 
+import com.sequenia.fazzer.requests_data.City;
 import com.sequenia.fazzer.requests_data.FilterInfo;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmMigration;
@@ -52,5 +55,29 @@ public class RealmHelper {
 
     public static void migrate(Context context) {
         Realm.migrateRealmAtPath(context.getFilesDir().toString() + "/" + Realm.DEFAULT_REALM_NAME, new Migration());
+    }
+
+    public static void updateCities(Context context, ArrayList<City> cities) {
+        Realm realm = Realm.getInstance(context);
+
+        realm.beginTransaction();
+
+        for(City city : cities) {
+            City existed = getCityById(context, city.getId());
+            if(existed == null) {
+                realm.copyToRealm(city);
+            }
+        }
+
+        realm.commitTransaction();
+    }
+
+    public static City getCityById(Context context, int id) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<City> query = realm.where(City.class).equalTo("id", id);
+        City city = query.findFirst();
+
+        return city;
     }
 }

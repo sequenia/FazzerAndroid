@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.async_tasks;
+package com.sequenia.fazzer.async_tasks.json_loaders;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -12,11 +12,11 @@ import com.sequenia.fazzer.requests_data.Response;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertUploader extends JsonUploader {
+public class AutoAdvertLoader extends JsonLoader {
 
     Context context;
 
-    public AutoAdvertUploader(Context context) {
+    public AutoAdvertLoader(Context context) {
         this.context = context;
     }
 

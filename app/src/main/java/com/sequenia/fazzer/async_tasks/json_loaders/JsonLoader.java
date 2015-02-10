@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.async_tasks;
+package com.sequenia.fazzer.async_tasks.json_loaders;
 
 import android.os.AsyncTask;
 
@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class JsonUploader extends AsyncTask<String, Void, String> {
+public class JsonLoader extends AsyncTask<String, Void, String> {
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
     String resultJson = null;
@@ -44,6 +44,7 @@ public class JsonUploader extends AsyncTask<String, Void, String> {
 
         return resultJson;
     }
+
 
     @Override
     protected void onPostExecute(String s) {

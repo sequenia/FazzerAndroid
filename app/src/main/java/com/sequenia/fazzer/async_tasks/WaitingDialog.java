@@ -51,4 +51,8 @@ public class WaitingDialog<T1, T2, T3> extends AsyncTask<T1, T2, T3> {
         super.onPostExecute(t3);
         pd.dismiss();
     }
+
+    public Context getContext() {
+        return context;
+    }
 }

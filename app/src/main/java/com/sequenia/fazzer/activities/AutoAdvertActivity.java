@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.async_tasks.AutoAdvertUploader;
+import com.sequenia.fazzer.async_tasks.json_loaders.AutoAdvertLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
@@ -48,7 +48,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
     }
 
     private void loadAutoAdvertFromAPI(int id) {
-        new AutoAdvertUploader(this).execute(FazzerHelper.AUTO_ADVERT_URL + String.valueOf(autoAdvertId) + ".json" + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new AutoAdvertLoader(this).execute(FazzerHelper.AUTO_ADVERT_URL + String.valueOf(autoAdvertId) + ".json" + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     public void setAdvertInfo(AutoAdvertFullInfo autoAdvert) {

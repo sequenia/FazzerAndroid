@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.async_tasks.RegisterTask;
+import com.sequenia.fazzer.async_tasks.sessions.RegisterTask;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
 

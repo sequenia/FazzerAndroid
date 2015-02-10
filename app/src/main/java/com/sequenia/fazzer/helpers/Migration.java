@@ -1,5 +1,6 @@
 package com.sequenia.fazzer.helpers;
 
+import com.sequenia.fazzer.requests_data.City;
 import com.sequenia.fazzer.requests_data.FilterInfo;
 
 import io.realm.Realm;
@@ -53,6 +54,15 @@ public class Migration implements RealmMigration {
 
             filtersTable.removeColumn(getIndexForProperty(filtersTable, "userId"));
             filtersTable.addColumn(ColumnType.STRING, "userPhone");
+
+            version++;
+        }
+
+        if (version == 8) {
+            Table table = realm.getTable(City.class);
+
+            table.addColumn(ColumnType.INTEGER, "id");
+            table.addColumn(ColumnType.STRING, "name");
 
             version++;
         }
