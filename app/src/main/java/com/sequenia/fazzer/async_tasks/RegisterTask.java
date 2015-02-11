@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.async_tasks.sessions;
+package com.sequenia.fazzer.async_tasks;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class RegisterTask extends WaitingDialog<String, Void, JSONObject> {
+public class RegisterTask extends WaitingDialog<String, JSONObject> {
 
     private String phone;
     private String password;

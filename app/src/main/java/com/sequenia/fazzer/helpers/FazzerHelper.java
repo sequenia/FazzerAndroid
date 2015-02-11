@@ -17,12 +17,50 @@ public class FazzerHelper {
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
     public static final String USER_PHONE = "UserPhone";
 
-    //public static final String HOST = "http://178.62.184.226";
-    public static final String HOST = "http://192.168.1.42:3000";
-    public static final String AUTO_ADVERTS_URL = HOST + "/api/v1/auto_adverts.json";
-    public static final String FILTERS_URL = HOST + "/api/v1/auto_filters.json";
-    public final static String LOGIN_API_ENDPOINT_URL = HOST + "/api/v1/sessions.json";
-    public final static String REGISTER_API_ENDPOINT_URL = HOST + "/api/v1/registrations";
-    public static final String AUTO_ADVERT_URL = HOST + "/api/v1/auto_adverts/";
-    public static final String CITIES_URL = HOST + "/api/v1/cities.json";
+
+    public static String getAuthToken(Context context) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        return mPreferences.getString("AuthToken", "");
+    }
+
+    public static int getCitiesVersion(Context context) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        return mPreferences.getInt(CITIES_VERSION, 0);
+    }
+
+    public static int getCarMarksVersion(Context context) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        return mPreferences.getInt(CAR_MARKS_VERSION, 0);
+    }
+
+    public static int getCarModelsVersion(Context context) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        return mPreferences.getInt(CAR_MODELS_VERSION, 0);
+    }
+
+
+    public static void setCitiesVersion(Context context, int version) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(FazzerHelper.CITIES_VERSION, version);
+        editor.commit();
+    }
+
+    public static void setCarMarksVersion(Context context, int version) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(FazzerHelper.CAR_MARKS_VERSION, version);
+        editor.commit();
+    }
+
+    public static void setCarModelsVersion(Context context, int version) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(FazzerHelper.CAR_MODELS_VERSION, version);
+        editor.commit();
+    }
+
+    private static SharedPreferences getUserPreferences(Context context) {
+        return context.getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, HomeActivity.MODE_PRIVATE);
+    }
 }

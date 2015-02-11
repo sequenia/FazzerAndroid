@@ -16,9 +16,10 @@ import com.google.gson.GsonBuilder;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.UpdateCatalogsTask;
-import com.sequenia.fazzer.async_tasks.json_loaders.AutoAdvertsLoader;
+import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
 import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
@@ -81,7 +82,7 @@ public class HomeActivity extends ActionBarActivity {
     }
 
     private void loadAutoAdvertsFromAPI() {
-        new AutoAdvertsLoader(this).execute(FazzerHelper.AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new AutoAdvertsLoader(this).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void saveFilter() {
@@ -92,7 +93,7 @@ public class HomeActivity extends ActionBarActivity {
                 .create();
         String json = gson.toJson(filterInfo, FilterInfo.class);
 
-        new SaveFilterTask(this, json).execute(FazzerHelper.FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new SaveFilterTask(this, json).execute(ApiHelper.FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void showAdvert(int position) {
@@ -164,7 +165,7 @@ public class HomeActivity extends ActionBarActivity {
         super.onResume();
 
         if(ActivityHelper.isNetworkAvailable(this)) {
-            new UpdateCatalogsTask(this, mPreferences.getString("AuthToken", "")).execute();
+            new UpdateCatalogsTask(this).execute();
         }
 
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {

@@ -1,5 +1,7 @@
 package com.sequenia.fazzer.helpers;
 
+import com.sequenia.fazzer.requests_data.CarMark;
+import com.sequenia.fazzer.requests_data.CarModel;
 import com.sequenia.fazzer.requests_data.City;
 import com.sequenia.fazzer.requests_data.FilterInfo;
 
@@ -63,6 +65,21 @@ public class Migration implements RealmMigration {
 
             table.addColumn(ColumnType.INTEGER, "id");
             table.addColumn(ColumnType.STRING, "name");
+
+            version++;
+        }
+
+        if (version == 9) {
+            Table table = realm.getTable(CarMark.class);
+
+            table.addColumn(ColumnType.INTEGER, "id");
+            table.addColumn(ColumnType.STRING, "name");
+
+            table = realm.getTable(CarModel.class);
+
+            table.addColumn(ColumnType.INTEGER, "id");
+            table.addColumn(ColumnType.STRING, "name");
+            table.addColumn(ColumnType.INTEGER, "car_mark_id");
 
             version++;
         }

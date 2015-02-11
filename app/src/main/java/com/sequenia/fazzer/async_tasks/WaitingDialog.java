@@ -7,36 +7,49 @@ import android.os.AsyncTask;
 /**
  * Created by chybakut2004 on 09.02.15.
  */
-public class WaitingDialog<T1, T2, T3> extends AsyncTask<T1, T2, T3> {
+public class WaitingDialog<T1, T2> extends AsyncTask<T1, String, T2> {
 
     private ProgressDialog pd = null;
     private Context context = null;
-    private String message = null;
+    private String startMessage = null;
 
     public WaitingDialog(Context context) {
         this.context = context;
         createProgressDialog();
     }
 
-    public WaitingDialog setMessage(String message) {
-        this.message = message;
-        return this;
+    public WaitingDialog(Context context, String startMessage) {
+        this.startMessage = startMessage;
+        this.context = context;
+        createProgressDialog();
     }
 
     private void createProgressDialog() {
         String m = null;
-        if(this.message == null) {
+        if(this.startMessage == null) {
             m = "Пожалуйста, подождите";
         } else {
-            m = this.message;
+            m = this.startMessage;
         }
         pd = new ProgressDialog(context);
         pd.setMessage(m);
         pd.setCancelable(false);
     }
 
+    public void setMessage(String s) {
+        publishProgress(s);
+    }
+
+
+
     @Override
-    protected T3 doInBackground(T1... params) {
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+        pd.setMessage(values[0]);
+    }
+
+    @Override
+    protected T2 doInBackground(T1... params) {
         return null;
     }
 
@@ -47,9 +60,11 @@ public class WaitingDialog<T1, T2, T3> extends AsyncTask<T1, T2, T3> {
     }
 
     @Override
-    protected void onPostExecute(T3 t3) {
+    protected void onPostExecute(T2 t3) {
         super.onPostExecute(t3);
-        pd.dismiss();
+        if(pd.isShowing()) {
+            pd.dismiss();
+        }
     }
 
     public Context getContext() {

@@ -2,6 +2,8 @@ package com.sequenia.fazzer.helpers;
 
 import android.content.Context;
 
+import com.sequenia.fazzer.requests_data.CarMark;
+import com.sequenia.fazzer.requests_data.CarModel;
 import com.sequenia.fazzer.requests_data.City;
 import com.sequenia.fazzer.requests_data.FilterInfo;
 
@@ -66,6 +68,51 @@ public class RealmHelper {
             City existed = getCityById(context, city.getId());
             if(existed == null) {
                 realm.copyToRealm(city);
+            } else {
+                if(existed.getName() != city.getName()) {
+                    existed.setName(city.getName());
+                }
+            }
+        }
+
+        realm.commitTransaction();
+    }
+
+    public static void updateCarMarks(Context context, ArrayList<CarMark> carMarks) {
+        Realm realm = Realm.getInstance(context);
+
+        realm.beginTransaction();
+
+        for(CarMark carMark : carMarks) {
+            CarMark existed = getCarMarkById(context, carMark.getId());
+            if(existed == null) {
+                realm.copyToRealm(carMark);
+            } else {
+                if(existed.getName() != carMark.getName()) {
+                    existed.setName(carMark.getName());
+                }
+            }
+        }
+
+        realm.commitTransaction();
+    }
+
+    public static void updateCarModels(Context context, ArrayList<CarModel> carModels) {
+        Realm realm = Realm.getInstance(context);
+
+        realm.beginTransaction();
+
+        for(CarModel carModel : carModels) {
+            CarModel existed = getCarModelById(context, carModel.getId());
+            if(existed == null) {
+                realm.copyToRealm(carModel);
+            } else {
+                if(existed.getName() != carModel.getName()) {
+                    existed.setName(carModel.getName());
+                }
+                if(existed.getCar_mark_id() != carModel.getCar_mark_id()) {
+                    existed.setCar_mark_id(carModel.getCar_mark_id());
+                }
             }
         }
 
@@ -79,5 +126,23 @@ public class RealmHelper {
         City city = query.findFirst();
 
         return city;
+    }
+
+    public static CarMark getCarMarkById(Context context, int id) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<CarMark> query = realm.where(CarMark.class).equalTo("id", id);
+        CarMark carMark = query.findFirst();
+
+        return carMark;
+    }
+
+    public static CarModel getCarModelById(Context context, int id) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<CarModel> query = realm.where(CarModel.class).equalTo("id", id);
+        CarModel carModel = query.findFirst();
+
+        return carModel;
     }
 }

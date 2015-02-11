@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.async_tasks.sessions.LoginTask;
+import com.sequenia.fazzer.async_tasks.LoginTask;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
 
@@ -47,7 +48,7 @@ public class LoginActivity extends ActionBarActivity {
             return;
         } else {
             LoginTask loginTask = new LoginTask(mUserPhone, mUserPassword, mPreferences, this);
-            loginTask.execute(FazzerHelper.LOGIN_API_ENDPOINT_URL);
+            loginTask.execute(ApiHelper.LOGIN_API_ENDPOINT_URL);
         }
     }
 

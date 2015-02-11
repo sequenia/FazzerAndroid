@@ -1,11 +1,13 @@
-package com.sequenia.fazzer.async_tasks.json_loaders;
+package com.sequenia.fazzer.async_tasks;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
@@ -14,12 +16,17 @@ import java.util.ArrayList;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertsLoader extends JsonLoader {
+public class AutoAdvertsLoader extends AsyncTask<String, Void, String> {
 
     Context context;
 
     public AutoAdvertsLoader(Context context) {
         this.context = context;
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+        return ApiHelper.loadJson(params[0]);
     }
 
     @Override

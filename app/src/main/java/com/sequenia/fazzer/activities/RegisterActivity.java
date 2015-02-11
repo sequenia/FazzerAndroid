@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.async_tasks.sessions.RegisterTask;
+import com.sequenia.fazzer.async_tasks.RegisterTask;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
 
@@ -59,7 +60,7 @@ public class RegisterActivity extends ActionBarActivity {
                 // everything is ok!
 
                 RegisterTask registerTask = new RegisterTask(mUserPhone, mUserPassword, mUserPasswordConfirmation, mPreferences, this);
-                registerTask.execute(FazzerHelper.REGISTER_API_ENDPOINT_URL);
+                registerTask.execute(ApiHelper.REGISTER_API_ENDPOINT_URL);
             }
         }
     }
