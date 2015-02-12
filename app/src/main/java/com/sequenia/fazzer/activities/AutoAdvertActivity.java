@@ -89,7 +89,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             loadAutoAdvertFromAPI(autoAdvertId);
         } else {
-            ActivityHelper.showWelcomeActivity(AutoAdvertActivity.this, this);
+            ActivityHelper.showWelcomeActivity(this);
         }
     }
 

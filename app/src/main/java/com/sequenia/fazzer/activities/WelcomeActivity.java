@@ -1,47 +1,37 @@
 package com.sequenia.fazzer.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.fragments.LoginFragment;
+import com.sequenia.fazzer.fragments.WelcomeFragment;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
 
-public class WelcomeActivity extends ActionBarActivity {
+public class WelcomeActivity extends FragmentActivity {
 
-    private SharedPreferences mPreferences;
+    public WelcomeActivity() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.sessions);
 
-        mPreferences = getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
-
-        findViewById(R.id.registerButton).setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // No account, load new account view
-                    Intent intent = new Intent(WelcomeActivity.this,
-                            RegisterActivity.class);
-                    startActivityForResult(intent, 0);
-                }
-            });
-
-        findViewById(R.id.loginButton).setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Existing Account, load login view
-                    Intent intent = new Intent(WelcomeActivity.this,
-                            LoginActivity.class);
-                    startActivityForResult(intent, 0);
-                }
-            });
+        if (savedInstanceState == null) {
+            WelcomeFragment welcomeFragment = new WelcomeFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.session_content, welcomeFragment)
+                    .commit();
+        }
     }
 
     @Override
@@ -56,6 +46,8 @@ public class WelcomeActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        SharedPreferences mPreferences = FazzerHelper.getUserPreferences(this);
 
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             finish();

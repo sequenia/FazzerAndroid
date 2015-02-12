@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.sequenia.fazzer.activities.HomeActivity;
-import com.sequenia.fazzer.async_tasks.WaitingDialog;
+import com.sequenia.fazzer.activities.LoginActivity;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
 import org.apache.http.client.ResponseHandler;
@@ -24,17 +22,13 @@ import org.json.JSONObject;
 public class RegisterTask extends WaitingDialog<String, JSONObject> {
 
     private String phone;
-    private String password;
-    private String passwordConfirmation;
     private SharedPreferences preferences;
     private Context context;
 
-    public RegisterTask(String phone, String password, String passwordConfirmation, SharedPreferences preferences, Context context) {
+    public RegisterTask(String phone, SharedPreferences preferences, Context context) {
         super(context);
         this.phone = phone;
-        this.password = password;
         this.preferences = preferences;
-        this.passwordConfirmation = passwordConfirmation;
         this.context = context;
     }
 
@@ -48,20 +42,14 @@ public class RegisterTask extends WaitingDialog<String, JSONObject> {
         JSONObject json = new JSONObject();
 
         try {
-            // setup the returned values in case
-            // something goes wrong
             json.put("success", false);
             json.put("info", "Something went wrong. Retry!");
 
-            // add the users's info to the post params
             userObj.put("phone", phone);
-            userObj.put("password", password);
-            userObj.put("password_confirmation", passwordConfirmation);
             holder.put("user", userObj);
             StringEntity se = new StringEntity(holder.toString());
             post.setEntity(se);
 
-            // setup the request headers
             post.setHeader("Accept", "application/json");
             post.setHeader("Content-Type", "application/json");
 
@@ -79,15 +67,12 @@ public class RegisterTask extends WaitingDialog<String, JSONObject> {
     protected void onPostExecute(JSONObject json) {
         try {
             if (json.getBoolean("success")) {
-                // everything is ok
                 SharedPreferences.Editor editor = preferences.edit();
-                // save the returned auth_token into
-                // the SharedPreferences
-                editor.putString(FazzerHelper.AUTH_TOKEN, json.getJSONObject("data").getString("auth_token"));
+                editor.putBoolean(FazzerHelper.REGISTERED, true);
                 editor.commit();
 
-                // launch the HomeActivity and close this one
-                Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
+                intent.putExtra("phone", json.getJSONObject("data").getJSONObject("user").getString("phone"));
                 context.startActivity(intent);
                 ((Activity)context).finish();
             }

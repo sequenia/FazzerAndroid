@@ -1,5 +1,6 @@
 package com.sequenia.fazzer.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -171,13 +172,19 @@ public class HomeActivity extends ActionBarActivity {
 
             loadAutoAdvertsFromAPI();
         } else {
-            ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
+            if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false) == false) {
+                ActivityHelper.showRegisterActivity(this);
+                finish();
+            } else {
+                ActivityHelper.showWelcomeActivity(this);
+                finish();
+            }
         }
     }
 
     public void logout() {
         FazzerHelper.logout(this);
-        ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
+        ActivityHelper.showWelcomeActivity(this);
         this.finish();
     }
 }

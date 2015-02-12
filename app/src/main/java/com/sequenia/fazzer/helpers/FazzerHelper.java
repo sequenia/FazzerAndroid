@@ -18,6 +18,7 @@ public class FazzerHelper {
     public static final String CAR_MODELS_VERSION = "CarModelsVersion";
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
     public static final String USER_PHONE = "UserPhone";
+    public static final String REGISTERED = "Registered";
 
 
     public static String getAuthToken(Context context) {
@@ -63,10 +64,8 @@ public class FazzerHelper {
     }
 
     public static SharedPreferences getUserPreferences(Context context) {
-        return context.getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, HomeActivity.MODE_PRIVATE);
+        return context.getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, context.MODE_PRIVATE);
     }
-
-
 
     public static void logout(Context context) {
         SharedPreferences mPreferences = getUserPreferences(context);
