@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Fazzer</string>
+    <string name="app_name_caps">FAZZER</string>
     <string name="refresh">Обновить</string>
     <string name="advert">Объявление</string>
     <string name="price">Цена</string>
@@ -39,5 +40,6 @@
     <string name="adverts">Объявления</string>
     <string name="save_filter">Сохранить фильтр</string>
     <string name="show_in_browser">Открыть страницу на сайте</string>
+    <string name="slogan">Ищет машины пока вы заняты</string>
 
 </resources>

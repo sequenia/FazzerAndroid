@@ -18,7 +18,7 @@ public class TypefacedTextView extends TextView {
         }
 
         TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.TypefacedView);
-        String fontName = styledAttrs.getString(R.styleable.TypefacedView_typeface);
+        String fontName = styledAttrs.getString(R.styleable.TypefacedView_my_typeface);
         styledAttrs.recycle();
 
         if (fontName != null) {

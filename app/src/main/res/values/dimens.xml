@@ -6,4 +6,8 @@
     <dimen name="keyline_margin">16dp</dimen>
     <dimen name="keyline_content_start">72dp</dimen>
     <dimen name="keyline_content_end_with_fab">32dp</dimen>
+    <dimen name="search_logo_size">60dp</dimen>
+    <dimen name="search_logo_padding">15dp</dimen>
+    <dimen name="search_logo_margin_top">30dp</dimen>
+    <dimen name="search_logo_margin_bottom">15dp</dimen>
 </resources>

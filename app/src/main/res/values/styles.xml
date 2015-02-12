@@ -5,6 +5,8 @@
         <item name="android:colorBackground">@color/main_bg_color</item>
         <item name="android:editTextStyle">@style/EditText</item>
     </style>
+
+    <style name="EditText" parent="Widget.AppCompat.EditText"></style>
     <!-- asdasdasdasdadsa -->
 
     <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
