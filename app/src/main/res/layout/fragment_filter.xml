@@ -1,83 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="@dimen/keyline_content_end_with_fab"
+    android:paddingLeft="@dimen/keyline_margin"
+    android:paddingRight="@dimen/keyline_margin"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        style="@style/AdvertLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/filter" />
-
-    <EditText
-        android:id="@+id/mark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/mark"
-        android:inputType="text" >
-    </EditText>
-
-    <EditText
-        android:id="@+id/model"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/model"
-        android:inputType="text" >
-    </EditText>
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/between_inputs">
 
-        <EditText
-            android:id="@+id/min_price"
+        <ImageView
+            style="@style/InputLogo"
+            android:layout_gravity="bottom"
+            android:src="@drawable/position"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/min_price"
-            android:inputType="number"
-            android:layout_weight="1.0">
-        </EditText>
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/max_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/max_price"
-            android:inputType="number"
-            android:layout_weight="1.0">
-        </EditText>
+            <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                style="@style/EditTextLabel"
+                android:text="@string/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/between_inputs">
 
-        <EditText
-            android:id="@+id/min_year"
+        <ImageView
+            style="@style/InputLogo"
+            android:layout_gravity="bottom"
+            android:src="@drawable/car"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/min_year"
-            android:inputType="number"
-            android:layout_weight="1.0" >
-        </EditText>
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/max_year"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/max_year"
-            android:inputType="number"
-            android:layout_weight="1.0" >
-        </EditText>
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:text="@string/mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    android:id="@+id/mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:text="@string/model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    android:id="@+id/model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/between_inputs">
+
+        <ImageView
+            style="@style/InputLogo"
+            android:layout_gravity="bottom"
+            android:src="@drawable/calendar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:text="@string/year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    android:id="@+id/min_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    android:id="@+id/max_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/between_inputs">
+
+        <ImageView
+            style="@style/InputLogo"
+            android:layout_gravity="bottom"
+            android:src="@drawable/money"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:text="@string/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    android:id="@+id/min_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    android:id="@+id/max_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.sequenia.fazzer.widgets.RobotoRegularButton
         android:id="@+id/save_filter_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

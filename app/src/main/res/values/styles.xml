@@ -6,7 +6,23 @@
         <item name="android:editTextStyle">@style/EditText</item>
     </style>
 
-    <style name="EditText" parent="Widget.AppCompat.EditText"></style>
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/additional_font_size</item>
+    </style>
+
+    <style name="EditTextLabel">
+        <item name="android:textSize">@dimen/edit_text_label_font_size</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="InputLogo">
+        <item name="android:layout_width">@dimen/input_logo_size</item>
+        <item name="android:layout_height">@dimen/input_logo_size</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_marginBottom">13dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
     <!-- asdasdasdasdadsa -->
 
     <style name="CodeFont" parent="@android:style/TextAppearance.Medium">

@@ -12,8 +12,8 @@ import com.sequenia.fazzer.R;
 /**
  * Created by chybakut2004 on 11.02.15.
  */
-public class TypefacedEditText extends EditText {
-    public TypefacedEditText(Context context, AttributeSet attrs) {
+public class RobotoRegularEditText extends EditText {
+    public RobotoRegularEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         //Typeface.createFromAsset doesn't work in the layout editor. Skipping...
@@ -21,14 +21,8 @@ public class TypefacedEditText extends EditText {
             return;
         }
 
-        TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.TypefacedView);
-        String fontName = styledAttrs.getString(R.styleable.TypefacedView_my_typeface);
-        styledAttrs.recycle();
-
-        if (fontName != null) {
-            Typeface typeface = Typeface.createFromAsset(context.getAssets(), fontName);
-            setTypeface(typeface);
-        }
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Regular.ttf");
+        setTypeface(typeface);
     }
 }
 

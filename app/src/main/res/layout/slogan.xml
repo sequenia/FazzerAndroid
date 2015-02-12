@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -16,22 +15,20 @@
         android:src="@drawable/search"
         android:background="@drawable/yellow_circle"/>
 
-    <com.sequenia.fazzer.widgets.TypefacedTextView
+    <com.sequenia.fazzer.widgets.RobotoRegularTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name_caps"
-        android:textSize="28sp"
+        android:textSize="@dimen/main_font_size"
         android:gravity="center"
-        android:textColor="@color/white"
-        custom:my_typeface="Roboto-Bold.ttf"/>
+        android:textColor="@color/white"/>
 
-    <com.sequenia.fazzer.widgets.TypefacedTextView
+    <com.sequenia.fazzer.widgets.RobotoLightTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/slogan"
         android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        custom:my_typeface="Roboto-Light.ttf"/>
+        android:textSize="@dimen/additional_font_size"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

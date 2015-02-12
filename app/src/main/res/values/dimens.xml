@@ -10,4 +10,9 @@
     <dimen name="search_logo_padding">15dp</dimen>
     <dimen name="search_logo_margin_top">30dp</dimen>
     <dimen name="search_logo_margin_bottom">15dp</dimen>
+    <dimen name="main_font_size">28sp</dimen>
+    <dimen name="additional_font_size">20sp</dimen>
+    <dimen name="edit_text_label_font_size">14sp</dimen>
+    <dimen name="input_logo_size">@dimen/additional_font_size</dimen>
+    <dimen name="between_inputs">32dp</dimen>
 </resources>
