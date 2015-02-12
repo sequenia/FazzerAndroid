@@ -19,6 +19,8 @@ import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.UpdateCatalogsTask;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
+import com.sequenia.fazzer.fragments.FilterFragment;
+import com.sequenia.fazzer.fragments.LoginFragment;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
@@ -36,7 +38,6 @@ public class HomeActivity extends ActionBarActivity {
 
     private SharedPreferences mPreferences;
     ArrayList<AutoAdvertMinInfo> autoAdverts = null;
-    FilterInfo filterInfo = null;
     AutoAdvertsAdapter adapter = null;
     ListView autoAdvertsListView = null;
 
@@ -51,9 +52,15 @@ public class HomeActivity extends ActionBarActivity {
 
         RealmHelper.migrate(this);
 
+        if (savedInstanceState == null) {
+            FilterFragment filterFragment = new FilterFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.filter_container, filterFragment)
+                    .commit();
+        }
+
         initListView();
-        initSaveButton();
-        initFilter();
     }
 
     private void initListView() {
@@ -67,34 +74,8 @@ public class HomeActivity extends ActionBarActivity {
         autoAdvertsListView.setAdapter(adapter);
     }
 
-    private void initSaveButton() {
-        Button saveFilterButton = (Button) findViewById(R.id.save_filter_button);
-        saveFilterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveFilter();
-            }
-        });
-    }
-
-    private void initFilter() {
-        filterInfo = RealmHelper.findOrCreateFilter(this, mPreferences.getString(FazzerHelper.USER_PHONE, ""));
-        writeFilterToForm();
-    }
-
     private void loadAutoAdvertsFromAPI() {
         new AutoAdvertsLoader(this).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
-    }
-
-    private void saveFilter() {
-        readFilterInfoFromForm();
-
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(FilterInfo.class, new FilterInfoSerializer())
-                .create();
-        String json = gson.toJson(filterInfo, FilterInfo.class);
-
-        new SaveFilterTask(this, json).execute(ApiHelper.FILTERS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
     }
 
     private void showAdvert(int position) {
@@ -111,31 +92,6 @@ public class HomeActivity extends ActionBarActivity {
         ActivityHelper.setListViewHeightBasedOnChildren(autoAdvertsListView);
     }
 
-    public void readFilterInfoFromForm() {
-        Realm realm = Realm.getInstance(this);
-        realm.beginTransaction();
-
-        filterInfo.setCarMarkId(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.mark)));
-        filterInfo.setCarModelId(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.model)));
-        filterInfo.setMinPrice(ObjectsHelper.strToFloatNoZero(ActivityHelper.getText(this, R.id.min_price)));
-        filterInfo.setMaxPrice(ObjectsHelper.strToFloatNoZero(ActivityHelper.getText(this, R.id.max_price)));
-        filterInfo.setMinYear(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.min_year)));
-        filterInfo.setMaxYear(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(this, R.id.max_year)));
-
-        realm.commitTransaction();
-    }
-
-    public void writeFilterToForm() {
-        if(filterInfo != null) {
-            ActivityHelper.setText(this, R.id.mark, ObjectsHelper.intToStrNoZero(filterInfo.getCarMarkId()));
-            ActivityHelper.setText(this, R.id.model, ObjectsHelper.intToStrNoZero(filterInfo.getCarModelId()));
-            ActivityHelper.setText(this, R.id.min_price, ObjectsHelper.floatToStrNoZero(filterInfo.getMinPrice()));
-            ActivityHelper.setText(this, R.id.max_price, ObjectsHelper.floatToStrNoZero(filterInfo.getMaxPrice()));
-            ActivityHelper.setText(this, R.id.min_year, ObjectsHelper.intToStrNoZero(filterInfo.getMinYear()));
-            ActivityHelper.setText(this, R.id.max_year, ObjectsHelper.intToStrNoZero(filterInfo.getMaxYear()));
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -144,7 +100,6 @@ public class HomeActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
         switch (item.getItemId()) {
             case R.id.refresh:
