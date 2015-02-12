@@ -1,7 +1,11 @@
 package com.sequenia.fazzer.helpers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.requests_data.City;
 import com.sequenia.fazzer.requests_data.Response;
 

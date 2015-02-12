@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.sequenia.fazzer.activities.HomeActivity;
 
+import java.util.ArrayList;
+
 /**
  * Created by chybakut2004 on 06.02.15.
  */
@@ -60,7 +62,17 @@ public class FazzerHelper {
         editor.commit();
     }
 
-    private static SharedPreferences getUserPreferences(Context context) {
+    public static SharedPreferences getUserPreferences(Context context) {
         return context.getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, HomeActivity.MODE_PRIVATE);
+    }
+
+
+
+    public static void logout(Context context) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove(AUTH_TOKEN);
+        editor.remove(USER_PHONE);
+        editor.commit();
     }
 }

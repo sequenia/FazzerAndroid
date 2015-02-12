@@ -164,11 +164,11 @@ public class HomeActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if(ActivityHelper.isNetworkAvailable(this)) {
-            new UpdateCatalogsTask(this).execute();
-        }
-
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
+            if(ActivityHelper.isNetworkAvailable(this)) {
+                new UpdateCatalogsTask(this).execute();
+            }
+
             loadAutoAdvertsFromAPI();
         } else {
             ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
@@ -176,11 +176,7 @@ public class HomeActivity extends ActionBarActivity {
     }
 
     public void logout() {
-        SharedPreferences.Editor editor = mPreferences.edit();
-        editor.remove(FazzerHelper.AUTH_TOKEN);
-        editor.remove(FazzerHelper.USER_PHONE);
-        editor.commit();
-
+        FazzerHelper.logout(this);
         ActivityHelper.showWelcomeActivity(HomeActivity.this, this);
         this.finish();
     }
