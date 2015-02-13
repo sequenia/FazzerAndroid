@@ -7,6 +7,7 @@
     <string name="advert">Объявление</string>
     <string name="price">Цена</string>
     <string name="year">Год выпуска</string>
+    <string name="nothing">Пусто</string>
     <string name="title_activity_welcome">Fazzer</string>
     <string name="welcome_title">Добро пожаловать!</string>
     <string name="welcome_text">Войдите или зарегистрируйтесь</string>

@@ -8,12 +8,14 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/ButtonSize"
         android:text="@string/register"/>
 
     <com.sequenia.fazzer.widgets.RobotoRegularButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/ButtonSize"
         android:text="@string/login"/>
 
 </LinearLayout>

@@ -14,5 +14,8 @@
     <dimen name="additional_font_size">20sp</dimen>
     <dimen name="edit_text_label_font_size">14sp</dimen>
     <dimen name="input_logo_size">@dimen/additional_font_size</dimen>
-    <dimen name="between_inputs">32dp</dimen>
+    <dimen name="between_inputs">25dp</dimen>
+    <dimen name="btn_radius">3dp</dimen>
+    <dimen name="btn_padding">1dp</dimen>
+    <dimen name="btn_margin">3dp</dimen>
 </resources>

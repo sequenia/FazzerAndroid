@@ -2,6 +2,6 @@
 <resources>
     <item name="main_bg_color" type="color">#7c4dff</item>
     <item name="white" type="color">#ffffff</item>
-    <item name="gray" type="color">#cccccc</item>
-    <item name="green" type="color">#49b659</item>
+    <item name="green" type="color">#49b65d</item>
+    <item name="dark_green" type="color">#119911</item>
 </resources>
