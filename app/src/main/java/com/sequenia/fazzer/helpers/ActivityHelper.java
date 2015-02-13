@@ -14,6 +14,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sequenia.fazzer.activities.FirstFilterActivity;
+import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.activities.RegisterActivity;
 import com.sequenia.fazzer.activities.WelcomeActivity;
 
@@ -53,6 +55,16 @@ public class ActivityHelper {
     public static void showRegisterActivity(Context packageContext) {
         Intent intent = new Intent(packageContext, RegisterActivity.class);
         packageContext.startActivity(intent);
+    }
+
+    public static void showHomeActivity(Context context) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showFirstFilterActivity(Context context) {
+        Intent intent = new Intent(context, FirstFilterActivity.class);
+        context.startActivity(intent);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

@@ -47,6 +47,11 @@ public class FilterFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initSaveButton();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         initFilter();
     }
 
@@ -55,7 +60,12 @@ public class FilterFragment extends Fragment {
         saveFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Activity activity = getActivity();
                 saveFilter();
+                if(getActivity().getIntent().getBooleanExtra(FazzerHelper.NEEDS_CLOSE, false)) {
+                    ActivityHelper.showHomeActivity(activity);
+                    activity.finish();
+                };
             }
         });
     }

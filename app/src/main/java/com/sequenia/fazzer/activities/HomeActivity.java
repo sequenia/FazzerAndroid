@@ -74,10 +74,6 @@ public class HomeActivity extends ActionBarActivity {
         autoAdvertsListView.setAdapter(adapter);
     }
 
-    private void loadAutoAdvertsFromAPI() {
-        new AutoAdvertsLoader(this).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + mPreferences.getString("AuthToken", ""));
-    }
-
     private void showAdvert(int position) {
         Intent intent = new Intent(HomeActivity.this,
                 AutoAdvertActivity.class);
@@ -103,7 +99,7 @@ public class HomeActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.refresh:
-                loadAutoAdvertsFromAPI();
+                FazzerHelper.loadAutoAdvertsFromAPI(this);
                 return true;
 
             case R.id.logout:
@@ -121,11 +117,8 @@ public class HomeActivity extends ActionBarActivity {
         super.onResume();
 
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
-            if(ActivityHelper.isNetworkAvailable(this)) {
-                new UpdateCatalogsTask(this).execute();
-            }
-
-            loadAutoAdvertsFromAPI();
+            FazzerHelper.updateCatalogs(this);
+            FazzerHelper.loadAutoAdvertsFromAPI(this);
         } else {
             if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false) == false) {
                 ActivityHelper.showRegisterActivity(this);

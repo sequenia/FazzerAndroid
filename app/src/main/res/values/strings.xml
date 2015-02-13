@@ -42,5 +42,11 @@
     <string name="save_filter">Сохранить фильтр</string>
     <string name="show_in_browser">Открыть страницу на сайте</string>
     <string name="slogan">Ищет машины пока вы заняты</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_first_filter">FirstFilterActivity</string>
+    <string name="filter_slogan_part_one">Введите свои предпочтения и получайте</string>
+    <string name="filter_slogan_part_two">самые свежие обновления</string>
 
 </resources>

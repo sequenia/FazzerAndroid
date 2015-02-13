@@ -7,9 +7,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.async_tasks.WaitingDialog;
 import com.sequenia.fazzer.helpers.FazzerHelper;
+import com.sequenia.fazzer.helpers.RealmHelper;
+import com.sequenia.fazzer.requests_data.FilterInfo;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -81,8 +84,16 @@ public class LoginTask extends WaitingDialog<String, JSONObject> {
                 editor.putString(FazzerHelper.USER_PHONE, this.phone);
                 editor.commit();
 
-                // launch the HomeActivity and close this one
-                Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                // Показать обучалку, если пользователь еще не ввел все данные.
+                // Иначе показать объявления.
+                FilterInfo filterInfo = RealmHelper.getFilter(context, this.phone);
+                Intent intent;
+                if(filterInfo == null) {
+                    intent = new Intent(context.getApplicationContext(), FirstFilterActivity.class);
+                    intent.putExtra(FazzerHelper.NEEDS_CLOSE, true);
+                } else {
+                    intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                }
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }

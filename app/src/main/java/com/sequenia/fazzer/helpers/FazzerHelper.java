@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
+import com.sequenia.fazzer.async_tasks.UpdateCatalogsTask;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public class FazzerHelper {
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
     public static final String USER_PHONE = "UserPhone";
     public static final String REGISTERED = "Registered";
-
+    public static final String NEEDS_CLOSE = "NeedsClose";
 
     public static String getAuthToken(Context context) {
         SharedPreferences mPreferences = getUserPreferences(context);
@@ -73,5 +75,15 @@ public class FazzerHelper {
         editor.remove(AUTH_TOKEN);
         editor.remove(USER_PHONE);
         editor.commit();
+    }
+
+    public static void updateCatalogs(Context context) {
+        if(ActivityHelper.isNetworkAvailable(context)) {
+            new UpdateCatalogsTask(context).execute();
+        }
+    }
+
+    public static void loadAutoAdvertsFromAPI(Context context) {
+        new AutoAdvertsLoader(context).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + getUserPreferences(context).getString("AuthToken", ""));
     }
 }
