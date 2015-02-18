@@ -20,9 +20,9 @@ import java.util.ArrayList;
  * Created by chybakut2004 on 11.02.15.
  */
 public class ApiHelper {
-    public static final String HOST = "http://178.62.184.226";
+    //public static final String HOST = "http://178.62.184.226";
     //public static final String HOST = "http://192.168.1.42:3000";
-    //public static final String HOST = "http://192.168.0.36:3000";
+    public static final String HOST = "http://192.168.0.36:3000";
     public static final String CAR_MARKS_VERSION_URL = HOST + "/api/v1/car_marks_version.json";
     public static final String CAR_MODELS_VERSION_URL = HOST + "/api/v1/car_models_version.json";
     public static final String CITIES_VERSION_URL = HOST + "/api/v1/cities_version.json";
@@ -34,6 +34,7 @@ public class ApiHelper {
     public final static String LOGIN_API_ENDPOINT_URL = HOST + "/api/v1/sessions.json";
     public static final String FILTERS_URL = HOST + "/api/v1/auto_filters.json";
     public static final String AUTO_ADVERTS_URL = HOST + "/api/v1/auto_adverts.json";
+    public static final String REGISTRATION_ID_URL = HOST + "/api/v1/devices.json";
 
     public static String loadJson(String url_str) {
         HttpURLConnection urlConnection = null;
