@@ -7,7 +7,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
+import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
+import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
@@ -18,10 +21,14 @@ import java.util.ArrayList;
  */
 public class AutoAdvertsLoader extends AsyncTask<String, Void, String> {
 
-    Context context;
+    private Context context;
+    private ArrayList<AutoAdvertMinInfo> autoAdverts;
+    private AutoAdvertsAdapter adapter;
 
-    public AutoAdvertsLoader(Context context) {
+    public AutoAdvertsLoader(Context context, ArrayList<AutoAdvertMinInfo> autoAdverts, AutoAdvertsAdapter adapter) {
         this.context = context;
+        this.autoAdverts = autoAdverts;
+        this.adapter = adapter;
     }
 
     @Override
@@ -35,9 +42,11 @@ public class AutoAdvertsLoader extends AsyncTask<String, Void, String> {
 
         if(s != null) {
             Response r = new Gson().fromJson(s, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
-            ArrayList<AutoAdvertMinInfo> autoAdverts = (ArrayList<AutoAdvertMinInfo>) r.getData();
+            ArrayList<AutoAdvertMinInfo> newAdverts = (ArrayList<AutoAdvertMinInfo>) r.getData();
 
-            ((HomeActivity) context).addAdverts(autoAdverts);
+            this.autoAdverts.clear();
+            this.autoAdverts.addAll(0, newAdverts);
+            adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
         }

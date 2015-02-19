@@ -1,33 +1,12 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent" >
 
-    <LinearLayout
+    <android.support.v4.view.PagerTabStrip
+        android:id="@+id/pager_title_strip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
-
-        <FrameLayout
-            android:id="@+id/filter_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </FrameLayout>
-
-        <TextView
-            style="@style/AdvertLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/adverts" />
-
-        <ListView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/auto_adverts_list_view"></ListView>
-
-    </LinearLayout>
-
-</ScrollView>
+        android:layout_gravity="top" />
+</android.support.v4.view.ViewPager>

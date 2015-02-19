@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.UpdateCatalogsTask;
+import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
+import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 
 import java.util.ArrayList;
 
@@ -83,7 +86,7 @@ public class FazzerHelper {
         }
     }
 
-    public static void loadAutoAdvertsFromAPI(Context context) {
-        new AutoAdvertsLoader(context).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + getUserPreferences(context).getString("AuthToken", ""));
+    public static void loadAutoAdvertsFromAPI(Context context, ArrayList<AutoAdvertMinInfo> autoAdverts, AutoAdvertsAdapter adapter) {
+        new AutoAdvertsLoader(context, autoAdverts, adapter).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + getUserPreferences(context).getString("AuthToken", ""));
     }
 }
