@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.serializers;
+package com.sequenia.fazzer.gson;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

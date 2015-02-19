@@ -20,7 +20,7 @@ import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.requests_data.FilterInfo;
-import com.sequenia.fazzer.serializers.FilterInfoSerializer;
+import com.sequenia.fazzer.gson.FilterInfoSerializer;
 
 import io.realm.Realm;
 

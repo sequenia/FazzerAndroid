@@ -4,4 +4,5 @@
     <item name="white" type="color">#ffffff</item>
     <item name="green" type="color">#49b65d</item>
     <item name="dark_green" type="color">#119911</item>
+    <item name="tab_text_second_color" type="color">#b287ff</item>
 </resources>

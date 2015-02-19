@@ -17,7 +17,7 @@ public class Migration implements RealmMigration {
 
     @Override
     public long execute(Realm realm, long version) {
-        System.out.println(version);
+        /*System.out.println(version);
         if (version == 0) {
             Table filtersTable = realm.getTable(FilterInfo.class);
 
@@ -82,7 +82,7 @@ public class Migration implements RealmMigration {
             table.addColumn(ColumnType.INTEGER, "car_mark_id");
 
             version++;
-        }
+        }*/
 
         return version;
     }

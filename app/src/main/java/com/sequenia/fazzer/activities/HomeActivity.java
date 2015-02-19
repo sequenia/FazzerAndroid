@@ -18,6 +18,7 @@ import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
+import com.sequenia.fazzer.widgets.SlidingTabLayout;
 
 public class HomeActivity extends ActionBarActivity {
 
@@ -55,6 +56,16 @@ public class HomeActivity extends ActionBarActivity {
         pagerAdapter = new HomeActivityPagerAdapter(getSupportFragmentManager());
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
+
+        SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        slidingTabLayout.setDistributeEvenly(true);
+        slidingTabLayout.setViewPager(pager);
+        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.white);
+            }
+        });
     }
 
     @Override

@@ -34,10 +34,10 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
         String title = null;
         switch (position) {
             case 0:
-                title = "Фильтр";
+                title = "ПОИСК";
                 break;
             case 1:
-                title = "Объявления";
+                title = "ОБЪЯВЛЕНИЯ";
                 break;
         }
         return title;

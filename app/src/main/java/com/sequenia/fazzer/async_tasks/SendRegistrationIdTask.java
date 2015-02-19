@@ -5,12 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.requests_data.Device;
-import com.sequenia.fazzer.requests_data.FilterInfo;
-import com.sequenia.fazzer.requests_data.Response;
-import com.sequenia.fazzer.serializers.FilterInfoSerializer;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
