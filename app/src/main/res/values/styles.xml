@@ -1,10 +1,16 @@
 <resources>
 
-    <style name="FazzerTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="FazzerTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/main_bg_color</item>
         <item name="android:colorBackground">@color/main_bg_color</item>
         <item name="android:editTextStyle">@style/EditText</item>
+        <item name="android:textViewStyle">@style/Text</item>
         <item name="android:buttonStyle">@style/Button</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+    </style>
+
+    <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/main_bg_color</item>
     </style>
 
     <style name="Button" parent="Widget.AppCompat.Light.ActionButton">
@@ -22,6 +28,11 @@
         <item name="android:textColor">#686868</item>
         <item name="android:textColorHint">#cfcfcf</item>
         <item name="android:paddingLeft">0dp</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:textSize">@dimen/edit_text_label_font_size</item>
+        <item name="android:textColor">#686868</item>
     </style>
 
     <style name="EditTextLabel">

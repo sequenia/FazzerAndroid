@@ -41,4 +41,18 @@ public class ObjectsHelper {
         }
         return result;
     }
+
+    public static String prettifyPrice(String price) {
+        StringBuilder pretty = new StringBuilder("");
+        int count = 0;
+        for(int i = price.length() - 1; i >= 0; i--) {
+            if(count % 3 == 0 && count != 0) {
+                pretty.insert(0, ' ');
+            }
+            pretty.insert(0, price.charAt(i));
+            count++;
+        }
+        pretty.append(" р.");
+        return pretty.toString();
+    }
 }

@@ -2,13 +2,9 @@ package com.sequenia.fazzer.activities;
 
 import android.content.SharedPreferences;
 
-import android.support.v4.view.PagerTabStrip;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.HomeActivityPagerAdapter;
@@ -20,7 +16,7 @@ import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.widgets.SlidingTabLayout;
 
-public class HomeActivity extends ActionBarActivity {
+public class HomeActivity extends FragmentActivity {
 
     private SharedPreferences mPreferences;
     GcmRegistrationService gcmRegistrationService = null;
@@ -58,7 +54,7 @@ public class HomeActivity extends ActionBarActivity {
         pager.setAdapter(pagerAdapter);
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        slidingTabLayout.setDistributeEvenly(true);
+        //slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(pager);
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
@@ -66,26 +62,6 @@ public class HomeActivity extends ActionBarActivity {
                 return getResources().getColor(R.color.white);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.logout:
-                logout();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
     }
 
     @Override
@@ -97,20 +73,14 @@ public class HomeActivity extends ActionBarActivity {
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             FazzerHelper.updateCatalogs(this);
         } else {
-            if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false) == false) {
-                ActivityHelper.showRegisterActivity(this);
-                finish();
-            } else {
+            //if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false) == false) {
+            //    ActivityHelper.showRegisterActivity(this);
+            //    finish();
+            //} else {
                 ActivityHelper.showWelcomeActivity(this);
                 finish();
-            }
+            //}
         }
-    }
-
-    public void logout() {
-        FazzerHelper.logout(this);
-        ActivityHelper.showWelcomeActivity(this);
-        this.finish();
     }
 
     private void sendRegistrationId(String regId) {

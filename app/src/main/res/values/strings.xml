@@ -12,7 +12,9 @@
     <string name="welcome_title">Добро пожаловать!</string>
     <string name="welcome_text">Войдите или зарегистрируйтесь</string>
     <string name="register">Регистрация</string>
+    <string name="do_register">Зарегистрироваться</string>
     <string name="login">Вход</string>
+    <string name="do_login">Войти</string>
     <string name="title_activity_login">Вход</string>
     <string name="phone">Номер телефона</string>
     <string name="password">Код из смс</string>

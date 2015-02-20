@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         style="@style/ButtonSize"
-        android:text="@string/register"/>
+        android:text="@string/do_register"/>
 
 </LinearLayout>

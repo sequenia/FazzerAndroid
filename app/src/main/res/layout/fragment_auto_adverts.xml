@@ -2,10 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/pager_bg_color">
 
     <ListView android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:padding="@dimen/keyline_margin"
+        android:clipToPadding="false"
         android:id="@+id/auto_adverts_list_view"></ListView>
 
 </LinearLayout>

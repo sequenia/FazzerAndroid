@@ -1,44 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="1dp"
+    card_view:cardBackgroundColor="@color/white">
 
-    <TextView
-        android:id="@+id/mark_and_model"
-        style="@style/AdvertLabel"
-        android:text="@string/advert">
-    </TextView>
-    
     <LinearLayout
-        android:id="@+id/price_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mark_and_model">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/price_label"
-            style="@style/AdvertInfoLabel"
-            android:text="@string/price">
-        </TextView>
+        <ImageView
+            android:src="@drawable/search_bubble"
+            android:scaleType="center"
+            android:layout_width="130dp"
+            android:layout_height="130dp" />
 
-        <TextView
-            android:id="@+id/price"
-            style="@style/AdvertInfo"
-            android:text="@string/price">
-        </TextView>
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/year_label"
-            style="@style/AdvertInfoLabel"
-            android:text="@string/year">
-        </TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/year"
-            style="@style/AdvertInfo"
-            android:text="@string/year">
-        </TextView>
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    android:id="@+id/mark_and_model"
+                    style="@style/Text"
+                    android:text="@string/model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"/>
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditTextLabel"
+                    android:text="@string/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    android:id="@+id/price"
+                    style="@style/Text"
+                    android:text="@string/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+
+</android.support.v7.widget.CardView>

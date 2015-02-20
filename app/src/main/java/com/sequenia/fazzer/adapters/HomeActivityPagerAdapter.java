@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.fragments.FilterFragment;
+import com.sequenia.fazzer.fragments.UserFragment;
 
 /**
  * Created by chybakut2004 on 19.02.15.
@@ -25,6 +26,9 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment = new AutoAdvertsFragment();
                 break;
+            case 2:
+                fragment = new UserFragment();
+                break;
         }
         return fragment;
     }
@@ -39,12 +43,15 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 title = "ОБЪЯВЛЕНИЯ";
                 break;
+            case 2:
+                title = "КАБИНЕТ";
+                break;
         }
         return title;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

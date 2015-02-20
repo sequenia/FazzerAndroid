@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ButtonSize"
-        android:text="@string/login"/>
+        android:text="@string/do_login"/>
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 
 import java.util.List;
@@ -40,10 +41,10 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
         markAndModel.setText(label);
 
         TextView price = (TextView) view.findViewById(R.id.price);
-        price.setText(String.valueOf(autoAdvert.getPrice()));
+        price.setText(ObjectsHelper.prettifyPrice(String.valueOf(autoAdvert.getPrice())));
 
-        TextView year = (TextView) view.findViewById(R.id.year);
-        year.setText(String.valueOf(autoAdvert.getYear()));
+        //TextView year = (TextView) view.findViewById(R.id.year);
+        //year.setText(String.valueOf(autoAdvert.getYear()));
 
         return view;
     }

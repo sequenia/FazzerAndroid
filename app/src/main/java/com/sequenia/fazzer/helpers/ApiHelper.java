@@ -20,9 +20,9 @@ import java.util.ArrayList;
  * Created by chybakut2004 on 11.02.15.
  */
 public class ApiHelper {
-    //public static final String HOST = "http://178.62.184.226";
+    public static final String HOST = "http://178.62.184.226";
     //public static final String HOST = "http://192.168.1.42:3000";
-    public static final String HOST = "http://192.168.0.36:3000";
+    //public static final String HOST = "http://192.168.0.36:3000";
     public static final String CAR_MARKS_VERSION_URL = HOST + "/api/v1/car_marks_version.json";
     public static final String CAR_MODELS_VERSION_URL = HOST + "/api/v1/car_models_version.json";
     public static final String CITIES_VERSION_URL = HOST + "/api/v1/cities_version.json";
