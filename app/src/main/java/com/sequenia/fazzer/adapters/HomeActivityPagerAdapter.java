@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.fragments.FilterFragment;
 import com.sequenia.fazzer.fragments.UserFragment;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 
 import java.util.ArrayList;
 

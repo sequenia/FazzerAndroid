@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -10,9 +10,9 @@ import com.sequenia.fazzer.gson.CarModelDeserializer;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
-import com.sequenia.fazzer.requests_data.CarMark;
-import com.sequenia.fazzer.requests_data.CarModel;
-import com.sequenia.fazzer.requests_data.City;
+import com.sequenia.fazzer.objects.CarMark;
+import com.sequenia.fazzer.objects.CarModel;
+import com.sequenia.fazzer.objects.City;
 import com.sequenia.fazzer.requests_data.Response;
 import com.sequenia.fazzer.gson.CityDeserializer;
 

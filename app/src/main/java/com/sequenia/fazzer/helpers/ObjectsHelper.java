@@ -1,5 +1,14 @@
 package com.sequenia.fazzer.helpers;
 
+import com.sequenia.fazzer.objects.CarMark;
+import com.sequenia.fazzer.objects.CarModel;
+import com.sequenia.fazzer.objects.City;
+import com.sequenia.fazzer.objects.Option;
+
+import java.util.ArrayList;
+
+import io.realm.RealmResults;
+
 /**
  * Created by chybakut2004 on 06.02.15.
  */
@@ -54,5 +63,49 @@ public class ObjectsHelper {
         }
         pretty.append(" р.");
         return pretty.toString();
+    }
+
+    public static ArrayList<Option> genCityOptions(RealmResults<City> cities) {
+        ArrayList<Option> options = new ArrayList<Option>();
+
+        for(int i = 0; i < cities.size(); i++) {
+            City object = cities.get(i);
+            String name = object.getName();
+            if(!name.contains(",")) {
+                options.add(new Option(String.valueOf(object.getId()), name));
+            }
+        }
+
+        for(int i = 0; i < cities.size(); i++) {
+            City object = cities.get(i);
+            String name = object.getName();
+            if(name.contains(",")) {
+                options.add(new Option(String.valueOf(object.getId()), name));
+            }
+        }
+
+        return options;
+    }
+
+    public static ArrayList<Option> genCarMarkOptions(RealmResults<CarMark> carMarks) {
+        ArrayList<Option> options = new ArrayList<Option>();
+
+        for(int i = 0; i < carMarks.size(); i++) {
+            CarMark object = carMarks.get(i);
+            options.add(new Option(String.valueOf(object.getId()), object.getName()));
+        }
+
+        return options;
+    }
+
+    public static ArrayList<Option> genCarModelOptions(RealmResults<CarModel> carModels) {
+        ArrayList<Option> options = new ArrayList<Option>();
+
+        for(int i = 0; i < carModels.size(); i++) {
+            CarModel object = carModels.get(i);
+            options.add(new Option(String.valueOf(object.getId()), object.getName()));
+        }
+
+        return options;
     }
 }

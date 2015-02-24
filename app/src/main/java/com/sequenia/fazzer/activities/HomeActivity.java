@@ -3,21 +3,18 @@ package com.sequenia.fazzer.activities;
 import android.content.SharedPreferences;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.HomeActivityPagerAdapter;
 import com.sequenia.fazzer.async_tasks.SendRegistrationIdTask;
-import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.gcm.GcmRegistrationService;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.widgets.SlidingTabLayout;
 
 import java.util.ArrayList;

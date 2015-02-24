@@ -1,22 +1,13 @@
-package com.sequenia.fazzer.requests_data;
+package com.sequenia.fazzer.objects;
 
 import io.realm.RealmObject;
 
 /**
  * Created by chybakut2004 on 11.02.15.
  */
-public class CarModel extends RealmObject {
+public class CarMark extends RealmObject {
     private int id;
     private String name;
-    private int car_mark_id;
-
-    public int getCar_mark_id() {
-        return car_mark_id;
-    }
-
-    public void setCar_mark_id(int car_mark_id) {
-        this.car_mark_id = car_mark_id;
-    }
 
     public String getName() {
         return name;

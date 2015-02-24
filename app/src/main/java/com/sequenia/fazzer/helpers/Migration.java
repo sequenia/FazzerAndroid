@@ -1,11 +1,7 @@
 package com.sequenia.fazzer.helpers;
 
-import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
-import com.sequenia.fazzer.requests_data.CarMark;
-import com.sequenia.fazzer.requests_data.CarModel;
-import com.sequenia.fazzer.requests_data.City;
-import com.sequenia.fazzer.requests_data.FilterInfo;
+import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 
 import io.realm.Realm;
 import io.realm.RealmMigration;

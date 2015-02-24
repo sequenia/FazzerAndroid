@@ -6,4 +6,6 @@
     <item name="dark_green" type="color">#119911</item>
     <item name="tab_text_second_color" type="color">#b287ff</item>
     <item name="pager_bg_color" type="color">#f1f5f7</item>
+    <item name="edit_text_label_color" type="color">#a5a5a5</item>
+    <item name="default_text_color" type="color">#686868</item>
 </resources>

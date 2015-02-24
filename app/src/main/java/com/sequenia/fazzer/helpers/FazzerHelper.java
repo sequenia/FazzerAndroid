@@ -3,14 +3,7 @@ package com.sequenia.fazzer.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.sequenia.fazzer.activities.HomeActivity;
-import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
-import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.UpdateCatalogsTask;
-import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
-
-import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 06.02.15.

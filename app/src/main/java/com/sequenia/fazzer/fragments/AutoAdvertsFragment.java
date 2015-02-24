@@ -15,11 +15,8 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
-import com.sequenia.fazzer.helpers.ActivityHelper;
-import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
-import com.sequenia.fazzer.requests_data.Response;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 
 import java.util.ArrayList;
 

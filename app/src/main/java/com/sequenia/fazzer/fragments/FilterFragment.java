@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -18,12 +20,11 @@ import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
 import com.sequenia.fazzer.helpers.ActivityHelper;
-import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
-import com.sequenia.fazzer.requests_data.FilterInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
+import com.sequenia.fazzer.objects.FilterInfo;
 import com.sequenia.fazzer.gson.FilterInfoSerializer;
 import com.sequenia.fazzer.requests_data.Response;
 
@@ -35,7 +36,6 @@ import io.realm.Realm;
  * Created by chybakut2004 on 12.02.15.
  */
 public class FilterFragment extends Fragment {
-
     FilterInfo filterInfo = null;
 
     public FilterFragment() {
@@ -45,6 +45,8 @@ public class FilterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
+
+        initDialogs(view);
 
         return view;
     }
@@ -75,6 +77,19 @@ public class FilterFragment extends Fragment {
                 };
             }
         });
+    }
+
+    private void initDialogs(View view) {
+        FragmentActivity activity = getActivity();
+
+        TextView mark = (TextView) view.findViewById(R.id.mark);
+        ActivityHelper.setupSelectDialog(mark, activity, activity.getResources().getString(R.string.mark), ObjectsHelper.genCarMarkOptions(RealmHelper.getCarMarks(activity)));
+
+        TextView model = (TextView) view.findViewById(R.id.model);
+        ActivityHelper.setupSelectDialog(model, activity, activity.getResources().getString(R.string.model), ObjectsHelper.genCarModelOptions(RealmHelper.getCarModels(activity)));
+
+        TextView city = (TextView) view.findViewById(R.id.city);
+        ActivityHelper.setupSelectDialog(city, activity, activity.getResources().getString(R.string.city), ObjectsHelper.genCityOptions(RealmHelper.getCities(activity)));
     }
 
     private void saveFilter() {
@@ -120,8 +135,8 @@ public class FilterFragment extends Fragment {
         Realm realm = Realm.getInstance(activity);
         realm.beginTransaction();
 
-        filterInfo.setCarMarkId(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(activity, R.id.mark)));
-        filterInfo.setCarModelId(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(activity, R.id.model)));
+        filterInfo.setCarMarkId(ObjectsHelper.strToIntNoZero(ActivityHelper.getTextTextView(activity, R.id.mark)));
+        filterInfo.setCarModelId(ObjectsHelper.strToIntNoZero(ActivityHelper.getTextTextView(activity, R.id.model)));
         filterInfo.setMinPrice(ObjectsHelper.strToFloatNoZero(ActivityHelper.getText(activity, R.id.min_price)));
         filterInfo.setMaxPrice(ObjectsHelper.strToFloatNoZero(ActivityHelper.getText(activity, R.id.max_price)));
         filterInfo.setMinYear(ObjectsHelper.strToIntNoZero(ActivityHelper.getText(activity, R.id.min_year)));

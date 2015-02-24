@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.helpers.ApiHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
+import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
 /**

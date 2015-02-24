@@ -1,6 +1,5 @@
 package com.sequenia.fazzer.activities;
 
-import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +16,7 @@ import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
+import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
 import com.squareup.picasso.Picasso;
 
 
@@ -123,7 +122,6 @@ public class AutoAdvertActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
                 finish();
                 return true;
         }

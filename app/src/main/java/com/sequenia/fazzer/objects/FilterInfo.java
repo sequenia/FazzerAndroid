@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.requests_data;
+package com.sequenia.fazzer.objects;
 
 import io.realm.RealmObject;
 

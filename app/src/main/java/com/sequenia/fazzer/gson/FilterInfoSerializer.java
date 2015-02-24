@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.sequenia.fazzer.requests_data.FilterInfo;
+import com.sequenia.fazzer.objects.FilterInfo;
 
 import java.lang.reflect.Type;
 

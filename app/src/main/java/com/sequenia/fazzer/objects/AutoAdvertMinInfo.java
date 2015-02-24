@@ -1,4 +1,4 @@
-package com.sequenia.fazzer.requests_data;
+package com.sequenia.fazzer.objects;
 
 /**
  * Created by chybakut2004 on 04.02.15.

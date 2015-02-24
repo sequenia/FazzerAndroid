@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,22 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.activities.RegisterActivity;
 import com.sequenia.fazzer.activities.WelcomeActivity;
+import com.sequenia.fazzer.dialogs.SelectDialogFragment;
+import com.sequenia.fazzer.objects.Option;
+
+import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 06.02.15.
  */
 public class ActivityHelper {
+    private static final String DIALOG_TAG = "Dialog";
+
     public static TextView setText(Activity activity, int resourceId, String text) {
         TextView tv = (TextView) activity.findViewById(resourceId);
 
@@ -37,6 +45,15 @@ public class ActivityHelper {
     public static String getText(Activity activity, int resourceId) {
         String result = null;
         EditText et = (EditText) activity.findViewById(resourceId);
+        if(et != null) {
+            result = et.getText().toString();
+        }
+        return result;
+    }
+
+    public static String getTextTextView(Activity activity, int resourceId) {
+        String result = null;
+        TextView et = (TextView) activity.findViewById(resourceId);
         if(et != null) {
             result = et.getText().toString();
         }
@@ -101,5 +118,16 @@ public class ActivityHelper {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         return displaymetrics.widthPixels;
+    }
+
+    public static void setupSelectDialog(View view, final FragmentActivity activity, final String title, final ArrayList<Option> options) {
+        view.setFocusable(false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectDialogFragment dialog = SelectDialogFragment.newInstance(title, options);
+                dialog.show(activity.getSupportFragmentManager(), DIALOG_TAG);
+            }
+        });
     }
 }

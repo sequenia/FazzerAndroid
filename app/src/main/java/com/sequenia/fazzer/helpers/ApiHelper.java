@@ -1,12 +1,7 @@
 package com.sequenia.fazzer.helpers;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sequenia.fazzer.activities.HomeActivity;
-import com.sequenia.fazzer.requests_data.City;
 import com.sequenia.fazzer.requests_data.Response;
 
 import java.io.BufferedReader;
@@ -14,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 11.02.15.

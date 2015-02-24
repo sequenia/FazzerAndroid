@@ -35,7 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                    style="@style/EditText"
                     android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,7 +75,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditText"
                         android:id="@+id/mark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -95,7 +97,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.sequenia.fazzer.widgets.RobotoRegularEditText
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditText"
                         android:id="@+id/model"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

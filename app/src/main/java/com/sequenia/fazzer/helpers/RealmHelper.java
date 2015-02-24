@@ -2,19 +2,16 @@ package com.sequenia.fazzer.helpers;
 
 import android.content.Context;
 
-import com.sequenia.fazzer.requests_data.CarMark;
-import com.sequenia.fazzer.requests_data.CarModel;
-import com.sequenia.fazzer.requests_data.City;
-import com.sequenia.fazzer.requests_data.FilterInfo;
+import com.sequenia.fazzer.objects.CarMark;
+import com.sequenia.fazzer.objects.CarModel;
+import com.sequenia.fazzer.objects.City;
+import com.sequenia.fazzer.objects.FilterInfo;
 
 import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmMigration;
 import io.realm.RealmQuery;
-import io.realm.internal.ColumnType;
-import io.realm.internal.Table;
-import io.realm.processor.RealmVersionChecker;
+import io.realm.RealmResults;
 
 /**
  * Created by chybakut2004 on 06.02.15.
@@ -144,5 +141,32 @@ public class RealmHelper {
         CarModel carModel = query.findFirst();
 
         return carModel;
+    }
+
+    public static RealmResults<City> getCities(Context context) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<City> query = realm.where(City.class);
+        RealmResults<City> result = query.findAllSorted("name");
+
+        return result;
+    }
+
+    public static RealmResults<CarMark> getCarMarks(Context context) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<CarMark> query = realm.where(CarMark.class);
+        RealmResults<CarMark> result = query.findAll();
+
+        return result;
+    }
+
+    public static RealmResults<CarModel> getCarModels(Context context) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<CarModel> query = realm.where(CarModel.class);
+        RealmResults<CarModel> result = query.findAll();
+
+        return result;
     }
 }

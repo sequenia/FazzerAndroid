@@ -6,13 +6,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sequenia.fazzer.activities.HomeActivity;
-import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
-import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
-import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
-import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
 import java.util.ArrayList;
