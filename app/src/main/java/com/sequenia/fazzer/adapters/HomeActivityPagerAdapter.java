@@ -7,11 +7,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.fragments.FilterFragment;
 import com.sequenia.fazzer.fragments.UserFragment;
+import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
+
+import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 19.02.15.
  */
 public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
+    AutoAdvertsFragment autoAdvertsFragment;
+
     public HomeActivityPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -24,7 +29,8 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
                 fragment = new FilterFragment();
                 break;
             case 1:
-                fragment = new AutoAdvertsFragment();
+                autoAdvertsFragment = new AutoAdvertsFragment();
+                fragment = autoAdvertsFragment;
                 break;
             case 2:
                 fragment = new UserFragment();
@@ -53,5 +59,11 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+
+    public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
+        if(autoAdvertsFragment != null) {
+            autoAdvertsFragment.showNewAdverts(newAdverts);
+        }
     }
 }

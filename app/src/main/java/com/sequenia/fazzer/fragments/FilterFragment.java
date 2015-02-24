@@ -9,18 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
+import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.FilterInfo;
 import com.sequenia.fazzer.gson.FilterInfoSerializer;
+import com.sequenia.fazzer.requests_data.Response;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 
@@ -79,7 +86,33 @@ public class FilterFragment extends Fragment {
                 .create();
         String json = gson.toJson(filterInfo, FilterInfo.class);
 
-        new SaveFilterTask(activity, json).execute(ApiHelper.FILTERS_URL + "?auth_token=" + FazzerHelper.getAuthToken(activity));
+        new SaveFilterTask(activity) {
+            @Override
+            public void onPostExecuteCustom(Response<String> response) {
+                showResultMessage(response);
+                showNewAdverts(response);
+            }
+        }.execute(json);
+    }
+
+    private void showResultMessage(Response<String> response) {
+        if(response != null) {
+            Toast.makeText(getActivity(), response.getInfo(), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity(), "Данные не получены", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void showNewAdverts(Response<String> response) {
+        final HomeActivity activity = (HomeActivity) getActivity();
+        if(response != null) {
+            new AutoAdvertsLoader(activity) {
+                @Override
+                public void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts) {
+                    activity.showNewAdverts(newAdverts);
+                }
+            }.execute();
+        }
     }
 
     public void readFilterInfoFromForm() {

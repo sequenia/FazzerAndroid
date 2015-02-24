@@ -18,6 +18,15 @@ public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
     private String steering_wheel;
     private String drive;
     private String transmission;
+    private String photo_url;
+
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
+    }
 
     public String getMileage() {
         return mileage;

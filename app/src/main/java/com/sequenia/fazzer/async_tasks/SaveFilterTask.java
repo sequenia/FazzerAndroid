@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sequenia.fazzer.helpers.ApiHelper;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.requests_data.Response;
 
 import org.apache.http.client.ResponseHandler;
@@ -19,24 +21,30 @@ import java.io.IOException;
 /**
  * Created by chybakut2004 on 06.02.15.
  */
-public class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
+public abstract class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
 
     private Context context = null;
-    private String filterInfoJson = null;
+    private String url = null;
 
-    public SaveFilterTask(Context context, String filterInfoJson) {
+    public SaveFilterTask(Context context) {
         this.context = context;
-        this.filterInfoJson = filterInfoJson;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        url = ApiHelper.FILTERS_URL + "?auth_token=" + FazzerHelper.getAuthToken(context);
     }
 
     @Override
     protected Response<String> doInBackground(String... params) {
+        String filterInfoJson = params[0];
         DefaultHttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(params[0]);
+        HttpPost post = new HttpPost(url);
         Response<String> response = null;
 
         try {
-            StringEntity se = new StringEntity(this.filterInfoJson);
+            StringEntity se = new StringEntity(filterInfoJson);
             post.setEntity(se);
 
             // setup the request headers
@@ -55,10 +63,8 @@ public class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
 
     @Override
     protected void onPostExecute(Response<String> response) {
-        if(response != null) {
-            Toast.makeText(context, response.getInfo(), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
-        }
+        onPostExecuteCustom(response);
     }
+
+    public abstract void onPostExecuteCustom(Response<String> response);
 }

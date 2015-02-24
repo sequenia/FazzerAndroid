@@ -11,12 +11,19 @@ public class AutoAdvertMinInfo {
     private int year;
     private int price;
     private int id;
-
+    private String photo_preview_url;
 
     public AutoAdvertMinInfo() {
 
-
     };
+
+    public String getPhoto_preview_url() {
+        return photo_preview_url;
+    }
+
+    public void setPhoto_preview_url(String photo_preview_url) {
+        this.photo_preview_url = photo_preview_url;
+    }
 
     public int getCarMarkId() {
         return car_mark_id;

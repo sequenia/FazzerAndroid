@@ -1,234 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/pager_bg_color"
+    android:clipToPadding="false"
+    android:padding="@dimen/keyline_margin">
 
-    <LinearLayout
-        android:id="@+id/container"
+    <android.support.v7.widget.CardView
+        android:id="@+id/auto_advert_full_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp" >
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="1dp"
+        card_view:cardBackgroundColor="@color/white">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <TextView
-                android:id="@+id/mark"
-                style="@style/AdvertLabel"
-                android:text="@string/mark"/>
-
-            <TextView
-                android:id="@+id/model"
-                style="@style/AdvertLabel"
-                android:text="@string/model"/>
-
-            <TextView
-                android:id="@+id/year"
-                style="@style/AdvertLabel"
-                android:text="@string/year"/>
-            
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/price"
-            style="@style/AdvertLabel"
-            android:text="@string/price"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/fuel_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/fuel"/>
-
-            <TextView
-                android:id="@+id/fuel"
-                style="@style/AdvertInfo"
-                android:text="@string/fuel"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/displacement_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/displacement"/>
-
-            <TextView
-                android:id="@+id/displacement"
-                style="@style/AdvertInfo"
-                android:text="@string/displacement"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/transmission_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/transmission"/>
-
-            <TextView
-                android:id="@+id/transmission"
-                style="@style/AdvertInfo"
-                android:text="@string/transmission"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/drive_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/drive"/>
-
-            <TextView
-                android:id="@+id/drive"
-                style="@style/AdvertInfo"
-                android:text="@string/drive"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/mileage_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/mileage"/>
-
-            <TextView
-                android:id="@+id/mileage"
-                style="@style/AdvertInfo"
-                android:text="@string/mileage"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/body_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/body"/>
-
-            <TextView
-                android:id="@+id/body"
-                style="@style/AdvertInfo"
-                android:text="@string/body"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/wheel_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/wheel"/>
-
-            <TextView
-                android:id="@+id/wheel"
-                style="@style/AdvertInfo"
-                android:text="@string/wheel"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/color_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/color"/>
-
-            <TextView
-                android:id="@+id/color"
-                style="@style/AdvertInfo"
-                android:text="@string/color"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/city_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/city"/>
-
-            <TextView
-                android:id="@+id/city"
-                style="@style/AdvertInfo"
-                android:text="@string/city"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/exchange_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/exchange"/>
-
-            <TextView
-                android:id="@+id/exchange"
-                style="@style/AdvertInfo"
-                android:text="@string/exchange"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/AdvertFullInfo">
-
-            <TextView
-                android:id="@+id/description_label"
-                style="@style/AdvertInfoLabel"
-                android:text="@string/description"/>
-
-            <TextView
-                android:id="@+id/description"
-                style="@style/AdvertInfo"
-                android:text="@string/description"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/show_in_browser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/show_in_browser"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/photo"
+                android:src="@drawable/no_photo"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/keyline_margin"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/model"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/mark_and_model"
+                        style="@style/Text"
+                        android:text="@string/model"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/price"
+                        style="@style/Text"
+                        android:text="@string/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/year"
+                        style="@style/Text"
+                        android:text="@string/year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/displacement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/displacement"
+                        style="@style/Text"
+                        android:text="@string/displacement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/fuel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/fuel"
+                        style="@style/Text"
+                        android:text="@string/fuel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/transmission"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/transmission"
+                        style="@style/Text"
+                        android:text="@string/transmission"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/drive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/drive"
+                        style="@style/Text"
+                        android:text="@string/drive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/mileage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/mileage"
+                        style="@style/Text"
+                        android:text="@string/mileage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/body"
+                        style="@style/Text"
+                        android:text="@string/body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/wheel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/wheel"
+                        style="@style/Text"
+                        android:text="@string/wheel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/color"
+                        style="@style/Text"
+                        android:text="@string/color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/city"
+                        style="@style/Text"
+                        android:text="@string/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/exchange"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/exchange"
+                        style="@style/Text"
+                        android:text="@string/exchange"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/between_medium">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditTextLabel"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        android:id="@+id/description"
+                        style="@style/Text"
+                        android:text="@string/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/show_in_browser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_in_browser"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 </ScrollView>

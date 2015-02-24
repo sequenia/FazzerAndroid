@@ -9,12 +9,16 @@ import android.os.Bundle;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.HomeActivityPagerAdapter;
 import com.sequenia.fazzer.async_tasks.SendRegistrationIdTask;
+import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.gcm.GcmRegistrationService;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
+import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 import com.sequenia.fazzer.widgets.SlidingTabLayout;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends FragmentActivity {
 
@@ -54,7 +58,6 @@ public class HomeActivity extends FragmentActivity {
         pager.setAdapter(pagerAdapter);
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        //slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(pager);
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
@@ -73,17 +76,16 @@ public class HomeActivity extends FragmentActivity {
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             FazzerHelper.updateCatalogs(this);
         } else {
-            //if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false) == false) {
-            //    ActivityHelper.showRegisterActivity(this);
-            //    finish();
-            //} else {
-                ActivityHelper.showWelcomeActivity(this);
-                finish();
-            //}
+            ActivityHelper.showWelcomeActivity(this);
+            finish();
         }
     }
 
     private void sendRegistrationId(String regId) {
         new SendRegistrationIdTask(this, regId).execute(ApiHelper.REGISTRATION_ID_URL + "?auth_token=" + FazzerHelper.getAuthToken(this));
+    }
+
+    public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
+        pagerAdapter.showNewAdverts(newAdverts);
     }
 }

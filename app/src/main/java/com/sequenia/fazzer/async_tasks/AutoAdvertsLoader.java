@@ -10,6 +10,7 @@ import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
@@ -19,21 +20,24 @@ import java.util.ArrayList;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertsLoader extends AsyncTask<String, Void, String> {
+public abstract class AutoAdvertsLoader extends AsyncTask<Void, Void, String> {
 
     private Context context;
-    private ArrayList<AutoAdvertMinInfo> autoAdverts;
-    private AutoAdvertsAdapter adapter;
+    private String url;
 
-    public AutoAdvertsLoader(Context context, ArrayList<AutoAdvertMinInfo> autoAdverts, AutoAdvertsAdapter adapter) {
+    public AutoAdvertsLoader(Context context) {
         this.context = context;
-        this.autoAdverts = autoAdverts;
-        this.adapter = adapter;
     }
 
     @Override
-    protected String doInBackground(String... params) {
-        return ApiHelper.loadJson(params[0]);
+    protected String doInBackground(Void... params) {
+        return ApiHelper.loadJson(url);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        url = ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + FazzerHelper.getAuthToken(context);
     }
 
     @Override
@@ -43,12 +47,11 @@ public class AutoAdvertsLoader extends AsyncTask<String, Void, String> {
         if(s != null) {
             Response r = new Gson().fromJson(s, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
             ArrayList<AutoAdvertMinInfo> newAdverts = (ArrayList<AutoAdvertMinInfo>) r.getData();
-
-            this.autoAdverts.clear();
-            this.autoAdverts.addAll(0, newAdverts);
-            adapter.notifyDataSetChanged();
+            onPostExecuteCustom(newAdverts);
         } else {
             Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
         }
     }
+
+    public abstract void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts);
 }

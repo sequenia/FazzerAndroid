@@ -1,5 +1,6 @@
 package com.sequenia.fazzer.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +14,12 @@ import android.widget.ListView;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
+import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertMinInfo;
+import com.sequenia.fazzer.requests_data.Response;
 
 import java.util.ArrayList;
 
@@ -70,7 +74,18 @@ public class AutoAdvertsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println("Resumed");
-        FazzerHelper.loadAutoAdvertsFromAPI(getActivity(), autoAdverts, adapter);
+        Activity activity = getActivity();
+        new AutoAdvertsLoader(activity) {
+            @Override
+            public void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts) {
+                showNewAdverts(newAdverts);
+            }
+        }.execute();
+    }
+
+    public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
+        autoAdverts.clear();
+        autoAdverts.addAll(0, newAdverts);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -13,11 +13,15 @@
     <dimen name="main_font_size">28sp</dimen>
     <dimen name="additional_font_size">20sp</dimen>
     <dimen name="edit_text_label_font_size">14sp</dimen>
-    <dimen name="tab_font_size">10sp</dimen>
     <dimen name="input_logo_size">@dimen/additional_font_size</dimen>
-    <dimen name="between_inputs">25dp</dimen>
+    <dimen name="between_big">25dp</dimen>
     <dimen name="btn_radius">3dp</dimen>
     <dimen name="btn_padding">1dp</dimen>
     <dimen name="btn_margin">3dp</dimen>
     <dimen name="filter_slogan_margin_top">86dp</dimen>
+    <dimen name="default_card_corner_radius">0dp</dimen>
+    <dimen name="default_card_elevation">1dp</dimen>
+    <dimen name="between_small">4dp</dimen>
+    <dimen name="between_medium">10dp</dimen>
+    <dimen name="photo_preview_size">130dp</dimen>
 </resources>

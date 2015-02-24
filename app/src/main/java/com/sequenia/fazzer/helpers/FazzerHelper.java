@@ -86,7 +86,7 @@ public class FazzerHelper {
         }
     }
 
-    public static void loadAutoAdvertsFromAPI(Context context, ArrayList<AutoAdvertMinInfo> autoAdverts, AutoAdvertsAdapter adapter) {
+    /*public static void loadAutoAdvertsFromAPI(Context context, ArrayList<AutoAdvertMinInfo> autoAdverts, AutoAdvertsAdapter adapter) {
         new AutoAdvertsLoader(context, autoAdverts, adapter).execute(ApiHelper.AUTO_ADVERTS_URL + "?auth_token=" + getUserPreferences(context).getString("AuthToken", ""));
-    }
+    }*/
 }

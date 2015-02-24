@@ -1,11 +1,13 @@
 package com.sequenia.fazzer.activities;
 
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
@@ -13,7 +15,9 @@ import com.sequenia.fazzer.async_tasks.AutoAdvertLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
+import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.requests_data.AutoAdvertFullInfo;
+import com.squareup.picasso.Picasso;
 
 
 public class AutoAdvertActivity extends ActionBarActivity {
@@ -59,10 +63,20 @@ public class AutoAdvertActivity extends ActionBarActivity {
     public void setAdvertInfo(AutoAdvertFullInfo autoAdvert) {
         this.autoAdvert = autoAdvert;
 
-        setText(R.id.mark, autoAdvert.getCarMarkName());
-        setText(R.id.model, autoAdvert.getCarModelName());
+        int imageWidth = ActivityHelper.getScreenWidth(this);
+        int imageHeight = (int)((float) imageWidth * (0.75));
+
+        ImageView photo = (ImageView) findViewById(R.id.photo);
+        Picasso.with(this)
+                .load(autoAdvert.getPhoto_url())
+                .resize(imageWidth, imageHeight)
+                .placeholder(R.drawable.no_photo)
+                .centerCrop()
+                .into(photo);
+
+        setText(R.id.mark_and_model, autoAdvert.getCarMarkName() + " " + autoAdvert.getCarModelName());
         setText(R.id.year, String.valueOf(autoAdvert.getYear()));
-        setText(R.id.price, String.valueOf(autoAdvert.getPrice()));
+        setText(R.id.price, ObjectsHelper.prettifyPrice(String.valueOf(autoAdvert.getPrice())));
         setText(R.id.fuel, autoAdvert.getFuel());
         setText(R.id.displacement, autoAdvert.getDisplacement());
         setText(R.id.transmission, autoAdvert.getTransmission());
@@ -79,11 +93,11 @@ public class AutoAdvertActivity extends ActionBarActivity {
     }
 
     private void showContent() {
-        findViewById(R.id.container).setVisibility(View.VISIBLE);
+        findViewById(R.id.auto_advert_full_info).setVisibility(View.VISIBLE);
     }
 
     private void hideContent() {
-        findViewById(R.id.container).setVisibility(View.GONE);
+        findViewById(R.id.auto_advert_full_info).setVisibility(View.GONE);
     }
 
     @Override

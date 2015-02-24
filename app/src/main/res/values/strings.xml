@@ -29,7 +29,7 @@
     <string name="city">Город</string>
     <string name="exchange">Обмен</string>
     <string name="color">Цвет</string>
-    <string name="displacement">Литраж</string>
+    <string name="displacement">Объем двигателя</string>
     <string name="fuel">Топливо</string>
     <string name="transmission">Трансмиссия</string>
     <string name="drive">Привод</string>
@@ -42,7 +42,7 @@
     <string name="max_year">Год выпуска до</string>
     <string name="adverts">Объявления</string>
     <string name="save_filter">Сохранить фильтр</string>
-    <string name="show_in_browser">Открыть страницу на сайте</string>
+    <string name="show_in_browser">Перейти к объявлению</string>
     <string name="slogan">Ищет машины пока вы заняты</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world">Hello world!</string>

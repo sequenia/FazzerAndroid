@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/between_inputs">
+            android:layout_marginBottom="@dimen/between_big">
 
             <ImageView
                 style="@style/InputLogo"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/between_inputs">
+            android:layout_marginBottom="@dimen/between_big">
 
             <ImageView
                 style="@style/InputLogo"
@@ -112,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/between_inputs">
+            android:layout_marginBottom="@dimen/between_big">
 
             <ImageView
                 style="@style/InputLogo"
@@ -173,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/between_inputs">
+            android:layout_marginBottom="@dimen/between_big">
 
             <ImageView
                 style="@style/InputLogo"
