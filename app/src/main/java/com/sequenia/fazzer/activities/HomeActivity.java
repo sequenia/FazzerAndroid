@@ -3,8 +3,10 @@ package com.sequenia.fazzer.activities;
 import android.content.SharedPreferences;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.HomeActivityPagerAdapter;
