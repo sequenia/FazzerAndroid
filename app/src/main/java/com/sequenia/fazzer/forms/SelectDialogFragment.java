@@ -1,15 +1,15 @@
-package com.sequenia.fazzer.dialogs;
+package com.sequenia.fazzer.forms;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -26,18 +26,22 @@ import java.util.ArrayList;
 public class SelectDialogFragment extends DialogFragment {
     private static final String ARG_TITLE = "DialogTitle";
     private static final String ARG_OPTIONS = "Options";
+    public static final String ARG_NAME = "Name";
+    public static final String VALUE = "Value";
 
     private ArrayList<Option> options;
     private ArrayList<Option> shownOptions;
     private SelectDialogAdapter adapter;
     private View searchView;
+    private String name;
 
-    public static SelectDialogFragment newInstance(String title, ArrayList<Option> options) {
+    public static SelectDialogFragment newInstance(String title, ArrayList<Option> options, String name) {
         SelectDialogFragment fragment = new SelectDialogFragment();
 
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, title);
         args.putParcelableArrayList(ARG_OPTIONS, options);
+        args.putString(ARG_NAME, name);
         fragment.setArguments(args);
 
         return fragment;
@@ -48,6 +52,7 @@ public class SelectDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
 
+        name = args.getString(ARG_NAME);
         String title = args.getString(ARG_TITLE);
         if(title == null) {
             title = "";
@@ -61,7 +66,10 @@ public class SelectDialogFragment extends DialogFragment {
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent data = new Intent();
+                        data.putExtra(VALUE, shownOptions.get(which));
+                        data.putExtra(ARG_NAME, name);
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
                     }
                 })
                 .setView(searchView)

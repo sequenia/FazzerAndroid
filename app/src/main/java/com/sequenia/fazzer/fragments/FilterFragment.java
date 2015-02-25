@@ -1,6 +1,7 @@
 package com.sequenia.fazzer.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,9 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
+import com.sequenia.fazzer.forms.FormManager;
+import com.sequenia.fazzer.forms.SelectDialogFragment;
+import com.sequenia.fazzer.forms.SelectDialogListManager;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
@@ -26,6 +30,7 @@ import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.objects.FilterInfo;
 import com.sequenia.fazzer.gson.FilterInfoSerializer;
+import com.sequenia.fazzer.objects.Option;
 import com.sequenia.fazzer.requests_data.Response;
 
 import java.util.ArrayList;
@@ -36,10 +41,13 @@ import io.realm.Realm;
  * Created by chybakut2004 on 12.02.15.
  */
 public class FilterFragment extends Fragment {
-    FilterInfo filterInfo = null;
+    private FilterInfo filterInfo = null;
+    private FormManager dialogManager;
+    private static final String MARK = "mark";
+    private static final String MODEL = "model";
+    private static final String CITY = "city";
 
     public FilterFragment() {
-
     }
 
     @Override
@@ -80,16 +88,44 @@ public class FilterFragment extends Fragment {
     }
 
     private void initDialogs(View view) {
-        FragmentActivity activity = getActivity();
+        final FragmentActivity activity = getActivity();
+        dialogManager = new FormManager(this);
 
         TextView mark = (TextView) view.findViewById(R.id.mark);
-        ActivityHelper.setupSelectDialog(mark, activity, activity.getResources().getString(R.string.mark), ObjectsHelper.genCarMarkOptions(RealmHelper.getCarMarks(activity)));
+        dialogManager.addSelect(mark, MARK, activity.getResources().getString(R.string.mark),
+                new SelectDialogListManager() {
+                    @Override
+                    public ArrayList<Option> getList() {
+                        return ObjectsHelper.genCarMarkOptions(RealmHelper.getCarMarks(activity));
+                    }
+                });
 
         TextView model = (TextView) view.findViewById(R.id.model);
-        ActivityHelper.setupSelectDialog(model, activity, activity.getResources().getString(R.string.model), ObjectsHelper.genCarModelOptions(RealmHelper.getCarModels(activity)));
+        dialogManager.addSelect(model, MODEL, activity.getResources().getString(R.string.model),
+                new SelectDialogListManager() {
+                    @Override
+                    public ArrayList<Option> getList() {
+                        return ObjectsHelper.genCarModelOptions(RealmHelper.getCarModels(activity));
+                    }
+                });
 
         TextView city = (TextView) view.findViewById(R.id.city);
-        ActivityHelper.setupSelectDialog(city, activity, activity.getResources().getString(R.string.city), ObjectsHelper.genCityOptions(RealmHelper.getCities(activity)));
+        dialogManager.addSelect(city, CITY, activity.getResources().getString(R.string.city),
+                new SelectDialogListManager() {
+                    @Override
+                    public ArrayList<Option> getList() {
+                        return ObjectsHelper.genCityOptions(RealmHelper.getCities(activity));
+                    }
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == FormManager.SELECT_DIALOG_REQUEST_CODE) {
+            dialogManager.setResult(data.getStringExtra(SelectDialogFragment.ARG_NAME),
+                    (Option) data.getParcelableExtra(SelectDialogFragment.VALUE));
+        }
     }
 
     private void saveFilter() {
