@@ -51,5 +51,7 @@
     <string name="filter_slogan_part_one">Введите свои предпочтения и получайте</string>
     <string name="filter_slogan_part_two">самые свежие обновления</string>
     <string name="search">Поиск</string>
+    <string name="from">От</string>
+    <string name="to">До</string>
 
 </resources>

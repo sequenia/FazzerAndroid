@@ -35,13 +35,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <com.sequenia.fazzer.widgets.RobotoRegularTextView
-                    style="@style/EditText"
-                    android:id="@+id/city"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/nothing"
-                    android:inputType="text"/>
+                    android:layout_height="wrap_content">
+
+                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                        style="@style/EditText"
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/nothing"
+                        android:inputType="text"/>
+
+                    <ImageButton
+                        android:id="@+id/clear_city"
+                        style="@style/Cross"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -75,13 +87,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
-                        style="@style/EditText"
-                        android:id="@+id/mark"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/nothing"
-                        android:inputType="text"/>
+                        android:layout_height="wrap_content">
+
+                        <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                            style="@style/EditText"
+                            android:id="@+id/mark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nothing"
+                            android:inputType="text"/>
+
+                        <ImageButton
+                            android:id="@+id/clear_mark"
+                            style="@style/Cross"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -97,13 +121,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.sequenia.fazzer.widgets.RobotoRegularTextView
-                        style="@style/EditText"
-                        android:id="@+id/model"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/nothing"
-                        android:inputType="text"/>
+                        android:layout_height="wrap_content">
+
+                        <com.sequenia.fazzer.widgets.RobotoRegularTextView
+                            style="@style/EditText"
+                            android:id="@+id/model"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nothing"
+                            android:inputType="text"/>
+
+                        <ImageButton
+                            android:id="@+id/clear_model"
+                            style="@style/Cross"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -143,7 +179,7 @@
                         android:id="@+id/min_year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/nothing"
+                        android:hint="@string/from"
                         android:inputType="number"/>
 
                 </LinearLayout>
@@ -163,7 +199,7 @@
                         android:id="@+id/max_year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/nothing"
+                        android:hint="@string/to"
                         android:inputType="number"/>
 
                 </LinearLayout>
@@ -204,7 +240,7 @@
                         android:id="@+id/min_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/nothing"
+                        android:hint="@string/from"
                         android:inputType="number"/>
 
                 </LinearLayout>
@@ -224,7 +260,7 @@
                         android:id="@+id/max_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/nothing"
+                        android:hint="@string/to"
                         android:inputType="number"/>
 
                 </LinearLayout>

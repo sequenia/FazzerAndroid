@@ -1,5 +1,6 @@
 package com.sequenia.fazzer.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.support.v4.app.FragmentActivity;
@@ -74,6 +75,12 @@ public class HomeActivity extends FragmentActivity {
 
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
             FazzerHelper.updateCatalogs(this);
+            Intent intent = getIntent();
+            int advertId = intent.getIntExtra(FazzerHelper.AUTO_ADVERT_ID, 0);
+            if(advertId != 0) {
+                intent.removeExtra(FazzerHelper.AUTO_ADVERT_ID);
+                ActivityHelper.showAutoAdvertActivity(this, advertId);
+            }
         } else {
             ActivityHelper.showWelcomeActivity(this);
             finish();

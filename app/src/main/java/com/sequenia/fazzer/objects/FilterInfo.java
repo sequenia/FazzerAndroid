@@ -13,6 +13,15 @@ public class FilterInfo extends RealmObject {
     private float minPrice;
     private float maxPrice;
     private String userPhone;
+    private int cityId;
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
 
     public String getUserPhone() {
         return userPhone;

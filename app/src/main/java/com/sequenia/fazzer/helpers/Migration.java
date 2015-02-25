@@ -2,6 +2,7 @@ package com.sequenia.fazzer.helpers;
 
 import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
+import com.sequenia.fazzer.objects.FilterInfo;
 
 import io.realm.Realm;
 import io.realm.RealmMigration;
@@ -30,12 +31,21 @@ public class Migration implements RealmMigration {
             version++;
         */
 
-        if (version == 10) {
+        /*if (version == 10) {
             Table table = realm.getTable(AutoAdvertMinInfo.class);
             table.addColumn(ColumnType.STRING, "photo_url");
 
             table = realm.getTable(AutoAdvertFullInfo.class);
             table.addColumn(ColumnType.STRING, "photo_url");
+
+            version++;
+        }*/
+
+
+        if (version == 14) {
+            Table table = realm.getTable(FilterInfo.class);
+            table.addColumn(ColumnType.INTEGER, "cityId");
+            table.removeColumn(getIndexForProperty(table, "city_id"));
 
             version++;
         }

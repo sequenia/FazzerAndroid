@@ -23,6 +23,7 @@ public class FilterInfoSerializer implements JsonSerializer<FilterInfo> {
         setIfNotZero(result, "min_year", filterInfo.getMinYear());
         setIfNotZero(result, "max_price", filterInfo.getMaxPrice());
         setIfNotZero(result, "min_price", filterInfo.getMinPrice());
+        setIfNotZero(result, "city_id", filterInfo.getCityId());
 
         return result;
     }

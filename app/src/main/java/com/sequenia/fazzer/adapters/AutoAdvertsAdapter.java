@@ -50,7 +50,7 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
         markAndModel.setText(label);
 
         TextView price = (TextView) view.findViewById(R.id.price);
-        price.setText(ObjectsHelper.prettifyPrice(String.valueOf(autoAdvert.getPrice())));
+        price.setText(ObjectsHelper.prettifyNumber(String.valueOf(autoAdvert.getPrice()), " р."));
 
         ImageView preview = (ImageView) view.findViewById(R.id.photo);
         Picasso.with(context)

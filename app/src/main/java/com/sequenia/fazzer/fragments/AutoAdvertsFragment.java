@@ -15,6 +15,7 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
+import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 
@@ -62,10 +63,7 @@ public class AutoAdvertsFragment extends Fragment {
     }
 
     private void showAdvert(int position) {
-        Intent intent = new Intent(getActivity(),
-                AutoAdvertActivity.class);
-        intent.putExtra(FazzerHelper.AUTO_ADVERT_ID, autoAdverts.get(position).getId());
-        startActivityForResult(intent, 0);
+        ActivityHelper.showAutoAdvertActivity(getActivity(), autoAdverts.get(position).getId());
     }
 
     @Override

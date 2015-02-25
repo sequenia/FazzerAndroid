@@ -19,6 +19,17 @@ public class ObjectsHelper {
         return (s.trim().equals(""));
     }
 
+    public static int OptionToIntNoZero(Option option) {
+        int result = 0;
+        if(option != null) {
+            String id = option.getId();
+            if(id != null) {
+                result = Integer.parseInt(id);
+            }
+        }
+        return result;
+    }
+
     public static int strToIntNoZero(String s) {
         int result = 0;
         if(!isEmpty(s)) {
@@ -51,18 +62,106 @@ public class ObjectsHelper {
         return result;
     }
 
-    public static String prettifyPrice(String price) {
-        StringBuilder pretty = new StringBuilder("");
-        int count = 0;
-        for(int i = price.length() - 1; i >= 0; i--) {
-            if(count % 3 == 0 && count != 0) {
-                pretty.insert(0, ' ');
+    public static String prettifyNumber(String number, String postfix) {
+        if(number == null) {
+            return null;
+        } else {
+            StringBuilder pretty = new StringBuilder("");
+            int count = 0;
+            for(int i = number.length() - 1; i >= 0; i--) {
+                if(count % 3 == 0 && count != 0) {
+                    pretty.insert(0, ' ');
+                }
+                pretty.insert(0, number.charAt(i));
+                count++;
             }
-            pretty.insert(0, price.charAt(i));
-            count++;
+            if(postfix != null) {
+                pretty.append(postfix);
+            }
+            return pretty.toString();
         }
-        pretty.append(" р.");
-        return pretty.toString();
+    }
+
+    public static String prettifyFuel(String fuel) {
+        String pretty = null;
+        if(fuel != null) {
+            if (fuel.equals("gasoline")) {
+                pretty = "бензин";
+            } else if (fuel.equals("diesel")) {
+                pretty = "дизель";
+            }
+        }
+        return pretty;
+    }
+
+    public static String prettifyDisplacement(String displacement) {
+        String pretty = null;
+        if(displacement != null) {
+            pretty = pretty + " л.";
+        }
+        return null;
+    }
+
+    public static String prettifyTransmission(String transmission) {
+        String pretty = null;
+        if(transmission != null) {
+            if(transmission.equals("manual")) {
+                pretty = "механика";
+            } else if(transmission.equals("automatic")) {
+                pretty = "автомат";
+            }
+        }
+        return pretty;
+    }
+
+    public static String prettifyDrive(String drive) {
+        String pretty = null;
+        if(drive != null) {
+            if(drive.equals("full")) {
+                pretty = "4WD";
+            } else if(drive.equals("front")) {
+                pretty = "передний";
+            } else if(drive.equals("rear")) {
+                pretty = "задний";
+            }
+        }
+        return pretty;
+    }
+
+    public static String prettifyBody(String body) {
+        String pretty = null;
+        if(body != null) {
+            if(body.equals("sedan")) {
+                pretty = "седан";
+            } else if(body.equals("jeep")) {
+                pretty = "джип";
+            } else if(body.equals("hatchback")) {
+                pretty = "хэтчбек";
+            } else if(body.equals("estate")) {
+                pretty = "универсал";
+            } else if(body.equals("van")) {
+                pretty = "минивэн / микроавтобус";
+            } else if(body.equals("coupe")) {
+                pretty = "купе";
+            } else if(body.equals("open")) {
+                pretty = "открытый";
+            } else if(body.equals("pickup")) {
+                pretty = "пикап";
+            }
+        }
+        return pretty;
+    }
+
+    public static String prettifyWheel(String wheel) {
+        String pretty = null;
+        if(wheel != null) {
+            if(wheel.equals("right")) {
+                pretty = "правый";
+            } else if(wheel.equals("left")) {
+                pretty = "левый";
+            }
+        }
+        return pretty;
     }
 
     public static ArrayList<Option> genCityOptions(RealmResults<City> cities) {

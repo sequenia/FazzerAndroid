@@ -15,6 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.activities.RegisterActivity;
@@ -38,15 +39,6 @@ public class ActivityHelper {
     public static String getText(Activity activity, int resourceId) {
         String result = null;
         EditText et = (EditText) activity.findViewById(resourceId);
-        if(et != null) {
-            result = et.getText().toString();
-        }
-        return result;
-    }
-
-    public static String getTextTextView(Activity activity, int resourceId) {
-        String result = null;
-        TextView et = (TextView) activity.findViewById(resourceId);
         if(et != null) {
             result = et.getText().toString();
         }
@@ -78,26 +70,10 @@ public class ActivityHelper {
         context.startActivity(intent);
     }
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
+    public static void showAutoAdvertActivity(Context context, int advertId) {
+        Intent intent = new Intent(context, AutoAdvertActivity.class);
+        intent.putExtra(FazzerHelper.AUTO_ADVERT_ID, advertId);
+        ((Activity)context).startActivityForResult(intent, 0);
     }
 
     public static boolean isNetworkAvailable(Context context) {

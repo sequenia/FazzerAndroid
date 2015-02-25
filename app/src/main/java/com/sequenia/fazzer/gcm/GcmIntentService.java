@@ -12,7 +12,9 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 
 /**
  * Created by chybakut2004 on 18.02.15.
@@ -42,14 +44,15 @@ public class GcmIntentService extends IntentService {
              * extended in the future with new message types, just ignore any message types you're
              * not interested in, or that you don't recognize.
              */
-            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+            /*if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
                 sendNotification("Send error: " + extras.toString());
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
                 sendNotification("Deleted messages on server: " + extras.toString());
                 // If it's a regular GCM message, do some work.
-            } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+            } else*/
+            if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 // Post notification of received message.
-                sendNotification(extras.getString("message"));
+                sendNotification(extras);
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
@@ -60,16 +63,19 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
+    private void sendNotification(Bundle extras) {
+        String message = extras.getString("message");
+        int advertId = Integer.parseInt(extras.getString("advert_id"));
+
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent notificationIntent = new Intent(this, HomeActivity.class);
-        // set intent so it does not start a new activity
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+        notificationIntent.putExtra(FazzerHelper.AUTO_ADVERT_ID, advertId);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP |
                 Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -77,8 +83,8 @@ public class GcmIntentService extends IntentService {
                         .setContentTitle(getApplicationContext().getString(R.string.app_name))
                         .setAutoCancel(true)
                         .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(msg))
-                        .setContentText(msg);
+                                .bigText(message))
+                        .setContentText(message);
 
         mBuilder.setContentIntent(contentIntent);
         Notification notification = mBuilder.build();

@@ -76,18 +76,22 @@ public class AutoAdvertActivity extends ActionBarActivity {
 
         setText(R.id.mark_and_model, autoAdvert.getCarMarkName() + " " + autoAdvert.getCarModelName());
         setText(R.id.year, String.valueOf(autoAdvert.getYear()));
-        setText(R.id.price, ObjectsHelper.prettifyPrice(String.valueOf(autoAdvert.getPrice())));
-        setText(R.id.fuel, autoAdvert.getFuel());
-        setText(R.id.displacement, autoAdvert.getDisplacement());
-        setText(R.id.transmission, autoAdvert.getTransmission());
-        setText(R.id.drive, autoAdvert.getDrive());
-        setText(R.id.mileage, autoAdvert.getMileage());
-        setText(R.id.body, autoAdvert.getBody());
-        setText(R.id.wheel, autoAdvert.getSteeringWheel());
+        setText(R.id.price, ObjectsHelper.prettifyNumber(String.valueOf(autoAdvert.getPrice()), " р."));
+        setText(R.id.fuel, ObjectsHelper.prettifyFuel(autoAdvert.getFuel()));
+        setText(R.id.displacement, ObjectsHelper.prettifyDisplacement(autoAdvert.getDisplacement()));
+        setText(R.id.transmission, ObjectsHelper.prettifyTransmission(autoAdvert.getTransmission()));
+        setText(R.id.drive, ObjectsHelper.prettifyDrive(autoAdvert.getDrive()));
+        setText(R.id.mileage, ObjectsHelper.prettifyNumber(autoAdvert.getMileage(), " км"));
+        setText(R.id.body, ObjectsHelper.prettifyBody(autoAdvert.getBody()));
+        setText(R.id.wheel, ObjectsHelper.prettifyWheel(autoAdvert.getSteeringWheel()));
         setText(R.id.color, autoAdvert.getColor());
         setText(R.id.city, autoAdvert.getCityName());
         setText(R.id.description, autoAdvert.getDescription());
         setText(R.id.exchange, autoAdvert.getExchange());
+
+        if(autoAdvert.getUrl() == null) {
+            ((Button) findViewById(R.id.show_in_browser)).setVisibility(View.GONE);
+        }
 
         showContent();
     }
