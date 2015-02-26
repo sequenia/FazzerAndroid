@@ -1,7 +1,6 @@
 package com.sequenia.fazzer.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,13 +10,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
-import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
-import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
@@ -71,7 +69,7 @@ public class AutoAdvertsFragment extends Fragment {
     }
 
     private void initProgressBar() {
-        progressBar = (ProgressBar) getActivity().findViewById(R.id.auto_adverts_loading);
+        progressBar = (ProgressBar) getActivity().findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
     }
 
@@ -88,8 +86,12 @@ public class AutoAdvertsFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 autoAdvertsListView.setVisibility(View.VISIBLE);
                 if(response != null) {
-                    ArrayList<AutoAdvertMinInfo> newAdverts = response.getData();
-                    showNewAdverts(newAdverts);
+                    if(response.getSuccess()) {
+                        ArrayList<AutoAdvertMinInfo> newAdverts = response.getData();
+                        showNewAdverts(newAdverts);
+                    } else {
+                        Toast.makeText(getActivity(), response.getInfo(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }.execute();

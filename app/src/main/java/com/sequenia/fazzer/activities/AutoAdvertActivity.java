@@ -1,5 +1,7 @@
 package com.sequenia.fazzer.activities;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -8,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.AutoAdvertLoader;
@@ -17,7 +21,11 @@ import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
+import com.sequenia.fazzer.requests_data.Response;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class AutoAdvertActivity extends ActionBarActivity {
@@ -25,12 +33,16 @@ public class AutoAdvertActivity extends ActionBarActivity {
     private int autoAdvertId;
     private SharedPreferences mPreferences;
     private AutoAdvertFullInfo autoAdvert = null;
+    ProgressBar progressBar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_advert);
         hideContent();
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -57,10 +69,23 @@ public class AutoAdvertActivity extends ActionBarActivity {
     }
 
     private void loadAutoAdvertFromAPI(int id) {
+        final Activity activity = this;
+
+        progressBar.setVisibility(View.VISIBLE);
+        hideContent();
+
         new AutoAdvertLoader(this, id) {
             @Override
-            public void onPostExecuteCustom(AutoAdvertFullInfo autoAdvert) {
-                setAdvertInfo(autoAdvert);
+            public void onPostExecuteCustom(Response<AutoAdvertFullInfo> response) {
+                progressBar.setVisibility(View.GONE);
+                if(response != null) {
+                    if(response.getSuccess()) {
+                        setAdvertInfo(response.getData());
+                        showContent();
+                    } else {
+                        Toast.makeText(activity, response.getInfo(), Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         }.execute();
     }
@@ -106,8 +131,6 @@ public class AutoAdvertActivity extends ActionBarActivity {
         if(autoAdvert.getUrl() == null) {
             ((Button) findViewById(R.id.show_in_browser)).setVisibility(View.GONE);
         }
-
-        showContent();
     }
 
     private void showContent() {
