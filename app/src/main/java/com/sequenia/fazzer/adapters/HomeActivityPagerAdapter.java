@@ -1,9 +1,16 @@
 package com.sequenia.fazzer.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.fragments.FilterFragment;
 import com.sequenia.fazzer.fragments.UserFragment;
@@ -16,9 +23,11 @@ import java.util.ArrayList;
  */
 public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
     AutoAdvertsFragment autoAdvertsFragment;
+    Context context;
 
-    public HomeActivityPagerAdapter(FragmentManager fm) {
+    public HomeActivityPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
+        this.context = context;
     }
 
     @Override
@@ -58,12 +67,26 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     public void loadNewAdverts() {
         if(autoAdvertsFragment != null) {
             autoAdvertsFragment.loadNewAdverts();
         }
+    }
+
+    public Button getButton() {
+        Button button = new Button(context);
+
+        button.setBackgroundResource(R.drawable.refresh);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity) context).loadNewAdverts();
+            }
+        });
+
+        return button;
     }
 }

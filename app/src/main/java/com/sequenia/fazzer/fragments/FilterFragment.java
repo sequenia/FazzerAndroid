@@ -45,11 +45,14 @@ import io.realm.Realm;
  * Created by chybakut2004 on 12.02.15.
  */
 public class FilterFragment extends Fragment {
+    public static final String FILTER_SAVING_ERROR = "Ошибка при сохранении фильтра";
     private FilterInfo filterInfo = null;
     private FormManager formManager;
     private static final String MARK = "mark";
     private static final String MODEL = "model";
     private static final String CITY = "city";
+
+    private Button saveFilterButton;
 
     public FilterFragment() {
     }
@@ -77,7 +80,7 @@ public class FilterFragment extends Fragment {
     }
 
     private void initSaveButton() {
-        Button saveFilterButton = (Button) getActivity().findViewById(R.id.save_filter_button);
+        saveFilterButton = (Button) getActivity().findViewById(R.id.save_filter_button);
         saveFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +139,9 @@ public class FilterFragment extends Fragment {
     }
 
     private void saveFilter() {
+        saveFilterButton.setText(getResources().getString(R.string.saving));
+        saveFilterButton.setEnabled(false);
+
         Activity activity = getActivity();
         readFilterInfoFromForm();
 
@@ -147,6 +153,8 @@ public class FilterFragment extends Fragment {
         new SaveFilterTask(activity) {
             @Override
             public void onPostExecuteCustom(Response<String> response) {
+                saveFilterButton.setText(getResources().getString(R.string.save_filter));
+                saveFilterButton.setEnabled(true);
                 showResultMessage(response);
                 loadNewAdverts(response);
             }
@@ -155,9 +163,13 @@ public class FilterFragment extends Fragment {
 
     private void showResultMessage(Response<String> response) {
         if(response != null) {
-            Toast.makeText(getActivity(), response.getInfo(), Toast.LENGTH_LONG).show();
+            if(response.getSuccess()) {
+                Toast.makeText(getActivity(), "Фильтр сохранен", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getActivity(), FILTER_SAVING_ERROR, Toast.LENGTH_LONG).show();
+            }
         } else {
-            Toast.makeText(getActivity(), "Данные не получены", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), FILTER_SAVING_ERROR, Toast.LENGTH_LONG).show();
         }
     }
 

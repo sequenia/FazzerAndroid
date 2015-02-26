@@ -53,7 +53,7 @@ public class HomeActivity extends FragmentActivity {
     }
 
     private void initPager() {
-        pagerAdapter = new HomeActivityPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new HomeActivityPagerAdapter(getSupportFragmentManager(), this);
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 

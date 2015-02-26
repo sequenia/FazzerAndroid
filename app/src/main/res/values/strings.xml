@@ -53,5 +53,7 @@
     <string name="search">Поиск</string>
     <string name="from">От</string>
     <string name="to">До</string>
+    <string name="loading">Загрузка...</string>
+    <string name="saving">Сохранение...</string>
 
 </resources>
