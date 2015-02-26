@@ -84,12 +84,7 @@ public class FilterFragment extends Fragment {
         saveFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Activity activity = getActivity();
                 saveFilter();
-                if(getActivity().getIntent().getBooleanExtra(FazzerHelper.NEEDS_CLOSE, false)) {
-                    ActivityHelper.showHomeActivity(activity);
-                    activity.finish();
-                };
             }
         });
     }
@@ -139,10 +134,11 @@ public class FilterFragment extends Fragment {
     }
 
     private void saveFilter() {
+        final Activity activity = getActivity();
+
         saveFilterButton.setText(getResources().getString(R.string.saving));
         saveFilterButton.setEnabled(false);
 
-        Activity activity = getActivity();
         readFilterInfoFromForm();
 
         Gson gson = new GsonBuilder()
@@ -156,6 +152,12 @@ public class FilterFragment extends Fragment {
                 saveFilterButton.setText(getResources().getString(R.string.save_filter));
                 saveFilterButton.setEnabled(true);
                 showResultMessage(response);
+
+                if(activity.getIntent().getBooleanExtra(FazzerHelper.NEEDS_CLOSE, false)) {
+                    ActivityHelper.showHomeActivity(activity);
+                    activity.finish();
+                };
+
                 loadNewAdverts(response);
             }
         }.execute(json);
@@ -173,7 +175,11 @@ public class FilterFragment extends Fragment {
 
     private void loadNewAdverts(Response<String> response) {
         if(response != null) {
-            ((HomeActivity)getActivity()).loadNewAdverts();
+            try {
+                ((HomeActivity)getActivity()).loadNewAdverts();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

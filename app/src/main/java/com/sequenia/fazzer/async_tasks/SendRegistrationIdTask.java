@@ -50,7 +50,7 @@ public class SendRegistrationIdTask extends AsyncTask<String, Void, String> {
 
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             response = client.execute(post, responseHandler);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -59,10 +59,8 @@ public class SendRegistrationIdTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        if(response != null) {
+        /*if(response != null) {
             Toast.makeText(context, response, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
 }

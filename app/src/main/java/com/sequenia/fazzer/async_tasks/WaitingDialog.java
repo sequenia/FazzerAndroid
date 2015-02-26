@@ -48,8 +48,10 @@ public class WaitingDialog<T1, T2> extends AsyncTask<T1, String, T2> {
         super.onProgressUpdate(values);
         pd.setMessage(values[0]);
 
-        if(values[1] != null) {
-            Toast.makeText(context, values[1], Toast.LENGTH_LONG).show();
+        if(values.length > 1) {
+            if (values[1] != null) {
+                Toast.makeText(context, values[1], Toast.LENGTH_LONG).show();
+            }
         }
     }
 

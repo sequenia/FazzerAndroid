@@ -46,10 +46,13 @@ public abstract class GcmRegistrationService {
             //SharedPreferences.Editor e = sp.edit();
             //e.remove(PROPERTY_REG_ID);
             //e.commit();
+
             regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {
                 registerInBackground();
+            } else {
+                sendRegistrationIdToBackend(regid);
             }
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");

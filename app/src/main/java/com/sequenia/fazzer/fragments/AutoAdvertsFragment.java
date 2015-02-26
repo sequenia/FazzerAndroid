@@ -47,6 +47,9 @@ public class AutoAdvertsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initProgressBar();
+        autoAdvertsListView = (ListView) getActivity().findViewById (R.id.auto_adverts_list_view);
+
         autoAdverts = RealmHelper.toArrayList(AutoAdvertMinInfo.class, RealmHelper.getAllAutoAdvertMinInfos(getActivity()));
         if(autoAdverts.size() == 0) {
             loadNewAdverts();
@@ -54,11 +57,9 @@ public class AutoAdvertsFragment extends Fragment {
         adapter = new AutoAdvertsAdapter(getActivity(), R.layout.auto_advert_info, autoAdverts);
 
         initListView();
-        initProgressBar();
     }
 
     private void initListView() {
-        autoAdvertsListView = (ListView) getActivity().findViewById (R.id.auto_adverts_list_view);
         autoAdvertsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -22,6 +22,9 @@ import com.sequenia.fazzer.helpers.FazzerHelper;
  * Created by chybakut2004 on 12.02.15.
  */
 public class LoginFragment extends Fragment {
+    private static final String EMPTY_PHONE_ERROR = "Пожалуйста, введите телефон";
+    private static final String EMPTY_PASSWORD_ERROR = "Пожалуйста, введите пароль";
+
     private String mUserPhone;
     private String mUserPassword;
 
@@ -60,8 +63,14 @@ public class LoginFragment extends Fragment {
         mUserPassword = userPasswordField.getText().toString();
 
         if (mUserPhone.length() == 0 || mUserPassword.length() == 0) {
-            Toast.makeText(activity, "Пожалуйста, заполните поля",
-                    Toast.LENGTH_LONG).show();
+            String error = "";
+            if(mUserPhone.length() == 0) {
+                error += EMPTY_PHONE_ERROR;
+            }
+            if(mUserPassword.length() == 0) {
+                error += "\n" + EMPTY_PASSWORD_ERROR;
+            }
+            Toast.makeText(activity, error, Toast.LENGTH_LONG).show();
             return;
         } else {
             LoginTask loginTask = new LoginTask(mUserPhone, mUserPassword, mPreferences, activity);

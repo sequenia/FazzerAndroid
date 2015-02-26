@@ -8,10 +8,13 @@ import android.widget.Toast;
 
 import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.gcm.GcmRegistrationService;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.FilterInfo;
 
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -19,10 +22,14 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import java.net.ConnectException;
+
 /**
  * Created by chybakut2004 on 04.02.15.
  */
 public class LoginTask extends WaitingDialog<String, JSONObject> {
+    private static final String LOGGING_ERROR = "Ошибка во время входа";
+    private static final String WRONG_LOGIN_PASS = "Неверная пара логин/пароль";
 
     private String phone;
     private String password;
@@ -65,9 +72,22 @@ public class LoginTask extends WaitingDialog<String, JSONObject> {
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             response = client.execute(post, responseHandler);
             json = new JSONObject(response);
-
+        } catch(HttpResponseException e) {
+            e.printStackTrace();
+            if(e.getStatusCode() == 401) {
+                publishProgress("", WRONG_LOGIN_PASS);
+            } else {
+                publishProgress("", LOGGING_ERROR);
+            }
+            return null;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            publishProgress("", FazzerHelper.NO_CONNECTION);
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
+            publishProgress("", LOGGING_ERROR);
+            return null;
         }
 
         return json;
@@ -76,28 +96,32 @@ public class LoginTask extends WaitingDialog<String, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject json) {
         try {
-            if (json.getBoolean("success")) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(FazzerHelper.AUTH_TOKEN, json.getJSONObject("data").getString("auth_token"));
-                editor.putString(FazzerHelper.USER_PHONE, this.phone);
-                editor.commit();
+            if(json != null) {
+                if (json.getBoolean("success")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(FazzerHelper.AUTH_TOKEN, json.getJSONObject("data").getString("auth_token"));
+                    editor.putString(FazzerHelper.USER_PHONE, this.phone);
+                    editor.commit();
 
-                // Показать обучалку, если пользователь еще не ввел все данные.
-                // Иначе показать объявления.
-                FilterInfo filterInfo = RealmHelper.getFilter(context, this.phone);
-                Intent intent;
-                if(filterInfo == null) {
-                    intent = new Intent(context.getApplicationContext(), FirstFilterActivity.class);
-                    intent.putExtra(FazzerHelper.NEEDS_CLOSE, true);
+                    // Показать обучалку, если пользователь еще не ввел все данные.
+                    // Иначе показать объявления.
+                    FilterInfo filterInfo = RealmHelper.getFilter(context, this.phone);
+                    Intent intent;
+                    if (filterInfo == null) {
+                        intent = new Intent(context.getApplicationContext(), FirstFilterActivity.class);
+                        intent.putExtra(FazzerHelper.NEEDS_CLOSE, true);
+                    } else {
+                        intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                    }
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
                 } else {
-                    intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                    Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
                 }
-                context.startActivity(intent);
-                ((Activity) context).finish();
             }
-            Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            Toast.makeText(context, LOGGING_ERROR, Toast.LENGTH_LONG).show();
         } finally {
             super.onPostExecute(json);
         }
