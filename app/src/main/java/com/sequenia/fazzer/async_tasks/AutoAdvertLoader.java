@@ -8,23 +8,33 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.helpers.ApiHelper;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertLoader extends AsyncTask<String, Void, String> {
+public abstract class AutoAdvertLoader extends AsyncTask<Void, Void, String> {
 
-    Context context;
+    private Context context;
+    private int id;
+    private String url;
 
-    public AutoAdvertLoader(Context context) {
+    public AutoAdvertLoader(Context context, int id) {
         this.context = context;
+        this.id = id;
     }
 
     @Override
-    protected String doInBackground(String... params) {
-        return ApiHelper.loadJson(params[0]);
+    protected void onPreExecute() {
+        super.onPreExecute();
+        url = ApiHelper.AUTO_ADVERT_URL + String.valueOf(id) + ".json" + "?auth_token=" + FazzerHelper.getAuthToken(context);
+    }
+
+    @Override
+    protected String doInBackground(Void... params) {
+        return ApiHelper.loadJson(url);
     }
 
     @Override
@@ -34,12 +44,11 @@ public class AutoAdvertLoader extends AsyncTask<String, Void, String> {
         if(s != null) {
             Response r = new Gson().fromJson(s, new TypeToken<Response<AutoAdvertFullInfo>>() {}.getType());
             AutoAdvertFullInfo autoAdvert = (AutoAdvertFullInfo) r.getData();
-
-            AutoAdvertActivity activity = (AutoAdvertActivity) context;
-            activity.setAdvertInfo(autoAdvert);
-
+            onPostExecuteCustom(autoAdvert);
         } else {
             Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
         }
     }
+
+    public abstract void onPostExecuteCustom(AutoAdvertFullInfo autoAdvert);
 }

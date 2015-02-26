@@ -148,7 +148,7 @@ public class FilterFragment extends Fragment {
             @Override
             public void onPostExecuteCustom(Response<String> response) {
                 showResultMessage(response);
-                showNewAdverts(response);
+                loadNewAdverts(response);
             }
         }.execute(json);
     }
@@ -161,15 +161,9 @@ public class FilterFragment extends Fragment {
         }
     }
 
-    private void showNewAdverts(Response<String> response) {
-        final HomeActivity activity = (HomeActivity) getActivity();
+    private void loadNewAdverts(Response<String> response) {
         if(response != null) {
-            new AutoAdvertsLoader(activity) {
-                @Override
-                public void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts) {
-                    activity.showNewAdverts(newAdverts);
-                }
-            }.execute();
+            ((HomeActivity)getActivity()).loadNewAdverts();
         }
     }
 

@@ -54,7 +54,7 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
 
         ImageView preview = (ImageView) view.findViewById(R.id.photo);
         String url = autoAdvert.getPhoto_preview_url();
-        if(url == null) {
+        if(ObjectsHelper.isEmpty(url)) {
             Picasso.with(context)
                     .load(R.drawable.no_photo_min)
                     .resizeDimen(R.dimen.photo_preview_size, R.dimen.photo_preview_size)

@@ -61,9 +61,9 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
         return 3;
     }
 
-    public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
+    public void loadNewAdverts() {
         if(autoAdvertsFragment != null) {
-            autoAdvertsFragment.showNewAdverts(newAdverts);
+            autoAdvertsFragment.loadNewAdverts();
         }
     }
 }

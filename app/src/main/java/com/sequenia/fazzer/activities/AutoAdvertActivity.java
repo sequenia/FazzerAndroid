@@ -57,7 +57,12 @@ public class AutoAdvertActivity extends ActionBarActivity {
     }
 
     private void loadAutoAdvertFromAPI(int id) {
-        new AutoAdvertLoader(this).execute(ApiHelper.AUTO_ADVERT_URL + String.valueOf(autoAdvertId) + ".json" + "?auth_token=" + mPreferences.getString("AuthToken", ""));
+        new AutoAdvertLoader(this, id) {
+            @Override
+            public void onPostExecuteCustom(AutoAdvertFullInfo autoAdvert) {
+                setAdvertInfo(autoAdvert);
+            }
+        }.execute();
     }
 
     public void setAdvertInfo(AutoAdvertFullInfo autoAdvert) {

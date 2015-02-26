@@ -91,7 +91,7 @@ public class HomeActivity extends FragmentActivity {
         new SendRegistrationIdTask(this, regId).execute(ApiHelper.REGISTRATION_ID_URL + "?auth_token=" + FazzerHelper.getAuthToken(this));
     }
 
-    public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
-        pagerAdapter.showNewAdverts(newAdverts);
+    public void loadNewAdverts() {
+        pagerAdapter.loadNewAdverts();
     }
 }

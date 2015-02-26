@@ -17,6 +17,7 @@ import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
+import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 
 import java.util.ArrayList;
@@ -45,7 +46,10 @@ public class AutoAdvertsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        autoAdverts = new ArrayList<AutoAdvertMinInfo>();
+        autoAdverts = RealmHelper.toArrayList(AutoAdvertMinInfo.class, RealmHelper.getAllAutoAdvertMinInfos(getActivity()));
+        if(autoAdverts.size() == 0) {
+            loadNewAdverts();
+        }
         adapter = new AutoAdvertsAdapter(getActivity(), R.layout.auto_advert_info, autoAdverts);
 
         initListView();
@@ -66,11 +70,8 @@ public class AutoAdvertsFragment extends Fragment {
         ActivityHelper.showAutoAdvertActivity(getActivity(), autoAdverts.get(position).getId());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Activity activity = getActivity();
-        new AutoAdvertsLoader(activity) {
+    public void loadNewAdverts() {
+        new AutoAdvertsLoader(getActivity()) {
             @Override
             public void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts) {
                 showNewAdverts(newAdverts);
@@ -79,8 +80,15 @@ public class AutoAdvertsFragment extends Fragment {
     }
 
     public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
+        Activity activity = getActivity();
+
+        RealmHelper.deleteAllAutoAdvertMinInfos(activity);
+
         autoAdverts.clear();
         autoAdverts.addAll(0, newAdverts);
+
+        RealmHelper.saveAutoAdvertMinInfos(activity, newAdverts);
+
         adapter.notifyDataSetChanged();
     }
 }

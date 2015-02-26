@@ -2,6 +2,7 @@ package com.sequenia.fazzer.helpers;
 
 import android.content.Context;
 
+import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.objects.CarMark;
 import com.sequenia.fazzer.objects.CarModel;
 import com.sequenia.fazzer.objects.City;
@@ -10,6 +11,7 @@ import com.sequenia.fazzer.objects.FilterInfo;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
@@ -168,5 +170,42 @@ public class RealmHelper {
         RealmResults<CarModel> result = query.findAll();
 
         return result;
+    }
+
+    public static void saveAutoAdvertMinInfos(Context context, ArrayList<AutoAdvertMinInfo> adverts) {
+        Realm realm = Realm.getInstance(context);
+        AutoAdvertMinInfo realmObject = null;
+
+        realm.beginTransaction();
+
+        for(AutoAdvertMinInfo autoAdvertMinInfo : adverts) {
+            realm.copyToRealm(autoAdvertMinInfo);
+        }
+
+        realm.commitTransaction();
+    }
+
+    public static void deleteAllAutoAdvertMinInfos(Context context) {
+        Realm realm = Realm.getInstance(context);
+        RealmResults<AutoAdvertMinInfo> result = realm.where(AutoAdvertMinInfo.class).findAll();
+
+        realm.beginTransaction();
+
+        result.clear();
+
+        realm.commitTransaction();
+    }
+
+    public static RealmResults<AutoAdvertMinInfo> getAllAutoAdvertMinInfos(Context context) {
+        Realm realm = Realm.getInstance(context);
+        return realm.where(AutoAdvertMinInfo.class).findAll();
+    }
+
+    public static <E> ArrayList<E> toArrayList(Class<E> clazz, RealmResults realmResults) {
+        ArrayList<E> list = new ArrayList<E>();
+        for(int i = 0; i < realmResults.size(); i++) {
+            list.add((E) realmResults.get(i));
+        }
+        return list;
     }
 }
