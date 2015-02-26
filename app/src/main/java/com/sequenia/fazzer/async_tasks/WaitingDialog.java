@@ -3,6 +3,7 @@ package com.sequenia.fazzer.async_tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 /**
  * Created by chybakut2004 on 09.02.15.
@@ -46,6 +47,10 @@ public class WaitingDialog<T1, T2> extends AsyncTask<T1, String, T2> {
     protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
         pd.setMessage(values[0]);
+
+        if(values[1] != null) {
+            Toast.makeText(context, values[1], Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

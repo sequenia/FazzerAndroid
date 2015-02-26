@@ -16,10 +16,14 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import java.net.ConnectException;
+
 /**
  * Created by chybakut2004 on 04.02.15.
  */
 public class RegisterTask extends WaitingDialog<String, JSONObject> {
+
+    private static final String REGISTERRING_ERROR = "Ошибка во время регистрации";
 
     private String phone;
     private SharedPreferences preferences;
@@ -56,8 +60,14 @@ public class RegisterTask extends WaitingDialog<String, JSONObject> {
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             response = client.execute(post, responseHandler);
             json = new JSONObject(response);
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            publishProgress("", FazzerHelper.NO_CONNECTION);
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
+            publishProgress("", REGISTERRING_ERROR);
+            return null;
         }
 
         return json;
@@ -66,19 +76,23 @@ public class RegisterTask extends WaitingDialog<String, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject json) {
         try {
-            if (json.getBoolean("success")) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(FazzerHelper.REGISTERED, true);
-                editor.commit();
+            if(json != null) {
+                if (json.getBoolean("success")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(FazzerHelper.REGISTERED, true);
+                    editor.commit();
 
-                Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
-                intent.putExtra("phone", json.getJSONObject("data").getJSONObject("user").getString("phone"));
-                context.startActivity(intent);
-                ((Activity)context).finish();
+                    Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
+                    intent.putExtra("phone", json.getJSONObject("data").getJSONObject("user").getString("phone"));
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                } else {
+                    Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
+                }
             }
-            Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            Toast.makeText(context, REGISTERRING_ERROR, Toast.LENGTH_LONG).show();
         } finally {
             super.onPostExecute(json);
         }

@@ -67,7 +67,7 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     public void loadNewAdverts() {

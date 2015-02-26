@@ -23,6 +23,7 @@ import com.sequenia.fazzer.helpers.FazzerHelper;
  * Created by chybakut2004 on 12.02.15.
  */
 public class RegisterFragment extends Fragment {
+    private static final String EMPTY_PHONE_ERROR = "Пожалуйста, введите телефон";
 
     private String mUserPhone;
 
@@ -53,9 +54,7 @@ public class RegisterFragment extends Fragment {
         mUserPhone = userPhoneField.getText().toString();
 
         if (mUserPhone.length() == 0) {
-            // input fields are empty
-            Toast.makeText(activity, "Please complete all the fields",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, EMPTY_PHONE_ERROR, Toast.LENGTH_LONG).show();
             return;
         } else {
             RegisterTask registerTask = new RegisterTask(mUserPhone, mPreferences, activity);
