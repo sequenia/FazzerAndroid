@@ -45,7 +45,7 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
             view = convertView;
         }
 
-        String label = autoAdvert.getCarMarkName() + " " + autoAdvert.getCarModelName();
+        String label = autoAdvert.getCar_mark_name() + " " + autoAdvert.getCar_model_name();
         TextView markAndModel = (TextView) view.findViewById(R.id.mark_and_model);
         markAndModel.setText(label);
 

@@ -83,7 +83,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
                     .into(photo);
         }
 
-        setText(R.id.mark_and_model, autoAdvert.getCarMarkName() + " " + autoAdvert.getCarModelName());
+        setText(R.id.mark_and_model, autoAdvert.getCar_mark_name() + " " + autoAdvert.getCar_model_name());
         setText(R.id.year, String.valueOf(autoAdvert.getYear()));
         setText(R.id.price, ObjectsHelper.prettifyNumber(String.valueOf(autoAdvert.getPrice()), " р."));
         setText(R.id.fuel, ObjectsHelper.prettifyFuel(autoAdvert.getFuel()));
@@ -92,9 +92,9 @@ public class AutoAdvertActivity extends ActionBarActivity {
         setText(R.id.drive, ObjectsHelper.prettifyDrive(autoAdvert.getDrive()));
         setText(R.id.mileage, ObjectsHelper.prettifyNumber(autoAdvert.getMileage(), " км"));
         setText(R.id.body, ObjectsHelper.prettifyBody(autoAdvert.getBody()));
-        setText(R.id.wheel, ObjectsHelper.prettifyWheel(autoAdvert.getSteeringWheel()));
+        setText(R.id.wheel, ObjectsHelper.prettifyWheel(autoAdvert.getSteering_wheel()));
         setText(R.id.color, autoAdvert.getColor());
-        setText(R.id.city, autoAdvert.getCityName());
+        setText(R.id.city, autoAdvert.getCity_name());
         setText(R.id.description, autoAdvert.getDescription());
         setText(R.id.exchange, autoAdvert.getExchange());
 

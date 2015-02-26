@@ -1,9 +1,11 @@
 package com.sequenia.fazzer.objects;
 
+import io.realm.RealmObject;
+
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public class AutoAdvertMinInfo {
+public class AutoAdvertMinInfo extends RealmObject {
     private int car_model_id;
     private int car_mark_id;
     private String car_model_name;
@@ -25,28 +27,12 @@ public class AutoAdvertMinInfo {
         this.photo_preview_url = photo_preview_url;
     }
 
-    public int getCarMarkId() {
-        return car_mark_id;
+    public int getId() {
+        return id;
     }
 
-    public void setCarMarkId(int car_mark_id) {
-        this.car_mark_id = car_mark_id;
-    }
-
-    public int getCarModelId() {
-        return car_model_id;
-    }
-
-    public void setCarModelId(int car_model_id) {
-        this.car_model_id = car_model_id;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPrice() {
@@ -57,27 +43,43 @@ public class AutoAdvertMinInfo {
         this.price = price;
     }
 
-    public String getCarModelName() {
-        return car_model_name;
+    public int getYear() {
+        return year;
     }
 
-    public void setCarModelName(String car_model_name) {
-        this.car_model_name = car_model_name;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public String getCarMarkName() {
+    public String getCar_mark_name() {
         return car_mark_name;
     }
 
-    public void setCarMarkName(String car_mark_name) {
+    public void setCar_mark_name(String car_mark_name) {
         this.car_mark_name = car_mark_name;
     }
 
-    public int getId() {
-        return id;
+    public String getCar_model_name() {
+        return car_model_name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCar_model_name(String car_model_name) {
+        this.car_model_name = car_model_name;
+    }
+
+    public int getCar_mark_id() {
+        return car_mark_id;
+    }
+
+    public void setCar_mark_id(int car_mark_id) {
+        this.car_mark_id = car_mark_id;
+    }
+
+    public int getCar_model_id() {
+        return car_model_id;
+    }
+
+    public void setCar_model_id(int car_model_id) {
+        this.car_model_id = car_model_id;
     }
 }

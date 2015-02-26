@@ -1,9 +1,11 @@
 package com.sequenia.fazzer.objects;
 
+import io.realm.RealmObject;
+
 /**
  * Created by chybakut2004 on 05.02.15.
  */
-public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
+public class AutoAdvertFullInfo extends RealmObject {
     private String mileage;
     private String description;
     private int city_id;
@@ -19,6 +21,18 @@ public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
     private String drive;
     private String transmission;
     private String photo_url;
+    private int car_model_id;
+    private int car_mark_id;
+    private String car_model_name;
+    private String car_mark_name;
+    private int year;
+    private int price;
+    private int id;
+    private String photo_preview_url;
+
+    public AutoAdvertFullInfo() {
+
+    }
 
     public String getPhoto_url() {
         return photo_url;
@@ -36,14 +50,6 @@ public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
         this.mileage = mileage;
     }
 
-    public String getCityName() {
-        return city_name;
-    }
-
-    public void setCityName(String city_name) {
-        this.city_name = city_name;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -52,12 +58,20 @@ public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
         this.description = description;
     }
 
-    public int getCityId() {
+    public int getCity_id() {
         return city_id;
     }
 
-    public void setCityId(int city_id) {
+    public void setCity_id(int city_id) {
         this.city_id = city_id;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
     }
 
     public String getExchange() {
@@ -116,11 +130,11 @@ public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
         this.body = body;
     }
 
-    public String getSteeringWheel() {
+    public String getSteering_wheel() {
         return steering_wheel;
     }
 
-    public void setSteeringWheel(String steering_wheel) {
+    public void setSteering_wheel(String steering_wheel) {
         this.steering_wheel = steering_wheel;
     }
 
@@ -138,5 +152,69 @@ public class AutoAdvertFullInfo extends AutoAdvertMinInfo {
 
     public void setTransmission(String transmission) {
         this.transmission = transmission;
+    }
+
+    public String getPhoto_preview_url() {
+        return photo_preview_url;
+    }
+
+    public void setPhoto_preview_url(String photo_preview_url) {
+        this.photo_preview_url = photo_preview_url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getCar_mark_name() {
+        return car_mark_name;
+    }
+
+    public void setCar_mark_name(String car_mark_name) {
+        this.car_mark_name = car_mark_name;
+    }
+
+    public String getCar_model_name() {
+        return car_model_name;
+    }
+
+    public void setCar_model_name(String car_model_name) {
+        this.car_model_name = car_model_name;
+    }
+
+    public int getCar_mark_id() {
+        return car_mark_id;
+    }
+
+    public void setCar_mark_id(int car_mark_id) {
+        this.car_mark_id = car_mark_id;
+    }
+
+    public int getCar_model_id() {
+        return car_model_id;
+    }
+
+    public void setCar_model_id(int car_model_id) {
+        this.car_model_id = car_model_id;
     }
 }
