@@ -18,12 +18,13 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.logging.Filter;
 
 /**
  * Created by chybakut2004 on 06.02.15.
  */
-public abstract class SaveFilterTask extends AsyncTask<String, Void, Response<String>> {
+public abstract class SaveFilterTask extends AsyncTask<String, String, Response<String>> {
 
     private Context context = null;
     private String url = null;
@@ -56,11 +57,21 @@ public abstract class SaveFilterTask extends AsyncTask<String, Void, Response<St
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String s = client.execute(post, responseHandler);
             response = new Gson().fromJson(s, new TypeToken<Response<String>>() {}.getType());
-        } catch (IOException e) {
+        } catch (ConnectException e) {
             e.printStackTrace();
+            publishProgress(FazzerHelper.NO_CONNECTION);
+        } catch (Exception e) {
+            e.printStackTrace();
+            publishProgress(FilterFragment.FILTER_SAVING_ERROR);
         }
 
         return response;
+    }
+
+    @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+        Toast.makeText(context, values[0], Toast.LENGTH_LONG).show();
     }
 
     @Override

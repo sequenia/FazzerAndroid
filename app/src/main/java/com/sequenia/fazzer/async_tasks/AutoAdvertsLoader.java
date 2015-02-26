@@ -6,17 +6,21 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sequenia.fazzer.fragments.FilterFragment;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public abstract class AutoAdvertsLoader extends AsyncTask<Void, Void, String> {
+public abstract class AutoAdvertsLoader extends AsyncTask<Void, String, Response<ArrayList<AutoAdvertMinInfo>>> {
+
+    public static final String ADVERTS_LOADING_ERROR = "Ошибка загрузки объявлений";
 
     private Context context;
     private String url;
@@ -26,8 +30,19 @@ public abstract class AutoAdvertsLoader extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... params) {
-        return ApiHelper.loadJson(url);
+    protected Response<ArrayList<AutoAdvertMinInfo>> doInBackground(Void... params) {
+        Response<ArrayList<AutoAdvertMinInfo>> result = null;
+        try {
+            String json = ApiHelper.loadJson(url);
+            result = new Gson().fromJson(json, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            publishProgress(FazzerHelper.NO_CONNECTION);
+        } catch (Exception e) {
+            e.printStackTrace();
+            publishProgress(ADVERTS_LOADING_ERROR);
+        }
+        return result;
     }
 
     @Override
@@ -37,17 +52,15 @@ public abstract class AutoAdvertsLoader extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-
-        if(s != null) {
-            Response r = new Gson().fromJson(s, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
-            ArrayList<AutoAdvertMinInfo> newAdverts = (ArrayList<AutoAdvertMinInfo>) r.getData();
-            onPostExecuteCustom(newAdverts);
-        } else {
-            Toast.makeText(context, "Данные не получены", Toast.LENGTH_LONG).show();
-        }
+    protected void onPostExecute(Response<ArrayList<AutoAdvertMinInfo>> response) {
+        onPostExecuteCustom(response);
     }
 
-    public abstract void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts);
+    @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+        Toast.makeText(context, values[0], Toast.LENGTH_LONG).show();
+    }
+
+    public abstract void onPostExecuteCustom(Response<ArrayList<AutoAdvertMinInfo>> response);
 }

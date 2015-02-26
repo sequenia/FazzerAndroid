@@ -5,9 +5,12 @@ import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.requests_data.Response;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -30,37 +33,41 @@ public class ApiHelper {
     public static final String AUTO_ADVERTS_URL = HOST + "/api/v1/auto_adverts.json";
     public static final String REGISTRATION_ID_URL = HOST + "/api/v1/devices.json";
 
-    public static String loadJson(String url_str) {
+    public static String loadJson(String url_str) throws IOException, ConnectException, Exception {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String resultJson = null;
         if(url_str != null) {
-            try {
-                URL url = new URL(url_str);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            URL url = new URL(url_str);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
+            InputStream inputStream = urlConnection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
 
-                reader = new BufferedReader(new InputStreamReader(inputStream));
+            reader = new BufferedReader(new InputStreamReader(inputStream));
 
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                }
-
-                resultJson = buffer.toString();
-            } catch (Exception e) {
-                e.printStackTrace();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
             }
+
+            resultJson = buffer.toString();
+
         }
         return resultJson;
     }
 
     public static int getVersion(String url_str) {
-        String s = loadJson(url_str);
+        String s = null;
+        try {
+            s = loadJson(url_str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Response r = new Gson().fromJson(s, new TypeToken<Response<Integer>>() {}.getType());
         return (Integer) r.getData();
     }

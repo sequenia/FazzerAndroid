@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
@@ -19,6 +20,7 @@ import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
+import com.sequenia.fazzer.requests_data.Response;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class AutoAdvertsFragment extends Fragment {
     ArrayList<AutoAdvertMinInfo> autoAdverts = null;
     AutoAdvertsAdapter adapter = null;
     ListView autoAdvertsListView = null;
+    ProgressBar progressBar = null;
 
     public AutoAdvertsFragment() {
 
@@ -53,6 +56,7 @@ public class AutoAdvertsFragment extends Fragment {
         adapter = new AutoAdvertsAdapter(getActivity(), R.layout.auto_advert_info, autoAdverts);
 
         initListView();
+        initProgressBar();
     }
 
     private void initListView() {
@@ -66,15 +70,27 @@ public class AutoAdvertsFragment extends Fragment {
         autoAdvertsListView.setAdapter(adapter);
     }
 
+    private void initProgressBar() {
+        progressBar = (ProgressBar) getActivity().findViewById(R.id.auto_adverts_loading);
+        progressBar.setVisibility(View.GONE);
+    }
+
     private void showAdvert(int position) {
         ActivityHelper.showAutoAdvertActivity(getActivity(), autoAdverts.get(position).getId());
     }
 
     public void loadNewAdverts() {
+        progressBar.setVisibility(View.VISIBLE);
+        autoAdvertsListView.setVisibility(View.GONE);
         new AutoAdvertsLoader(getActivity()) {
             @Override
-            public void onPostExecuteCustom(ArrayList<AutoAdvertMinInfo> newAdverts) {
-                showNewAdverts(newAdverts);
+            public void onPostExecuteCustom(Response<ArrayList<AutoAdvertMinInfo>> response) {
+                progressBar.setVisibility(View.GONE);
+                autoAdvertsListView.setVisibility(View.VISIBLE);
+                if(response != null) {
+                    ArrayList<AutoAdvertMinInfo> newAdverts = response.getData();
+                    showNewAdverts(newAdverts);
+                }
             }
         }.execute();
     }

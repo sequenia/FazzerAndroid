@@ -168,8 +168,6 @@ public class FilterFragment extends Fragment {
             } else {
                 Toast.makeText(getActivity(), FILTER_SAVING_ERROR, Toast.LENGTH_LONG).show();
             }
-        } else {
-            Toast.makeText(getActivity(), FILTER_SAVING_ERROR, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -34,7 +34,12 @@ public abstract class AutoAdvertLoader extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        return ApiHelper.loadJson(url);
+        try {
+            return ApiHelper.loadJson(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

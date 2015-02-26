@@ -19,6 +19,8 @@ public class FazzerHelper {
     public static final String REGISTERED = "Registered";
     public static final String NEEDS_CLOSE = "NeedsClose";
 
+    public static final String NO_CONNECTION = "Не удалось подключиться к серверу";
+
     public static String getAuthToken(Context context) {
         SharedPreferences mPreferences = getUserPreferences(context);
         return mPreferences.getString("AuthToken", "");
