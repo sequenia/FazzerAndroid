@@ -42,6 +42,10 @@ public abstract class GcmRegistrationService {
     public void tryRegister() {
         if (checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(activity);
+            //SharedPreferences sp = getGCMPreferences(activity);
+            //SharedPreferences.Editor e = sp.edit();
+            //e.remove(PROPERTY_REG_ID);
+            //e.commit();
             regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {

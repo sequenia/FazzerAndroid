@@ -67,12 +67,21 @@ public class AutoAdvertActivity extends ActionBarActivity {
         int imageHeight = (int)((float) imageWidth * (0.75));
 
         ImageView photo = (ImageView) findViewById(R.id.photo);
-        Picasso.with(this)
-                .load(autoAdvert.getPhoto_url())
-                .resize(imageWidth, imageHeight)
-                .placeholder(R.drawable.no_photo)
-                .centerCrop()
-                .into(photo);
+        String url = autoAdvert.getPhoto_url();
+        if(url == null) {
+            Picasso.with(this)
+                    .load(R.drawable.no_photo)
+                    .resize(imageWidth, imageHeight)
+                    .centerCrop()
+                    .into(photo);
+        } else {
+            Picasso.with(this)
+                    .load(url)
+                    .resize(imageWidth, imageHeight)
+                    .placeholder(R.drawable.loading_photo)
+                    .centerCrop()
+                    .into(photo);
+        }
 
         setText(R.id.mark_and_model, autoAdvert.getCarMarkName() + " " + autoAdvert.getCarModelName());
         setText(R.id.year, String.valueOf(autoAdvert.getYear()));

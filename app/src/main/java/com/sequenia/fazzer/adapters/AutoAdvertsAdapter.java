@@ -53,12 +53,21 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
         price.setText(ObjectsHelper.prettifyNumber(String.valueOf(autoAdvert.getPrice()), " р."));
 
         ImageView preview = (ImageView) view.findViewById(R.id.photo);
-        Picasso.with(context)
-                .load(autoAdvert.getPhoto_preview_url())
-                .placeholder(R.drawable.no_photo_min)
-                .resizeDimen(R.dimen.photo_preview_size, R.dimen.photo_preview_size)
-                .centerCrop()
-                .into(preview);
+        String url = autoAdvert.getPhoto_preview_url();
+        if(url == null) {
+            Picasso.with(context)
+                    .load(R.drawable.no_photo_min)
+                    .resizeDimen(R.dimen.photo_preview_size, R.dimen.photo_preview_size)
+                    .centerCrop()
+                    .into(preview);
+        } else {
+            Picasso.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.loading_photo_min)
+                    .resizeDimen(R.dimen.photo_preview_size, R.dimen.photo_preview_size)
+                    .centerCrop()
+                    .into(preview);
+        }
 
         return view;
     }
