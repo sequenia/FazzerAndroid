@@ -67,7 +67,7 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     public void loadNewAdverts() {
@@ -79,7 +79,7 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
     public Button getButton() {
         Button button = new Button(context);
 
-        button.setBackgroundResource(R.drawable.refresh);
+        button.setBackgroundResource(R.drawable.refresh_button_background);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

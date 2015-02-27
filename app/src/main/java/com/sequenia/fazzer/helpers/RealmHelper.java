@@ -158,7 +158,7 @@ public class RealmHelper {
         Realm realm = Realm.getInstance(context);
 
         RealmQuery<CarMark> query = realm.where(CarMark.class);
-        RealmResults<CarMark> result = query.findAll();
+        RealmResults<CarMark> result = query.findAllSorted("name");
 
         return result;
     }
@@ -167,7 +167,16 @@ public class RealmHelper {
         Realm realm = Realm.getInstance(context);
 
         RealmQuery<CarModel> query = realm.where(CarModel.class);
-        RealmResults<CarModel> result = query.findAll();
+        RealmResults<CarModel> result = query.findAllSorted("name");
+
+        return result;
+    }
+
+    public static RealmResults<CarModel> getCarModelsForMark(Context context, int carMarkId) {
+        Realm realm = Realm.getInstance(context);
+
+        RealmQuery<CarModel> query = realm.where(CarModel.class).equalTo("car_mark_id", carMarkId);
+        RealmResults<CarModel> result = query.findAllSorted("name");
 
         return result;
     }

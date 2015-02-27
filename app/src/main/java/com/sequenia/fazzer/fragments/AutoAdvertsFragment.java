@@ -30,7 +30,7 @@ public class AutoAdvertsFragment extends Fragment {
     ArrayList<AutoAdvertMinInfo> autoAdverts = null;
     AutoAdvertsAdapter adapter = null;
     ListView autoAdvertsListView = null;
-    ProgressBar progressBar = null;
+    View progressBar = null;
 
     public AutoAdvertsFragment() {
 
@@ -70,7 +70,7 @@ public class AutoAdvertsFragment extends Fragment {
     }
 
     private void initProgressBar() {
-        progressBar = (ProgressBar) getActivity().findViewById(R.id.progress_bar);
+        progressBar = getActivity().findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
     }
 

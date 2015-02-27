@@ -56,7 +56,7 @@
         </activity>
         <activity
             android:name=".activities.AutoAdvertActivity"
-            android:label="@string/title_activity_auto_advert" >
+            android:label="@string/advert" >
         </activity>
         <activity
             android:name=".activities.FirstFilterActivity"

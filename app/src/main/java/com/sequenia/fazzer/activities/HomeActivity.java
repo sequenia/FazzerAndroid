@@ -56,6 +56,7 @@ public class HomeActivity extends FragmentActivity {
         pagerAdapter = new HomeActivityPagerAdapter(getSupportFragmentManager(), this);
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
+        pager.setCurrentItem(1);
 
         SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         slidingTabLayout.setViewPager(pager);
@@ -79,10 +80,15 @@ public class HomeActivity extends FragmentActivity {
             int advertId = intent.getIntExtra(FazzerHelper.AUTO_ADVERT_ID, 0);
             if(advertId != 0) {
                 intent.removeExtra(FazzerHelper.AUTO_ADVERT_ID);
+                loadNewAdverts();
                 ActivityHelper.showAutoAdvertActivity(this, advertId);
             }
         } else {
-            ActivityHelper.showWelcomeActivity(this);
+            if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false)) {
+                ActivityHelper.showLoginActivity(this, FazzerHelper.getUserPhone(this));
+            } else {
+                ActivityHelper.showRegisterActivity(this);
+            }
             finish();
         }
     }

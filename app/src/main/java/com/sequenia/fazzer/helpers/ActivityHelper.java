@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
+import com.sequenia.fazzer.activities.LoginActivity;
 import com.sequenia.fazzer.activities.RegisterActivity;
 import com.sequenia.fazzer.activities.WelcomeActivity;
 
@@ -57,6 +58,14 @@ public class ActivityHelper {
 
     public static void showRegisterActivity(Context packageContext) {
         Intent intent = new Intent(packageContext, RegisterActivity.class);
+        packageContext.startActivity(intent);
+    }
+
+    public static void showLoginActivity(Context packageContext, String phone) {
+        Intent intent = new Intent(packageContext, LoginActivity.class);
+        if(phone != null) {
+            intent.putExtra("phone", phone);
+        }
         packageContext.startActivity(intent);
     }
 

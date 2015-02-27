@@ -33,7 +33,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
     private int autoAdvertId;
     private SharedPreferences mPreferences;
     private AutoAdvertFullInfo autoAdvert = null;
-    ProgressBar progressBar = null;
+    View progressBar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
         setContentView(R.layout.activity_auto_advert);
         hideContent();
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
         ActionBar actionBar = getSupportActionBar();

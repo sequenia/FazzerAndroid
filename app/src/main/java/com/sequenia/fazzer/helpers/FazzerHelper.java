@@ -26,6 +26,11 @@ public class FazzerHelper {
         return mPreferences.getString("AuthToken", "");
     }
 
+    public static String getUserPhone(Context context) {
+        SharedPreferences mPreferences = getUserPreferences(context);
+        return mPreferences.getString(USER_PHONE, "");
+    }
+
     public static int getCitiesVersion(Context context) {
         SharedPreferences mPreferences = getUserPreferences(context);
         return mPreferences.getInt(CITIES_VERSION, 0);

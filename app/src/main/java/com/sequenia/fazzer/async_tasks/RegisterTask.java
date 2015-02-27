@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.sequenia.fazzer.activities.LoginActivity;
+import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
 import org.apache.http.client.ResponseHandler;
@@ -78,13 +79,14 @@ public class RegisterTask extends WaitingDialog<String, JSONObject> {
         try {
             if(json != null) {
                 if (json.getBoolean("success")) {
+                    String phone = json.getJSONObject("data").getJSONObject("user").getString("phone");
+
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(FazzerHelper.REGISTERED, true);
+                    editor.putString(FazzerHelper.USER_PHONE, phone);
                     editor.commit();
 
-                    Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
-                    intent.putExtra("phone", json.getJSONObject("data").getJSONObject("user").getString("phone"));
-                    context.startActivity(intent);
+                    ActivityHelper.showLoginActivity(context, phone);
                     ((Activity) context).finish();
                 } else {
                     Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();

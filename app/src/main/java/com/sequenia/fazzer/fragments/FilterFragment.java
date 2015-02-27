@@ -19,16 +19,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.HomeActivity;
-import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
 import com.sequenia.fazzer.forms.FormManager;
 import com.sequenia.fazzer.forms.SelectDialogFragment;
-import com.sequenia.fazzer.forms.SelectDialogListManager;
+import com.sequenia.fazzer.forms.SelectDialogManager;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
-import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.objects.CarMark;
 import com.sequenia.fazzer.objects.CarModel;
 import com.sequenia.fazzer.objects.City;
@@ -93,44 +91,48 @@ public class FilterFragment extends Fragment {
         final FragmentActivity activity = getActivity();
         formManager = new FormManager(this);
 
-        TextView mark = (TextView) view.findViewById(R.id.mark);
+        final TextView mark = (TextView) view.findViewById(R.id.mark);
         ImageButton clearMark = (ImageButton) view.findViewById(R.id.clear_mark);
-        formManager.addSelect(mark, clearMark, MARK, activity.getResources().getString(R.string.mark),
-                new SelectDialogListManager() {
-                    @Override
-                    public ArrayList<Option> getList() {
-                        return ObjectsHelper.genCarMarkOptions(RealmHelper.getCarMarks(activity));
-                    }
-                });
+        formManager.addSelect(mark, clearMark, MARK, activity.getResources().getString(R.string.mark), new SelectDialogManager() {
+            @Override
+            public ArrayList<Option> getList() {
+                return ObjectsHelper.genCarMarkOptions(RealmHelper.getCarMarks(activity));
+            }
+
+            @Override
+            public void onSelect() {
+                formManager.removeResult(MODEL);
+            }
+        });
 
         TextView model = (TextView) view.findViewById(R.id.model);
         ImageButton clearModel = (ImageButton) view.findViewById(R.id.clear_model);
-        formManager.addSelect(model, clearModel, MODEL, activity.getResources().getString(R.string.model),
-                new SelectDialogListManager() {
-                    @Override
-                    public ArrayList<Option> getList() {
-                        return ObjectsHelper.genCarModelOptions(RealmHelper.getCarModels(activity));
-                    }
-                });
+        formManager.addSelect(model, clearModel, MODEL, activity.getResources().getString(R.string.model), new SelectDialogManager() {
+            @Override
+            public ArrayList<Option> getList() {
+                Option markResult = formManager.getResult(MARK);
+                if(markResult == null) {
+                    return ObjectsHelper.genCarModelOptions(RealmHelper.getCarModels(activity));
+                } else {
+                    return ObjectsHelper.genCarModelOptions(RealmHelper.getCarModelsForMark(activity, Integer.valueOf(markResult.getId())));
+                }
+            }
+        });
 
         TextView city = (TextView) view.findViewById(R.id.city);
         ImageButton clearCity = (ImageButton) view.findViewById(R.id.clear_city);
-        formManager.addSelect(city, clearCity, CITY, activity.getResources().getString(R.string.city),
-                new SelectDialogListManager() {
-                    @Override
-                    public ArrayList<Option> getList() {
-                        return ObjectsHelper.genCityOptions(RealmHelper.getCities(activity));
-                    }
-                });
+        formManager.addSelect(city, clearCity, CITY, activity.getResources().getString(R.string.city), new SelectDialogManager() {
+            @Override
+            public ArrayList<Option> getList() {
+                return ObjectsHelper.genCityOptions(RealmHelper.getCities(activity));
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == FormManager.SELECT_DIALOG_REQUEST_CODE) {
-            formManager.setResult(data.getStringExtra(SelectDialogFragment.ARG_NAME),
-                    (Option) data.getParcelableExtra(SelectDialogFragment.VALUE));
-        }
+        formManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void saveFilter() {
