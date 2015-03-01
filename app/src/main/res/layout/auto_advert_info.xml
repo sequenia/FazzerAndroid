@@ -12,12 +12,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/photo"
-            android:src="@drawable/no_photo_min"
-            android:scaleType="fitCenter"
-            android:layout_width="@dimen/photo_preview_size"
-            android:layout_height="@dimen/photo_preview_size" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/photo"
+                android:src="@drawable/no_photo_min"
+                android:scaleType="fitCenter"
+                android:layout_width="@dimen/photo_preview_size"
+                android:layout_height="@dimen/photo_preview_size" />
+
+            <LinearLayout
+                android:id="@+id/image_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <include layout="@layout/progress"></include>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:padding="10dp"

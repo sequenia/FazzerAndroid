@@ -1,12 +1,15 @@
 package com.sequenia.fazzer.widgets;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.HomeActivityPagerAdapter;
@@ -35,7 +38,8 @@ public class SlidingTabLayoutWithButton extends SlidingTabLayout {
         final HomeActivityPagerAdapter adapter = (HomeActivityPagerAdapter) getViewPager().getAdapter();
 
         Button button = adapter.getButton();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.refresh_button_size), getResources().getDimensionPixelSize(R.dimen.refresh_button_size));
+        int buttonSize = (int) (getResources().getDimensionPixelSize(R.dimen.tab_view_text_size) + getResources().getDimensionPixelSize(R.dimen.tab_view_padding_dips) * getResources().getDisplayMetrics().density);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(buttonSize, buttonSize);
         params.gravity = Gravity.CENTER_VERTICAL;
         params.leftMargin = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         button.setLayoutParams(params);

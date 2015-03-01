@@ -1,6 +1,7 @@
 package com.sequenia.fazzer.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.sequenia.fazzer.R;
+import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
@@ -109,5 +112,18 @@ public class AutoAdvertsFragment extends Fragment {
         RealmHelper.saveAutoAdvertMinInfos(activity, newAdverts);
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences pref = FazzerHelper.getUserPreferences(getActivity());
+        if(pref.getBoolean(HomeActivity.NEEDS_UPDATE_PREF, false)) {
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean(HomeActivity.NEEDS_UPDATE_PREF, false);
+            editor.commit();
+            loadNewAdverts();
+        }
     }
 }

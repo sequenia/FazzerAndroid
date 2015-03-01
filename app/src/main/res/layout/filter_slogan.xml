@@ -7,7 +7,6 @@
     <com.sequenia.fazzer.widgets.RobotoLightTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/filter_slogan_margin_top"
         android:text="@string/filter_slogan_part_one"
         android:textSize="@dimen/additional_font_size"
         android:gravity="center"

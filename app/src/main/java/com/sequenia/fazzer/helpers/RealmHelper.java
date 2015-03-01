@@ -2,6 +2,7 @@ package com.sequenia.fazzer.helpers;
 
 import android.content.Context;
 
+import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.objects.CarMark;
 import com.sequenia.fazzer.objects.CarModel;
@@ -181,9 +182,26 @@ public class RealmHelper {
         return result;
     }
 
+    public static AutoAdvertFullInfo saveAutoAdvertFullInfo(Context context, AutoAdvertFullInfo advert) {
+        Realm realm = Realm.getInstance(context);
+        AutoAdvertFullInfo realmAdvert = null;
+
+        realm.beginTransaction();
+
+        realmAdvert = realm.copyToRealm(advert);
+
+        realm.commitTransaction();
+
+        return realmAdvert;
+    }
+
+    public static AutoAdvertFullInfo getAllAutoAdvertFullInfoById(Context context, int id) {
+        Realm realm = Realm.getInstance(context);
+        return realm.where(AutoAdvertFullInfo.class).equalTo("id", id).findFirst();
+    }
+
     public static void saveAutoAdvertMinInfos(Context context, ArrayList<AutoAdvertMinInfo> adverts) {
         Realm realm = Realm.getInstance(context);
-        AutoAdvertMinInfo realmObject = null;
 
         realm.beginTransaction();
 
@@ -200,6 +218,12 @@ public class RealmHelper {
 
         realm.beginTransaction();
 
+        for(int i = 0; i < result.size(); i++) {
+            AutoAdvertMinInfo info = result.get(i);
+
+            RealmResults<AutoAdvertFullInfo> fullInfoResult = realm.where(AutoAdvertFullInfo.class).equalTo("id", info.getId()).findAll();
+            fullInfoResult.clear();
+        }
         result.clear();
 
         realm.commitTransaction();

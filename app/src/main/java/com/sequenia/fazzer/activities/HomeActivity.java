@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 public class HomeActivity extends FragmentActivity {
 
+    public final static String NEEDS_UPDATE_PREF = "NeedsUpdate";
+
     private SharedPreferences mPreferences;
     GcmRegistrationService gcmRegistrationService = null;
 
@@ -80,7 +82,9 @@ public class HomeActivity extends FragmentActivity {
             int advertId = intent.getIntExtra(FazzerHelper.AUTO_ADVERT_ID, 0);
             if(advertId != 0) {
                 intent.removeExtra(FazzerHelper.AUTO_ADVERT_ID);
-                loadNewAdverts();
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean(NEEDS_UPDATE_PREF, true);
+                editor.commit();
                 ActivityHelper.showAutoAdvertActivity(this, advertId);
             }
         } else {

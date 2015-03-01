@@ -20,9 +20,11 @@ import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
+import com.sequenia.fazzer.helpers.RealmHelper;
 import com.sequenia.fazzer.objects.AutoAdvertFullInfo;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class AutoAdvertActivity extends ActionBarActivity {
     private SharedPreferences mPreferences;
     private AutoAdvertFullInfo autoAdvert = null;
     View progressBar = null;
+    View imageProgressBar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class AutoAdvertActivity extends ActionBarActivity {
 
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+
+        imageProgressBar = findViewById(R.id.image_progress_bar);
+        imageProgressBar.setVisibility(View.GONE);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -80,7 +86,9 @@ public class AutoAdvertActivity extends ActionBarActivity {
                 progressBar.setVisibility(View.GONE);
                 if(response != null) {
                     if(response.getSuccess()) {
-                        setAdvertInfo(response.getData());
+                        AutoAdvertFullInfo info = response.getData();
+                        RealmHelper.saveAutoAdvertFullInfo(activity, info);
+                        setAdvertInfo(info);
                         showContent();
                     } else {
                         Toast.makeText(activity, response.getInfo(), Toast.LENGTH_LONG).show();
@@ -98,19 +106,30 @@ public class AutoAdvertActivity extends ActionBarActivity {
 
         ImageView photo = (ImageView) findViewById(R.id.photo);
         String url = autoAdvert.getPhoto_url();
-        if(url == null) {
+        if(ObjectsHelper.isEmpty(url)) {
             Picasso.with(this)
                     .load(R.drawable.no_photo)
                     .resize(imageWidth, imageHeight)
                     .centerCrop()
                     .into(photo);
         } else {
+            imageProgressBar.setVisibility(View.VISIBLE);
             Picasso.with(this)
                     .load(url)
                     .resize(imageWidth, imageHeight)
                     .placeholder(R.drawable.loading_photo)
                     .centerCrop()
-                    .into(photo);
+                    .into(photo, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            imageProgressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
         }
 
         setText(R.id.mark_and_model, autoAdvert.getCar_mark_name() + " " + autoAdvert.getCar_model_name());
@@ -146,7 +165,13 @@ public class AutoAdvertActivity extends ActionBarActivity {
         super.onResume();
 
         if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
-            loadAutoAdvertFromAPI(autoAdvertId);
+            AutoAdvertFullInfo autoAdvertFullInfo = RealmHelper.getAllAutoAdvertFullInfoById(this, autoAdvertId);
+            if(autoAdvertFullInfo == null) {
+                loadAutoAdvertFromAPI(autoAdvertId);
+            } else {
+                setAdvertInfo(autoAdvertFullInfo);
+                showContent();
+            }
         } else {
             ActivityHelper.showWelcomeActivity(this);
         }

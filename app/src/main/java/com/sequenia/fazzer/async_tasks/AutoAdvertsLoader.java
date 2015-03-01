@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.fazzer.fragments.FilterFragment;
+import com.sequenia.fazzer.gson.RealmStrategy;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
@@ -14,6 +18,8 @@ import com.sequenia.fazzer.requests_data.Response;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
+
+import io.realm.RealmObject;
 
 /**
  * Created by chybakut2004 on 04.02.15.
@@ -34,7 +40,8 @@ public abstract class AutoAdvertsLoader extends AsyncTask<Void, String, Response
         Response<ArrayList<AutoAdvertMinInfo>> result = null;
         try {
             String json = ApiHelper.loadJson(url);
-            result = new Gson().fromJson(json, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
+            Gson gson = new GsonBuilder().setExclusionStrategies(new RealmStrategy()).create();
+            result = gson.fromJson(json, new TypeToken<Response<ArrayList<AutoAdvertMinInfo>>>() {}.getType());
         } catch (ConnectException e) {
             e.printStackTrace();
             publishProgress(FazzerHelper.NO_CONNECTION);

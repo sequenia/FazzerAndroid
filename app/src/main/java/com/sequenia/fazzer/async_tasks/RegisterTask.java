@@ -25,6 +25,7 @@ import java.net.ConnectException;
 public class RegisterTask extends WaitingDialog<String, JSONObject> {
 
     private static final String REGISTERRING_ERROR = "Ошибка во время регистрации";
+    private static final String CODE_SENT = "Код отправлен";
 
     private String phone;
     private SharedPreferences preferences;
@@ -85,6 +86,8 @@ public class RegisterTask extends WaitingDialog<String, JSONObject> {
                     editor.putBoolean(FazzerHelper.REGISTERED, true);
                     editor.putString(FazzerHelper.USER_PHONE, phone);
                     editor.commit();
+
+                    Toast.makeText(context, CODE_SENT, Toast.LENGTH_LONG).show();
 
                     ActivityHelper.showLoginActivity(context, phone);
                     ((Activity) context).finish();

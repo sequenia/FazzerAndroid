@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.helpers.ObjectsHelper;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,6 +46,8 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
             view = convertView;
         }
 
+        final View progressBar = view.findViewById(R.id.image_progress_bar);
+
         String label = autoAdvert.getCar_mark_name() + " " + autoAdvert.getCar_model_name();
         TextView markAndModel = (TextView) view.findViewById(R.id.mark_and_model);
         markAndModel.setText(label);
@@ -55,18 +58,30 @@ public class AutoAdvertsAdapter extends ArrayAdapter<AutoAdvertMinInfo> {
         ImageView preview = (ImageView) view.findViewById(R.id.photo);
         String url = autoAdvert.getPhoto_preview_url();
         if(ObjectsHelper.isEmpty(url)) {
+            progressBar.setVisibility(View.GONE);
             Picasso.with(context)
                     .load(R.drawable.no_photo_min)
                     .resizeDimen(R.dimen.photo_preview_size, R.dimen.photo_preview_size)
                     .centerCrop()
                     .into(preview);
         } else {
+            progressBar.setVisibility(View.VISIBLE);
             Picasso.with(context)
                     .load(url)
                     .placeholder(R.drawable.loading_photo_min)
                     .resizeDimen(R.dimen.photo_preview_size, R.dimen.photo_preview_size)
                     .centerCrop()
-                    .into(preview);
+                    .into(preview, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
         }
 
         return view;

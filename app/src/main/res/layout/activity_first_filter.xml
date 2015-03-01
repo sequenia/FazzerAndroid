@@ -5,13 +5,27 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <include layout="@layout/photo_two" android:id="@+id/photo"></include>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <include layout="@layout/filter_slogan"></include>
+            <include layout="@layout/photo_two" android:id="@+id/photo"></include>
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/filter_slogan"></include>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <FrameLayout
             android:layout_below="@+id/photo"
@@ -21,6 +35,6 @@
 
         </FrameLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>
