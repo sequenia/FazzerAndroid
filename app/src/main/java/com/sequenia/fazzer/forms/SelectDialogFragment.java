@@ -12,10 +12,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.adapters.SelectDialogAdapter;
+import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.objects.Option;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class SelectDialogFragment extends DialogFragment {
     private ArrayList<Option> options;
     private ArrayList<Option> shownOptions;
     private SelectDialogAdapter adapter;
-    private View searchView;
+    private View view;
     private String name;
 
     public static SelectDialogFragment newInstance(String title, ArrayList<Option> options, String name) {
@@ -58,22 +61,19 @@ public class SelectDialogFragment extends DialogFragment {
             title = "";
         }
 
+        initContent();
         initOptions();
-        initSearch();
+        initFilter();
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
-                .setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent data = new Intent();
-                        data.putExtra(VALUE, shownOptions.get(which));
-                        data.putExtra(ARG_NAME, name);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
-                    }
-                })
-                .setView(searchView)
+                .setView(view)
                 .create();
+    }
+
+    private void initContent() {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        view = inflater.inflate(R.layout.select_dialog_view, null, false);
     }
 
     private void initOptions() {
@@ -81,12 +81,24 @@ public class SelectDialogFragment extends DialogFragment {
         shownOptions = new ArrayList<Option>();
         filterOptions("");
         adapter = new SelectDialogAdapter(getActivity(), 0, shownOptions);
+
+        ListView listView = (ListView) view.findViewById(R.id.list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent data = new Intent();
+                data.putExtra(VALUE, shownOptions.get(position));
+                data.putExtra(ARG_NAME, name);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
+                ActivityHelper.hideKeyboard(getActivity());
+                dismiss();
+            }
+        });
+        listView.setAdapter(adapter);
     }
 
-    private void initSearch() {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        searchView = inflater.inflate(R.layout.select_dialog_search, null, false);
-        final EditText search = (EditText) searchView.findViewById(R.id.search);
+    private void initFilter() {
+        final EditText search = (EditText) view.findViewById(R.id.search);
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
