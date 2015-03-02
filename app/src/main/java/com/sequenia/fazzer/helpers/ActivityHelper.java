@@ -20,6 +20,7 @@ import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.activities.LoginActivity;
+import com.sequenia.fazzer.activities.RealAdvertActivity;
 import com.sequenia.fazzer.activities.RegisterActivity;
 import com.sequenia.fazzer.activities.WelcomeActivity;
 
@@ -102,5 +103,11 @@ public class ActivityHelper {
     public static void hideKeyboard(Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content).getWindowToken(), 0);
+    }
+
+    public static void showRealAdvertActivity(Context context, String url) {
+        Intent intent = new Intent(context, RealAdvertActivity.class);
+        intent.putExtra(FazzerHelper.ADVERT_URL, url);
+        ((Activity)context).startActivity(intent);
     }
 }

@@ -15,6 +15,7 @@ public class FazzerHelper {
     public static final String CAR_MARKS_VERSION = "CarMarksVersion";
     public static final String CAR_MODELS_VERSION = "CarModelsVersion";
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
+    public static final String ADVERT_URL = "AdvertUrl";
     public static final String USER_PHONE = "UserPhone";
     public static final String REGISTERED = "Registered";
     public final static String NEEDS_UPDATE_PREF = "NeedsUpdate";

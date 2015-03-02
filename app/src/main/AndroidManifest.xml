@@ -5,34 +5,42 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!--GCM-->
+    <!-- GCM -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <permission android:name="com.sequenia.fazzer.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="com.sequenia.fazzer.permission.C2D_MESSAGE" />
-    <!--GCM-->
 
+    <permission
+        android:name="com.sequenia.fazzer.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.sequenia.fazzer.permission.C2D_MESSAGE" />
+
+    <!-- GCM -->
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_search_bubble"
         android:label="@string/app_name"
         android:theme="@style/FazzerTheme" >
-        <!--GCM-->
-        <meta-data android:name="com.google.android.gms.version"
+
+        <!-- GCM -->
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <receiver
-            android:name="com.sequenia.fazzer.gcm.GcmBroadcastReceiver"
+            android:name=".gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.example.gcm" />
             </intent-filter>
         </receiver>
-        <service android:name="com.sequenia.fazzer.gcm.GcmIntentService" />
-        <!--GCM-->
+
+        <service android:name=".gcm.GcmIntentService" />
+        <!-- GCM -->
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/app_name" >
@@ -61,6 +69,10 @@
         <activity
             android:name=".activities.FirstFilterActivity"
             android:label="@string/title_activity_first_filter" >
+        </activity>
+        <activity
+            android:name=".activities.RealAdvertActivity"
+            android:label="@string/title_activity_real_advert" >
         </activity>
     </application>
 

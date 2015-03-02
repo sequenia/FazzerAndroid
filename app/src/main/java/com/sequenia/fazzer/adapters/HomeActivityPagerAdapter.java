@@ -75,9 +75,9 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
         return 2;
     }
 
-    public void loadNewAdverts() {
+    public void reloadAdverts() {
         if(autoAdvertsFragment != null) {
-            autoAdvertsFragment.loadNewAdverts();
+            autoAdvertsFragment.reloadAdverts();
         }
     }
 
@@ -88,7 +88,7 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((HomeActivity) context).loadNewAdverts();
+                ((HomeActivity) context).reloadAdverts();
             }
         });
 

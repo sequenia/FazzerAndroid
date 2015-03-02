@@ -15,6 +15,7 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.AutoAdvertActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.helpers.FazzerHelper;
+import com.sequenia.fazzer.helpers.ObjectsHelper;
 
 /**
  * Created by chybakut2004 on 18.02.15.
@@ -64,8 +65,13 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(Bundle extras) {
-        String message = extras.getString("message");
+        String carMarkName = extras.getString("car_mark_name");
+        String carModelName = extras.getString("car_model_name");
+        String price = ObjectsHelper.prettifyNumber(String.valueOf(Float.valueOf(extras.getString("price")).intValue()), " руб");
         int advertId = Integer.parseInt(extras.getString("advert_id"));
+
+        String title = String.format("%s: %s %s", getApplicationContext().getString(R.string.app_name), carMarkName, carModelName);
+        String message = price;
 
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -79,8 +85,8 @@ public class GcmIntentService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.search_bubble)
-                        .setContentTitle(getApplicationContext().getString(R.string.app_name))
+                        .setSmallIcon(R.drawable.not_search_bubble)
+                        .setContentTitle(title)
                         .setAutoCancel(true)
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(message))

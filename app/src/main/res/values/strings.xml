@@ -58,5 +58,6 @@
     <string name="to">До</string>
     <string name="loading">Загрузка...</string>
     <string name="saving">Сохранение...</string>
+    <string name="title_activity_real_advert">Страница объявления</string>
 
 </resources>

@@ -18,8 +18,10 @@ import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.adapters.AutoAdvertsAdapter;
 import com.sequenia.fazzer.async_tasks.AutoAdvertsLoader;
 import com.sequenia.fazzer.helpers.ActivityHelper;
+import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
+import com.sequenia.fazzer.listeners.EndlessScrollListener;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 import com.sequenia.fazzer.requests_data.Response;
 
@@ -50,26 +52,35 @@ public class AutoAdvertsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        Activity activity = getActivity();
+
         initProgressBar();
-        autoAdvertsListView = (ListView) getActivity().findViewById (R.id.auto_adverts_list_view);
 
+        autoAdvertsListView = (ListView) activity.findViewById (R.id.auto_adverts_list_view);
         autoAdverts = RealmHelper.toArrayList(AutoAdvertMinInfo.class, RealmHelper.getAllAutoAdvertMinInfos(getActivity()));
-        if(autoAdverts.size() == 0) {
-            loadNewAdverts();
-        }
-        adapter = new AutoAdvertsAdapter(getActivity(), R.layout.auto_advert_info, autoAdverts);
+        adapter = new AutoAdvertsAdapter(activity, R.layout.auto_advert_info, autoAdverts);
 
-        initListView();
-    }
-
-    private void initListView() {
         autoAdvertsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 showAdvert(position);
             }
         });
+        setEndlessScrollListener(activity);
         autoAdvertsListView.setAdapter(adapter);
+
+        if(autoAdverts.size() == 0) {
+            reloadAdverts();
+        }
+    }
+
+    private void setEndlessScrollListener(Activity activity) {
+        autoAdvertsListView.setOnScrollListener(new EndlessScrollListener(activity) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                loadAdverts(page * ApiHelper.ADVERTS_LIMIT);
+            }
+        });
     }
 
     private void initProgressBar() {
@@ -81,37 +92,53 @@ public class AutoAdvertsFragment extends Fragment {
         ActivityHelper.showAutoAdvertActivity(getActivity(), autoAdverts.get(position).getId());
     }
 
-    public void loadNewAdverts() {
-        progressBar.setVisibility(View.VISIBLE);
-        autoAdvertsListView.setVisibility(View.GONE);
+    public void loadAdverts(int offset) {
         new AutoAdvertsLoader(getActivity()) {
             @Override
             public void onPostExecuteCustom(Response<ArrayList<AutoAdvertMinInfo>> response) {
-                progressBar.setVisibility(View.GONE);
-                autoAdvertsListView.setVisibility(View.VISIBLE);
                 if(response != null) {
                     if(response.getSuccess()) {
                         ArrayList<AutoAdvertMinInfo> newAdverts = response.getData();
-                        showNewAdverts(newAdverts);
+                        autoAdverts.addAll(newAdverts);
+                        adapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(getActivity(), response.getInfo(), Toast.LENGTH_LONG).show();
                     }
                 }
             }
-        }.execute();
+        }.execute(offset, ApiHelper.ADVERTS_LIMIT);
     }
 
-    public void showNewAdverts(ArrayList<AutoAdvertMinInfo> newAdverts) {
-        Activity activity = getActivity();
 
-        RealmHelper.deleteAllAutoAdvertMinInfos(activity);
+    public void reloadAdverts() {
+        final Activity activity = getActivity();
 
-        autoAdverts.clear();
-        autoAdverts.addAll(0, newAdverts);
+        progressBar.setVisibility(View.VISIBLE);
+        autoAdvertsListView.setVisibility(View.GONE);
 
-        RealmHelper.saveAutoAdvertMinInfos(activity, newAdverts);
+        new AutoAdvertsLoader(activity) {
+            @Override
+            public void onPostExecuteCustom(Response<ArrayList<AutoAdvertMinInfo>> response) {
+                progressBar.setVisibility(View.GONE);
+                autoAdvertsListView.setVisibility(View.VISIBLE);
 
-        adapter.notifyDataSetChanged();
+                if(response != null) {
+                    if(response.getSuccess()) {
+                        ArrayList<AutoAdvertMinInfo> newAdverts = response.getData();
+
+                        RealmHelper.deleteAllAutoAdvertMinInfos(activity);
+                        RealmHelper.saveAutoAdvertMinInfos(activity, newAdverts);
+                        autoAdverts.clear();
+                        autoAdverts.addAll(newAdverts);
+
+                        setEndlessScrollListener(activity);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getActivity(), response.getInfo(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }.execute(0, ApiHelper.ADVERTS_LIMIT);
     }
 
     @Override
@@ -123,7 +150,7 @@ public class AutoAdvertsFragment extends Fragment {
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean(FazzerHelper.NEEDS_UPDATE_PREF, false);
             editor.commit();
-            loadNewAdverts();
+            reloadAdverts();
         }
     }
 }

@@ -24,7 +24,7 @@ import io.realm.RealmObject;
 /**
  * Created by chybakut2004 on 04.02.15.
  */
-public abstract class AutoAdvertsLoader extends AsyncTask<Void, String, Response<ArrayList<AutoAdvertMinInfo>>> {
+public abstract class AutoAdvertsLoader extends AsyncTask<Integer, String, Response<ArrayList<AutoAdvertMinInfo>>> {
 
     public static final String ADVERTS_LOADING_ERROR = "Ошибка загрузки объявлений";
 
@@ -36,8 +36,13 @@ public abstract class AutoAdvertsLoader extends AsyncTask<Void, String, Response
     }
 
     @Override
-    protected Response<ArrayList<AutoAdvertMinInfo>> doInBackground(Void... params) {
+    protected Response<ArrayList<AutoAdvertMinInfo>> doInBackground(Integer... params) {
+        int offset = params[0];
+        int limit = params[1];
         Response<ArrayList<AutoAdvertMinInfo>> result = null;
+
+        url += String.format("&offset=%d&limit=%d", offset, limit);
+
         try {
             String json = ApiHelper.loadJson(url);
             Gson gson = new GsonBuilder().setExclusionStrategies(new RealmStrategy()).create();

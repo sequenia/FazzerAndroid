@@ -95,10 +95,10 @@ public class HomeActivity extends FragmentActivity {
     }
 
     public void afterFilterSave() {
-        loadNewAdverts();
+        reloadAdverts();
         pager.setCurrentItem(1);
     }
-    public void loadNewAdverts() {
-        pagerAdapter.loadNewAdverts();
+    public void reloadAdverts() {
+        pagerAdapter.reloadAdverts();
     }
 }

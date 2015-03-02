@@ -69,7 +69,8 @@ public class AutoAdvertActivity extends ActionBarActivity {
         if(autoAdvert != null) {
             String url = autoAdvert.getUrl();
             if(url != null) {
-                ActivityHelper.openBrowser(this, autoAdvert.getUrl());
+                ActivityHelper.showRealAdvertActivity(this, autoAdvert.getUrl());
+                //ActivityHelper.openBrowser(this, autoAdvert.getUrl());
             }
         }
     }

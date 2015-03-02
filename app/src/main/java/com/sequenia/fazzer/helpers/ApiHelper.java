@@ -34,6 +34,8 @@ public class ApiHelper {
     public static final String AUTO_ADVERTS_URL = HOST + "/api/v1/auto_adverts.json";
     public static final String REGISTRATION_ID_URL = HOST + "/api/v1/devices.json";
 
+    public static final int ADVERTS_LIMIT = 10;
+
     public static String loadJson(String url_str) throws IOException, ConnectException, Exception {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
