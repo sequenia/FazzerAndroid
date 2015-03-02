@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.async_tasks.UpdateCatalogsTask;
 import com.sequenia.fazzer.fragments.FilterFragment;
+import com.sequenia.fazzer.fragments.FirstFilterFragment;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 
@@ -21,7 +22,7 @@ public class FirstFilterActivity extends FragmentActivity {
         setContentView(R.layout.activity_first_filter);
 
         if (savedInstanceState == null) {
-            FilterFragment filterFragment = new FilterFragment();
+            FilterFragment filterFragment = new FirstFilterFragment();
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.filter_container, filterFragment)

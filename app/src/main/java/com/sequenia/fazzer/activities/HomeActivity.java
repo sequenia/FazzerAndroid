@@ -22,9 +22,6 @@ import java.util.ArrayList;
 
 public class HomeActivity extends FragmentActivity {
 
-    public final static String NEEDS_UPDATE_PREF = "NeedsUpdate";
-
-    private SharedPreferences mPreferences;
     GcmRegistrationService gcmRegistrationService = null;
 
     HomeActivityPagerAdapter pagerAdapter;
@@ -36,8 +33,6 @@ public class HomeActivity extends FragmentActivity {
         setContentView(R.layout.activity_home);
 
         initGcm();
-
-        mPreferences = getSharedPreferences(FazzerHelper.CURRENT_USER_PREFERENCES, MODE_PRIVATE);
 
         RealmHelper.migrate(this);
 
@@ -76,19 +71,17 @@ public class HomeActivity extends FragmentActivity {
 
         gcmRegistrationService.checkPlayServices();
 
-        if (mPreferences.contains(FazzerHelper.AUTH_TOKEN)) {
+        if (FazzerHelper.isLoggedIn(this)) {
             FazzerHelper.updateCatalogs(this);
             Intent intent = getIntent();
             int advertId = intent.getIntExtra(FazzerHelper.AUTO_ADVERT_ID, 0);
             if(advertId != 0) {
                 intent.removeExtra(FazzerHelper.AUTO_ADVERT_ID);
-                SharedPreferences.Editor editor = mPreferences.edit();
-                editor.putBoolean(NEEDS_UPDATE_PREF, true);
-                editor.commit();
+                FazzerHelper.setNeedsUpdate(this, true);
                 ActivityHelper.showAutoAdvertActivity(this, advertId);
             }
         } else {
-            if(mPreferences.getBoolean(FazzerHelper.REGISTERED, false)) {
+            if(FazzerHelper.isRegistered(this)) {
                 ActivityHelper.showLoginActivity(this, FazzerHelper.getUserPhone(this));
             } else {
                 ActivityHelper.showRegisterActivity(this);
@@ -101,6 +94,10 @@ public class HomeActivity extends FragmentActivity {
         new SendRegistrationIdTask(this, regId).execute(ApiHelper.REGISTRATION_ID_URL + "?auth_token=" + FazzerHelper.getAuthToken(this));
     }
 
+    public void afterFilterSave() {
+        loadNewAdverts();
+        pager.setCurrentItem(1);
+    }
     public void loadNewAdverts() {
         pagerAdapter.loadNewAdverts();
     }

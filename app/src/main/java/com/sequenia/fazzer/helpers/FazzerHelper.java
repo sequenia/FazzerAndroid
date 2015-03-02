@@ -17,7 +17,7 @@ public class FazzerHelper {
     public static final String AUTO_ADVERT_ID = "AutoAdvertId";
     public static final String USER_PHONE = "UserPhone";
     public static final String REGISTERED = "Registered";
-    public static final String NEEDS_CLOSE = "NeedsClose";
+    public final static String NEEDS_UPDATE_PREF = "NeedsUpdate";
 
     public static final String NO_CONNECTION = "Не удалось подключиться к серверу";
 
@@ -84,5 +84,19 @@ public class FazzerHelper {
         if(ActivityHelper.isNetworkAvailable(context)) {
             new UpdateCatalogsTask(context).execute();
         }
+    }
+
+    public static boolean isLoggedIn(Context context) {
+        return getUserPreferences(context).contains(AUTH_TOKEN);
+    }
+
+    public static void setNeedsUpdate(Context context, boolean needsUpdate) {
+        SharedPreferences.Editor editor = getUserPreferences(context).edit();
+        editor.putBoolean(NEEDS_UPDATE_PREF, needsUpdate);
+        editor.commit();
+    }
+
+    public static boolean isRegistered(Context context) {
+        return getUserPreferences(context).getBoolean(REGISTERED, false);
     }
 }

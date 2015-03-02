@@ -21,7 +21,6 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.async_tasks.SaveFilterTask;
 import com.sequenia.fazzer.forms.FormManager;
-import com.sequenia.fazzer.forms.SelectDialogFragment;
 import com.sequenia.fazzer.forms.SelectDialogManager;
 import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
@@ -138,6 +137,8 @@ public class FilterFragment extends Fragment {
     private void saveFilter() {
         final Activity activity = getActivity();
 
+        ActivityHelper.hideKeyboard(activity);
+
         saveFilterButton.setText(getResources().getString(R.string.saving));
         saveFilterButton.setEnabled(false);
 
@@ -155,14 +156,13 @@ public class FilterFragment extends Fragment {
                 saveFilterButton.setEnabled(true);
                 showResultMessage(response);
 
-                if(activity.getIntent().getBooleanExtra(FazzerHelper.NEEDS_CLOSE, false)) {
-                    ActivityHelper.showHomeActivity(activity);
-                    activity.finish();
-                };
-
-                loadNewAdverts(response);
+                onFilterSave(response);
             }
         }.execute(json);
+    }
+
+    public void onFilterSave(Response<String> response) {
+
     }
 
     private void showResultMessage(Response<String> response) {
@@ -171,16 +171,6 @@ public class FilterFragment extends Fragment {
                 Toast.makeText(getActivity(), "Фильтр сохранен", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getActivity(), FILTER_SAVING_ERROR, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void loadNewAdverts(Response<String> response) {
-        if(response != null) {
-            try {
-                ((HomeActivity)getActivity()).loadNewAdverts();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }

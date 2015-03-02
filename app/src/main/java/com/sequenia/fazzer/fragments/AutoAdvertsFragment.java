@@ -119,9 +119,9 @@ public class AutoAdvertsFragment extends Fragment {
         super.onResume();
 
         SharedPreferences pref = FazzerHelper.getUserPreferences(getActivity());
-        if(pref.getBoolean(HomeActivity.NEEDS_UPDATE_PREF, false)) {
+        if(pref.getBoolean(FazzerHelper.NEEDS_UPDATE_PREF, false)) {
             SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean(HomeActivity.NEEDS_UPDATE_PREF, false);
+            editor.putBoolean(FazzerHelper.NEEDS_UPDATE_PREF, false);
             editor.commit();
             loadNewAdverts();
         }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.sequenia.fazzer.activities.FirstFilterActivity;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.gcm.GcmRegistrationService;
+import com.sequenia.fazzer.helpers.ActivityHelper;
 import com.sequenia.fazzer.helpers.ApiHelper;
 import com.sequenia.fazzer.helpers.FazzerHelper;
 import com.sequenia.fazzer.helpers.RealmHelper;
@@ -106,14 +107,11 @@ public class LoginTask extends WaitingDialog<String, JSONObject> {
                     // Показать обучалку, если пользователь еще не ввел все данные.
                     // Иначе показать объявления.
                     FilterInfo filterInfo = RealmHelper.getFilter(context, this.phone);
-                    Intent intent;
                     if (filterInfo == null) {
-                        intent = new Intent(context.getApplicationContext(), FirstFilterActivity.class);
-                        intent.putExtra(FazzerHelper.NEEDS_CLOSE, true);
+                        ActivityHelper.showFirstFilterActivity(context);
                     } else {
-                        intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                        ActivityHelper.showHomeActivity(context);
                     }
-                    context.startActivity(intent);
                     ((Activity) context).finish();
                 } else {
                     Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();

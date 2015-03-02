@@ -17,6 +17,7 @@ import com.sequenia.fazzer.R;
 import com.sequenia.fazzer.activities.HomeActivity;
 import com.sequenia.fazzer.fragments.AutoAdvertsFragment;
 import com.sequenia.fazzer.fragments.FilterFragment;
+import com.sequenia.fazzer.fragments.HomeFilterFragment;
 import com.sequenia.fazzer.fragments.UserFragment;
 import com.sequenia.fazzer.objects.AutoAdvertMinInfo;
 
@@ -39,7 +40,7 @@ public class HomeActivityPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new FilterFragment();
+                fragment = new HomeFilterFragment();
                 break;
             case 1:
                 autoAdvertsFragment = new AutoAdvertsFragment();
